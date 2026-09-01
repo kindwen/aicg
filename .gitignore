@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 本地数据/临时内容（不提交）
+.workbuddy/
+briefs/
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# 敏感信息（若未来误放 key 文件）
+*.env
+.env
