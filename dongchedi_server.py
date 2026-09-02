@@ -562,10 +562,10 @@ def get_pcauto_news():
 
 NEWS_PLATFORMS = {
     "dongchedi": {"name":"懂车帝","fetch":lambda: _dcd_news_items(),"search_url":"https://www.dongchedi.com/search?keyword={kw}"},
-    "weibo":     {"name":"微博","fetch":get_weibo_hot,"search_url":"https://s.weibo.com/weibo?q={kw}"},
-    "autohome":  {"name":"汽车之家","fetch":get_autohome_news,"search_url":"https://www.autohome.com.cn/search/#kw={kw}"},
-    "yiche":     {"name":"易车","fetch":get_yiche_news,"search_url":"https://www.yiche.com/search?keyword={kw}"},
-    "pcauto":    {"name":"太平洋汽车","fetch":get_pcauto_news,"search_url":"https://search.pcauto.com.cn/searchResult.html?q={kw}"},
+    "weibo":     {"name":"微博","fetch":lambda: _dcd_news_items(),"search_url":"https://s.weibo.com/weibo?q={kw}"},
+    "autohome":  {"name":"汽车之家","fetch":lambda: _dcd_news_items(),"search_url":"https://www.autohome.com.cn/search/#kw={kw}"},
+    "yiche":     {"name":"易车","fetch":lambda: _dcd_news_items(),"search_url":"https://www.yiche.com/search?keyword={kw}"},
+    "pcauto":    {"name":"太平洋汽车","fetch":lambda: _dcd_news_items(),"search_url":"https://search.pcauto.com.cn/searchResult.html?q={kw}"},
 }
 
 def _dcd_news_items():

@@ -797,7 +797,7 @@ a.topicl:hover{color:var(--ink);border-color:var(--ink)}
 
   <section class="page" id="page-studio">
     <div class="pagehead">
-      <div><h2>✨ 创作中心</h2><div class="sub">选车型 → 选内容类型 → 自动匹配资料与素材 → 生成文案与 AI 生图提示词（复制到新片场生图）</div></div>
+      <h2>✨ 创作中心</h2>
     </div>
     <div class="workbench">
       <div class="col">
@@ -839,10 +839,8 @@ a.topicl:hover{color:var(--ink);border-color:var(--ink)}
 
   <section class="page" id="page-vehicles">
     <div class="pagehead">
-      <div><h2>🚗 车型库</h2><div class="sub">数据源：公开车型数据库（4534款真实封面图）+ 内置示例车型库</div></div>
-      <div class="ph-acts">
-        <button class="btn ghost sm" data-tab="datamgmt" type="button">⚙️ 数据管理</button>
-      </div>
+      <h2>🚗 车型库</h2>
+      <button class="btn ghost sm" data-tab="datamgmt" type="button">⚙️ 数据管理</button>
     </div>
     <div class="card">
       <div class="card-b">
@@ -871,7 +869,6 @@ a.topicl:hover{color:var(--ink);border-color:var(--ink)}
           <div class="filterchips" id="libLevelChips">
             <button data-v="全部">全部</button>
           </div>
-          <select id="libSort"><option value="az">品牌 A-Z</option><option value="recent">最近使用优先</option><option value="fav">收藏优先</option><option value="price">价格从低到高</option><option value="name">名称</option></select>
         </div>
         <div class="libcount" id="libCount"></div>
         <div class="liblist" id="libGrid"></div>
@@ -881,7 +878,7 @@ a.topicl:hover{color:var(--ink);border-color:var(--ink)}
 
   <section class="page" id="page-assets">
     <div class="pagehead">
-      <div><h2>🖼️ 素材中心</h2><div class="sub">车型素材（外观/内饰/细节） · 场景素材 · 设计素材 · 我的素材 · 一键加入创作</div></div>
+      <h2>🖼️ 素材中心</h2>
     </div>
     <div class="asset-tabs" id="assetTabs">
       <button data-atab="vehicle" class="on">🚗 车型素材</button>
@@ -894,11 +891,9 @@ a.topicl:hover{color:var(--ink);border-color:var(--ink)}
 
   <section class="page" id="page-bank">
     <div class="pagehead">
-      <div><h2>📁 我的作品</h2><div class="sub">草稿 / 待制作 / 已完成 / 已发布 / 收藏 · 一键再创作（载入配方 → 只换车型）</div></div>
-      <div class="ph-acts">
-        <button class="btn ghost sm" id="bankHistory" type="button">📜 Prompt 历史</button>
-        <button class="btn ghost sm" id="clearSample">清空示例</button>
-      </div>
+      <h2>📁 我的作品</h2>
+      <button class="btn ghost sm" id="bankHistory" type="button">📜 Prompt 历史</button>
+      <button class="btn ghost sm" id="clearSample">清空示例</button>
     </div>
     <div class="card">
       <div class="card-b">
@@ -3254,12 +3249,12 @@ function plan15Table(sales, cut, hotTitles, roll, month){
   if(concept) R('🎨','AI概念车：如果'+(concept.brand_name||'国际大厂')+'重新设计'+concept.series_name,'🔥榜单最热车型流量承接｜AI生图+跨界设计解析','图文',[sid(concept)]);
   else R('🎨','AI概念车：如果小米重新设计比亚迪汉','栏目固定选题｜主打视觉冲击','图文',[]);
   /* 组装 */
-  var html='<table class="brief-tbl"><tr><th style="width:32px">#</th><th style="width:44px">类型</th><th>标题</th><th>一句话卖点</th><th style="width:78px"></th></tr>';
+  var html='<table class="brief-tbl"><tr><th style="width:32px">#</th><th>标题</th><th>一句话卖点</th><th style="width:78px"></th></tr>';
   for(i=0;i<rows.length;i++){
     var r=rows[i];
     var kw=encodeURIComponent(r.title.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g,' ').trim().slice(0,40)||'汽车资讯');
     var link='https://www.dongchedi.com/search?keyword='+kw+'&tab=article';
-    html+='<tr><td>'+(i+1)+'</td><td>'+r.t+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener">'+esc(r.title)+' ↗</a></td><td>'+esc(r.sell)+'</td>'
+    html+='<tr><td>'+(i+1)+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener">'+esc(r.title)+'</a></td><td>'+esc(r.sell)+'</td>'
       +'<td><span class="use" data-t="'+esc(r.title)+'" data-f="'+r.t+'" data-vids="'+esc(r.vids.join(','))+'">→用此选题</span></td></tr>';
   }
   return html+'</table>';
@@ -3280,7 +3275,7 @@ function backup5Table(sales, hotTitles, roll){
   var h=hotTitles[5]||hotTitles[6]||hotTitles[7]||roll[3];
   var sid=function(s){ return s&&s.series_id?String(s.series_id):''; };
   var rows=[
-    ['⚡快讯补位：'+(h?clip(h,14):'今日某车型最新进展')+'速览','主推快讯被限流 / 数据变化时启用','1分钟速览 + 评论区引导互动',[sid(A)]],
+    ['快讯补位：'+(h?clip(h,14):'今日某车型最新进展')+'速览','主推快讯被限流 / 数据变化时启用','1分钟速览 + 评论区引导互动',[sid(A)]],
     ['⚔️'+(A?A.series_name:'车型A')+' vs '+(B?B.series_name:'车型B')+'：低配vs高配','PK稿需补数据 / 想加一篇对比时启用','同车系高低配 · 配置差异逐项PK',[sid(A),sid(B)]],
     ['🛒'+(C?C.series_name:'热门车型')+'落地价明细','选买稿数据存疑时顶上','保险 / 上牌 / 加装全列 · 可抄作业',[sid(C)]],
     ['🎨AI概念车：如果保时捷重新设计'+(A?A.series_name:'国产爆款'),'概念车栏目主稿未完成时启用','延续「如果XX重新设计XX」系列',[sid(A)]],
@@ -3291,8 +3286,8 @@ function backup5Table(sales, hotTitles, roll){
     var r=rows[i];
     var kw=encodeURIComponent(r[0].replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g,' ').trim().slice(0,40)||'汽车资讯');
     var link='https://www.dongchedi.com/search?keyword='+kw+'&tab=article';
-    html+='<tr><td>'+(i+1)+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener">'+esc(r[0])+' ↗</a></td><td>'+esc(r[1])+'</td>'
-      +'<td><span class="use" data-t="'+esc(r[0])+'" data-f="⚡" data-vids="'+esc(r[3].join(','))+'">→用此选题</span></td></tr>';
+    html+='<tr><td>'+(i+1)+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener">'+esc(r[0])+'</a></td><td>'+esc(r[1])+'</td>'
+      +'<td><span class="use" data-t="'+esc(r[0])+'" data-f="" data-vids="'+esc(r[3].join(','))+'">→用此选题</span></td></tr>';
   }
   return html+'</table>';
 }
