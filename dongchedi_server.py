@@ -872,6 +872,20 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": False, "error": str(e)}, 502)
             return
 
+        # 静态文件服务（auto-prompt-board.html 等）
+        if path == "/" or path == "/auto-prompt-board.html":
+            fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "auto-prompt-board.html")
+            if os.path.isfile(fp):
+                with open(fp, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(content)))
+                self.send_header("Cache-Control", "no-cache")
+                self.end_headers()
+                self.wfile.write(content)
+                return
+
         return self._json({"ok": False, "error": "unknown route"}, 404)
 
 

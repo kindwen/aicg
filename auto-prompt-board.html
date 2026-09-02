@@ -2735,7 +2735,7 @@ function renderLibrary(){
   var ecs=$('libEnergyChips'); if(ecs){ var ebs=ecs.querySelectorAll('button'); for(i=0;i<ebs.length;i++){ ebs[i].classList.toggle('on', ebs[i].dataset.v===lb.energy); } }
   // 回填 libLevel chip
   var lcs=$('libLevelChips'); if(lcs){ var lbs=lcs.querySelectorAll('button'); for(i=0;i<lbs.length;i++){ lbs[i].classList.toggle('on', lbs[i].dataset.v===lb.level); } }
-  $('libSort').value=lb.sort;
+  if($('libSort')) $('libSort').value=lb.sort;
   var chip=$('libBrandChip');
   if(chip){ chip.textContent=(lb.brand==='全部'?'全部品牌':lb.brand); chip.className='bpchip'+(lb.brand==='全部'?'':' on'); }
   if($('azPanel')&&$('azPanel').style.display!=='none') renderBrandPicker();
@@ -3966,7 +3966,7 @@ function bindEvents(){
     var btn=e.target.closest('button'); if(!btn) return;
     state.lib.level=btn.dataset.v; state.lib.page=1; renderLibrary();
   });
-  $('libSort').addEventListener('change',function(){
+  var lsEl=$('libSort'); if(lsEl) lsEl.addEventListener('change',function(){
     state.lib.sort=this.value; state.lib.page=1; renderLibrary();
   });
   // 品牌 A-Z 选择面板
