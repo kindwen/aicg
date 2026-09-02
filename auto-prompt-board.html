@@ -126,47 +126,6 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .tstrip-link{flex:none}
 .tstrip-link button{color:var(--accent-ink);font-weight:700;font-size:12.5px;min-height:32px;padding:0 2px}
 .tstrip-link button:hover{opacity:.75}
-/* ========= 今日灵感 ========= */
-.insp-card{margin-bottom:14px}
-.insp-card .card-h .sub{flex:1}
-.insp-card-acts{display:flex;gap:6px}
-.insp-card-acts .btn.sm{padding:3px 10px;font-size:11.5px}
-.insp-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s ease}
-.insp-item:last-child{border-bottom:0}
-.insp-item:hover{background:var(--bg)}
-.insp-item .ii-icon{font-size:22px;flex:none;width:32px;height:32px;display:flex;align-items:center;justify-content:center}
-.insp-item .ii-body{flex:1;min-width:0}
-.ii-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-.ii-tag{font-size:10.5px;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:5px;padding:1px 7px;flex:none;letter-spacing:.3px}
-.ii-tag.big{padding:2px 9px;font-size:11.5px}
-.ii-title{font-size:13.5px;font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ii-title.big{font-size:15px;font-weight:800}
-.ii-summary{font-size:12px;color:var(--ink3);margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ii-meta{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--ink3);flex-wrap:wrap}
-.ii-hotbar{flex:none;width:60px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden}
-.ii-hotbar.wide{width:80px;height:5px}
-.ii-hotbar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#ff6b35);border-radius:2px;transition:width .4s ease}
-.ii-hottxt{font-weight:700;color:var(--ink2);flex:none}
-.ii-veh{flex:none}
-/* Modal 灵感卡片 */
-.insp-md-item{padding:16px;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;background:var(--card);transition:all .18s ease}
-.insp-md-item.focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
-.insp-md-item:hover{border-color:var(--line2)}
-.imd-top{display:flex;gap:14px;align-items:flex-start}
-.imd-main{flex:1;min-width:0}
-.imd-hot{flex:none;text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
-.imd-vehicles{margin-top:10px;font-size:12px;color:var(--ink2)}
-.imd-modes{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.imd-mode-label{font-size:11px;color:var(--ink3);font-weight:600}
-.imd-mode-btn{font-size:12px;font-weight:600;padding:5px 11px;border-radius:8px;border:1px solid var(--line2);background:var(--bg);color:var(--ink2);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;min-width:120px;gap:2px;transition:all .15s ease}
-.imd-mode-btn:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
-.imd-mode-btn small{font-size:10px;color:var(--ink3);font-weight:500}
-.imd-mode-btn:hover small{color:var(--accent-ink);opacity:.85}
-.imd-start{margin-top:12px}
-[data-theme="dark"] .insp-item:hover{background:var(--hard-bg3)}
-[data-theme="dark"] .insp-md-item{background:var(--card);border-color:var(--line)}
-[data-theme="dark"] .imd-mode-btn{background:var(--hard-white);border-color:var(--line2);color:var(--ink2)}
-[data-theme="dark"] .imd-mode-btn:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
 .workbench{display:grid;grid-template-columns:25% 34% 41%;gap:14px;align-items:start}
 .col{min-width:0}
 .col .card-b{max-height:calc(100vh - 180px);overflow-y:auto}
@@ -459,12 +418,14 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .modal .mf{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap}
 .warnbox{border:1px solid #f3d9a8;background:#fffaef;border-radius:11px;padding:12px 14px;font-size:13px;color:#8a5a00;margin-bottom:12px}
 .warnbox b{color:#b45309}
-.pagehead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.pagehead h2.pg-h2{display:inline-block;margin-left:8px;font-size:17px;font-weight:700}
-.pagehead>.news-tabs{width:100%;order:3}
-.pagehead>.briefacts{order:4}
+.pagehead{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.pagehead .ph-left{flex:none}
+.pagehead>.ph-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.pagehead>.ph-right>.news-tabs{display:flex;gap:2px}
+.pagehead>.ph-right>.briefacts{display:flex;gap:6px}
 .pagehead h2{font-size:18px;font-weight:800}
 .pagehead .sub{font-size:12.5px;color:var(--ink3);margin-top:2px}
+.pagehead .briefacts .btn.sm{padding:4px 8px;min-height:28px;border-radius:6px;font-size:13px;line-height:1}
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .filters select,.filters input{padding:8px 11px;border:1px solid var(--line2);border-radius:10px;background:var(--card);min-height:42px}
 .filters input{min-width:180px}
@@ -822,13 +783,6 @@ a.topicl:hover{color:var(--accent-ink);border-color:var(--accent)}
     <div class="card today-strip">
       <div class="card-b" id="todayStrip"></div>
     </div>
-    <!-- 今日灵感（3条推荐） -->
-    <div class="card insp-card" id="inspCard" style="display:none">
-      <div class="card-h"><h3>🔥 今日灵感</h3><span class="sub">AI 从实时热点筛选</span><div class="insp-card-acts"><button class="btn ghost sm" id="inspRefresh" title="换一批">🔄 换一批</button><button class="btn primary sm" id="inspOpen">查看全部 →</button></div></div>
-      <div class="card-b" id="inspCardBody">
-        <div class="insp-loading" style="padding:16px;text-align:center;color:var(--ink3);font-size:12px">⏳ 加载中…</div>
-      </div>
-    </div>
     <!-- 驾驶舱主体：由 renderWorkbench 渲染（快捷创作 + 最近作品 + 数据概览） -->
     <div class="dashboard" id="dashboard"></div>
     <!-- 今日资讯栏（嵌工作台，无需切 tab 即可看到） -->
@@ -955,17 +909,19 @@ a.topicl:hover{color:var(--accent-ink);border-color:var(--accent)}
 
   <section class="page" id="page-news">
     <div class="pagehead">
-      <div><button class="backbtn" data-back="prev">← 返回</button><h2 class="pg-h2">📰 每日车圈资讯</h2></div>
-      <div class="news-tabs" id="newsTabs">
-        <button class="ntab on" data-news-platform="dongchedi">懂车帝</button>
-        <button class="ntab" data-news-platform="weibo">微博</button>
-        <button class="ntab" data-news-platform="autohome">汽车之家</button>
-        <button class="ntab" data-news-platform="yiche">易车</button>
-        <button class="ntab" data-news-platform="pcauto">太平洋</button>
-      </div>
-      <div class="briefacts">
-        <button class="btn ghost sm" id="briefRefresh" title="刷新"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
-        <button class="btn ghost sm" id="briefAutoToggle" title="自动刷新">⟳ 自动刷新</button>
+      <div class="ph-left"><button class="backbtn" data-back="prev">← 返回</button></div>
+      <div class="ph-right">
+        <div class="news-tabs" id="newsTabs">
+          <button class="ntab on" data-news-platform="dongchedi">懂车帝</button>
+          <button class="ntab" data-news-platform="weibo">微博</button>
+          <button class="ntab" data-news-platform="autohome">汽车之家</button>
+          <button class="ntab" data-news-platform="yiche">易车</button>
+          <button class="ntab" data-news-platform="pcauto">太平洋</button>
+        </div>
+        <div class="briefacts">
+          <button class="btn ghost sm" id="briefRefresh" title="刷新">↻</button>
+          <button class="btn ghost sm" id="briefAutoToggle" title="自动刷新">⟳</button>
+        </div>
       </div>
     </div>
     <div class="card">
@@ -2106,9 +2062,6 @@ function renderWorkbench(){
   // 最近作品点击 → 跳作品中心
   var items=dash.querySelectorAll('.recent-item');
   for(var m=0;m<items.length;m++){ items[m].addEventListener('click',function(){ setTab('bank'); }); }
-  // 今日灵感（异步加载，不阻塞工作台渲染）
-  if($('inspCard')){ $('inspCard').style.display=''; }
-  genInspiration().then(function(list){ renderInspCard(list.slice(0,3)); });
 }
 /* renderWbBrief：工作台嵌入的今日资讯栏（完整简报直接展示，无需切 tab） */
 function renderWbBrief(){
@@ -3164,256 +3117,6 @@ async function genBrief(cb){
   }
   BRIEF.loading=false; if(btn){ btn.disabled=false; btn.textContent='⚡ 重新生成'; }
   if(typeof cb==='function') try{ cb(); }catch(e){}
-}
-// ========== 今日灵感 ==========
-var INSP={ list:[], loading:false, lastGen:0 };
-
-async function genInspiration(reshuffle){
-  // reshuffle=true 时强制重新生成（换一批）
-  var now=Date.now();
-  if(!reshuffle && INSP.list.length && now-INSP.lastGen<5*60*1000) return INSP.list;
-  if(INSP.loading) return INSP.list;
-  INSP.loading=true;
-  try{
-    // 并行抓取懂车帝热搜 + 销量榜
-    var hwPromise = fetch(DCD.url('/api/hotwords')).then(function(r){return r.json();}).catch(function(){return {board:[],roll:[]};});
-    var rankPromise = fetch(DCD.url('/api/rank?type=sales&limit=30')).then(function(r){return r.json();}).catch(function(){return {items:[]};});
-    var hw = await hwPromise;
-    var rank = await rankPromise;
-
-    // 从热搜提取标题
-    var hotTitles=[];
-    for(var bi=0;bi<(hw.board||[]).length;bi++){
-      var tops=(hw.board[bi].tops||[]);
-      for(var ti=0;ti<tops.length;ti++){
-        if(tops[ti].title) hotTitles.push({title:tops[ti].title, hot:tops[ti].hot_value||0});
-      }
-    }
-    if(!hotTitles.length){
-      for(var ri=0;ri<(hw.roll||[]).length;ri++){
-        hotTitles.push({title:hw.roll[ri], hot:0});
-      }
-    }
-    // 销量榜数据
-    var salesItems=(rank.items||[]).slice(0,15);
-
-    // 规则引擎：生成灵感选题
-    var items=[];
-    var used=new Set();
-    var idx=0;
-
-    // 规则1: 销量前列车型 → 热点解析 / 车型对比
-    for(var si=0;si<salesItems.length && items.length<6;si++){
-      var s=salesItems[si];
-      var sid='dcs_'+s.series_id;
-      var brand=s.brand_name||'', series=s.series_name||'';
-      if(!series || used.has(series)) continue;
-      used.add(series);
-      items.push({
-        id:'i_sales_'+si,
-        type:'sales',
-        icon:'📈',
-        tag:'销量',
-        title: series+'最近为什么突然火了？',
-        summary: brand+' '+series+' 登上销量榜第'+(si+1)+'名，讨论度上升。',
-        hot: 80-si*8,
-        vehicles: [sid],
-        vehiclesText: brand+' '+series,
-        modes: [
-          {name:'热点解析', cat:'single', reason:'热度高，适合追热点'},
-          {name:'单车解析', cat:'single', reason:'讲清楚这台车为什么卖得好'}
-        ]
-      });
-      items.push({
-        id:'i_pk_'+si,
-        type:'pk',
-        icon:'⚔️',
-        tag:'对比',
-        title: series+' 和同价位车型相比有什么优势？',
-        summary: '销量上升往往意味着产品力有亮点，适合做横向对比。',
-        hot: 65-si*4,
-        vehicles: [sid],
-        vehiclesText: brand+' '+series,
-        modes: [
-          {name:'双车PK', cat:'pk', reason:'PK内容流量稳定'},
-          {name:'参数对比', cat:'duibi', reason:'用数据说话'}
-        ]
-      });
-    }
-
-    // 规则2: 热搜关键词 → 趣味/热议类选题
-    for(var hi=0;hi<hotTitles.length && items.length<10;hi++){
-      var h=hotTitles[hi];
-      var t=h.title;
-      // 过滤：太长/纯英文/数字跳过
-      if(!t || t.length<4 || t.length>20) continue;
-      if(/[a-zA-Z]{6,}/.test(t)) continue;
-      // 匹配车型库中的品牌/车系
-      var match=matchVehicleFromTitle(t);
-      if(!match) continue;
-      if(used.has('hot_'+t)) continue;
-      used.add('hot_'+t);
-
-      // 根据关键词选类型
-      var type='hot', tag='热议', icon='🔥';
-      if(/降价|优惠|补贴|促销/.test(t)){ type='price'; tag:'价格'; icon:'💰'; }
-      else if(/上市|发布|首发|亮相|新车|预售/.test(t)){ type='new'; tag:'新车'; icon:'🆕'; }
-      else if(/梗|搞笑|吐槽|离谱|脑洞|玩/.test(t)){ type='fun'; tag:'趣味'; icon:'🎨'; }
-      else if(/技术|电池|智驾|800V|芯片|压铸/.test(t)){ type='tech'; tag:'技术'; icon:'🔬'; }
-
-      items.push({
-        id:'i_hot_'+hi,
-        type:type,
-        icon:icon,
-        tag:tag,
-        title: t,
-        summary: '当前热议话题，适合追热点流量。',
-        hot: Math.min(100, 50+Math.floor(Math.random()*40)+(h.hot?Math.floor(h.hot/1000):0)),
-        vehicles: [match.id],
-        vehiclesText: match.brand+' '+match.name,
-        modes: [
-          {name:'单车解析', cat:'single', reason:'直接围绕热点车型展开'},
-          {name:'趣味脑洞', cat:'single', reason:'如果是趣味话题，适合创意类'},
-          {name:'技术科普', cat:'single', reason:'如果是技术话题'}
-        ]
-      });
-    }
-
-    // 补空：如果还是不够，从销量榜再补几个创意脑洞
-    for(var ci=0;ci<salesItems.length && items.length<12;ci++){
-      var cs=salesItems[ci];
-      var csid='dcs_'+cs.series_id;
-      if(used.has('creative_'+csid)) continue;
-      used.add('creative_'+csid);
-      items.push({
-        id:'i_creative_'+ci,
-        type:'creative',
-        icon:'🎨',
-        tag:'创意',
-        title: '如果'+(cs.brand_name||'国际大厂')+'重新设计'+(cs.series_name||'这台车'),
-        summary: '延续「如果XX重新设计XX」系列，主打视觉冲击。',
-        hot: 40+Math.floor(Math.random()*30),
-        vehicles: [csid],
-        vehiclesText: cs.brand_name+' '+cs.series_name,
-        modes: [
-          {name:'AI改装', cat:'single', reason:'AI概念车栏目固定选题'},
-          {name:'汽车大片', cat:'single', reason:'用现有参数做视觉化重构'}
-        ]
-      });
-    }
-
-    // 打乱 + 按热度排序
-    items.sort(function(a,b){ return b.hot-a.hot; });
-    INSP.list=items.slice(0,12);
-    INSP.lastGen=now;
-  }catch(e){
-    // 降级：返回本地 Mock
-    INSP.list = localInspiration();
-  }
-  INSP.loading=false;
-  return INSP.list;
-}
-
-function matchVehicleFromTitle(title){
-  // 简单匹配：遍历车型库，找品牌名或车系名出现在标题里的
-  var all=VehicleDataProvider.getAll();
-  for(var i=0;i<all.length;i++){
-    var v=all[i];
-    if(v.brand && title.indexOf(v.brand)>=0) return v;
-    if(v.series && title.indexOf(v.series)>=0) return v;
-  }
-  // 再试品牌关键词
-  var brandKWs=['特斯拉','比亚迪','理想','小鹏','极氪','蔚来','小米','吉利','长安','宝马','奔驰','奥迪','保时捷','比亚迪海豹','比亚迪海鸥'];
-  for(var j=0;j<brandKWs.length;j++){
-    if(title.indexOf(brandKWs[j])>=0){
-      var m=findVehicleByName(brandKWs[j]);
-      if(m) return m;
-    }
-  }
-  return null;
-}
-
-function localInspiration(){
-  // 本地 Mock，只在服务完全不可用时用
-  var top=VehicleDataProvider.getAll().slice(0,3);
-  return [
-    {id:'mock1',type:'price',icon:'💰',tag:'价格',title:'热门车型突然降价，网友开始讨论',summary:'价格变化是永恒的流量密码',hot:92,vehicles:[top[0]&&top[0].id||''],vehiclesText:'热门车型',modes:[{name:'单车解析',cat:'single',reason:'讲清楚降价带来的影响'},{name:'双车PK',cat:'pk',reason:'和同价位车型对比'}]},
-    {id:'mock2',type:'creative',icon:'🎨',tag:'创意',title:'如果国际大厂重新设计比亚迪海豹',summary:'延续「如果XX重新设计XX」系列',hot:78,vehicles:[],vehiclesText:'比亚迪海豹',modes:[{name:'AI改装',cat:'single',reason:'主打视觉冲击'}]},
-    {id:'mock3',type:'fun',icon:'🎨',tag:'趣味',title:'最近汽车圈又开始流行什么梗？',summary:'玩梗类内容容易出爆款',hot:85,vehicles:[],vehiclesText:'',modes:[{name:'趣味脑洞',cat:'single',reason:'网络梗+汽车结合'}]}
-  ];
-}
-
-function renderInspCard(list){
-  var el=$('inspCardBody'); if(!el) return;
-  if(!list || !list.length){
-    el.innerHTML='<div class="insp-empty">暂无灵感，请稍后刷新</div>';
-    return;
-  }
-  var html='';
-  for(var i=0;i<list.length;i++){
-    var it=list[i];
-    var hotBar=Math.min(100,it.hot||50);
-    html+='<div class="insp-item" data-insp="'+it.id+'">'
-      +'<span class="ii-icon">'+it.icon+'</span>'
-      +'<div class="ii-body">'
-      +'<div class="ii-head"><span class="ii-tag">'+esc(it.tag)+'</span><span class="ii-title">'+esc(it.title)+'</span></div>'
-      +'<div class="ii-summary">'+esc(it.summary)+'</div>'
-      +'<div class="ii-meta"><span class="ii-hotbar"><span style="width:'+hotBar+'%"></span></span><span class="ii-hottxt">🔥 '+it.hot+'</span>'
-      +(it.vehiclesText?'<span class="ii-veh">🚗 '+esc(it.vehiclesText)+'</span>':'')
-      +'</div>'
-      +'</div>'
-      +'</div>';
-  }
-  el.innerHTML=html;
-}
-
-function openInspModal(list, startIdx){
-  list = list || INSP.list || [];
-  var idx = startIdx !== undefined ? startIdx : -1;
-  var body='';
-  for(var i=0;i<list.length;i++){
-    var it=list[i];
-    var cls='insp-md-item'+(i===idx?' focus':'');
-    var hotBar=Math.min(100,it.hot||50);
-    body+='<div class="'+cls+'" data-insp-id="'+it.id+'">'
-      +'<div class="imd-top">'
-      +'<span class="ii-icon">'+it.icon+'</span>'
-      +'<div class="imd-main">'
-      +'<div class="ii-head"><span class="ii-tag big">'+esc(it.tag)+'</span><span class="ii-title big">'+esc(it.title)+'</span></div>'
-      +'<div class="ii-summary">'+esc(it.summary)+'</div>'
-      +'</div>'
-      +'<div class="imd-hot"><span class="ii-hotbar wide"><span style="width:'+hotBar+'%"></span></span><span class="ii-hottxt">🔥 '+it.hot+'</span></div>'
-      +'</div>'
-      +(it.vehiclesText?'<div class="imd-vehicles">🚗 关联车型：'+esc(it.vehiclesText)+'</div>':'')
-      +'<div class="imd-modes">'
-      +'<span class="imd-mode-label">推荐创作方式：</span>';
-    for(var m=0;m<(it.modes||[]).length;m++){
-      body+='<button class="imd-mode-btn" data-mode="'+esc(it.modes[m].cat)+'" data-reason="'+esc(it.modes[m].reason)+'">'+esc(it.modes[m].name)+'<small>'+esc(it.modes[m].reason)+'</small></button>';
-    }
-    body+='</div>'
-      +'<button class="btn primary imd-start" data-insp-id="'+it.id+'">✨ 开始创作</button>'
-      +'</div>';
-  }
-  openModal('🔥 今日汽车灵感  <span style="font-weight:400;color:var(--ink3);font-size:12px">点击创作方式或开始创作一键带入</span>', body, [
-    {label:'🔄 换一批', cls:'ghost', fn:function(){ INSP.list=[]; INSP.lastGen=0; genInspiration(true).then(function(l){ openInspModal(l); }); }},
-    {label:'关闭', cls:'ghost', fn:function(){ closeModal(); }}
-  ]);
-}
-
-function startInspirationCreation(insp, suggestCat){
-  // 把灵感带入创作中心
-  var cat = curCatById(suggestCat||'single');
-  state.catId = cat?cat.id:'single';
-  state.selected = (insp.vehicles||[]).filter(function(id){ return VehicleDataProvider.getById(id); });
-  state.title = insp.title;
-  state.infoPoints = [insp.summary];
-  state.overridePrompt = '';
-  // 在创作信息区显示灵感来源标记
-  state._inspirationSource = insp.id;
-  saveState();
-  setTab('studio');
-  refreshWorkbench();
-  toast('已带入创作：'+clip(insp.title,16)+' · '+state.selected.length+' 款车');
 }
 function briefSec(n,t,body){
   return '<div class="brief-sec"><h2><span class="b-n">'+n+'</span>'+t+'</h2>'+body+'</div>';
@@ -4527,36 +4230,6 @@ function bindEvents(){
       $('aiTestResult').textContent=r.ok?'✅ 连接成功':'❌ 连接失败：'+(r.err||'未知错误');
       $('aiTestResult').style.color=r.ok?'#1c7c1c':'#b42318';
     });
-  });
-  // 今日灵感：卡片点击进详情
-  var ic=$('inspCard');
-  if(ic){
-    ic.addEventListener('click',function(e){
-      var openBtn=e.target.closest('#inspOpen');
-      var refreshBtn=e.target.closest('#inspRefresh');
-      var card=e.target.closest('.insp-item');
-      if(openBtn){ genInspiration().then(function(l){ openInspModal(l); }); return; }
-      if(refreshBtn){ INSP.list=[]; INSP.lastGen=0; genInspiration(true).then(function(l){ renderInspCard(l.slice(0,3)); toast('灵感已换一批'); }); return; }
-      if(card){ var id=card.dataset.insp; var idx=-1; for(var i=0;i<INSP.list.length;i++) if(INSP.list[i].id===id){idx=i;break;} openInspModal(INSP.list, idx); return; }
-    });
-  }
-
-  // Modal 里的「开始创作」和「创作方式」按钮
-  document.addEventListener('click',function(e){
-    var modeBtn=e.target.closest('.imd-mode-btn');
-    var startBtn=e.target.closest('.imd-start');
-    if(modeBtn){
-      var id=e.target.closest('.insp-md-item').dataset.inspId;
-      var it=null; for(var i=0;i<INSP.list.length;i++) if(INSP.list[i].id===id){it=INSP.list[i];break;}
-      if(it){ startInspirationCreation(it, modeBtn.dataset.mode); }
-      closeModal();
-    }
-    if(startBtn){
-      var id2=startBtn.dataset.inspId;
-      var it2=null; for(var j=0;j<INSP.list.length;j++) if(INSP.list[j].id===id2){it2=INSP.list[j];break;}
-      if(it2 && it2.modes && it2.modes[0]){ startInspirationCreation(it2, it2.modes[0].cat); }
-      closeModal();
-    }
   });
 }
 function bringNews(it){
