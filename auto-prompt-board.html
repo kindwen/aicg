@@ -13,7 +13,70 @@
   --accent:#1f5eff; --accent-soft:#e8efff; --accent-ink:#1149c9;
   --ok:#0e9f6e; --warn:#d97706; --danger:#dc2626;
   --r:14px; --shadow:0 1px 2px rgba(20,24,40,.04),0 6px 20px rgba(20,24,40,.06);
+  /* 暗色模式覆盖点（硬编码背景的等效深色） */
+  --hard-white:#ffffff; --hard-bg2:#f0f2f6; --hard-bg3:#f6f8fb; --hard-bg4:#fafbfd;
+  --hard-input-bg:#fff; --hard-sel-bg:#fff; --hard-chip:#f5f6f8;
+  --hard-line3:#c4d6ff;
 }
+/* 夜间模式：覆盖 CSS 变量 + 硬编码背景的等效深色 */
+[data-theme="dark"]{
+  --bg:#0f1218; --card:#1a1f29; --line:#2a3140; --line2:#333c4d;
+  --ink:#e6e9ef; --ink2:#a3abba; --ink3:#6b7585;
+  --accent:#5b8cff; --accent-soft:#1a2540; --accent-ink:#9db8ff;
+  --ok:#34d399; --warn:#fbbf24; --danger:#f87171;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.4);
+  --hard-white:#1a1f29; --hard-bg2:#161b24; --hard-bg3:#141921; --hard-bg4:#1e2430;
+  --hard-input-bg:#161b24; --hard-sel-bg:#1a1f29; --hard-chip:#1e2430;
+  --hard-line3:#2e3d6a;
+  color-scheme:dark;
+}
+/* 夜间模式：硬编码背景的等效深色覆盖（避免大面积改 CSS） */
+[data-theme="dark"] .topbar{background:rgba(26,31,41,.9)}
+[data-theme="dark"] .sync,
+[data-theme="dark"] .catlist button,
+[data-theme="dark"] .quickrow button,
+[data-theme="dark"] .searchbox input,
+[data-theme="dark"] .searchdd,
+[data-theme="dark"] .brief-tbl,
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea,
+[data-theme="dark"] .wbb-refresh,
+[data-theme="dark"] .iconbtn,
+[data-theme="dark"] .nav button{background:var(--hard-white)}
+[data-theme="dark"] .nav button:hover,
+[data-theme="dark"] .catlist button:hover{background:var(--hard-bg2)}
+[data-theme="dark"] .brief-tbl th,
+[data-theme="dark"] .searchdd .sdhead{background:var(--hard-bg3)}
+[data-theme="dark"] .brief-tbl tr:hover td{background:var(--hard-bg4)}
+[data-theme="dark"] .catlist .nm,
+[data-theme="dark"] .qbtn{background:var(--hard-chip)}
+[data-theme="dark"] .qbtn.news{background:#231a12;border-color:#3d2f1c}
+[data-theme="dark"] .qbtn.random{background:#221532;border-color:#3d2a5c}
+[data-theme="dark"] .catlist button.on{background:var(--accent-soft);border-color:var(--hard-line3)}
+[data-theme="dark"] .pick-box{background:linear-gradient(180deg,#1f1a0f,#1c1709);border-color:#4a3a17;color:#fbbf24}
+[data-theme="dark"] .pick-box b{color:#fbbf24}
+[data-theme="dark"] .brief-off,
+[data-theme="dark"] code,
+[data-theme="dark"] .brief-off code{background:var(--hard-bg3)!important;color:var(--ink2)}
+[data-theme="dark"] .iconbtn{color:var(--ink2)}
+[data-theme="dark"] .iconbtn:hover{color:var(--ink);background:var(--hard-bg2)}
+[data-theme="dark"] .topstats b{color:var(--ink)}
+[data-theme="dark"] .logo small{color:var(--ink3)}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3a4252}
+[data-theme="dark"] .topstats .dot,
+[data-theme="dark"] .tstrip-sep{background:var(--line2)}
+[data-theme="dark"] .tstrip-act{color:#fca5a5}
+[data-theme="dark"] .tstrip-prog i{background:linear-gradient(90deg,var(--accent),#7aa2ff)}
+[data-theme="dark"] .wbb-tag.on{color:#34d399;border-color:#1e4a36;background:#0f2419}
+[data-theme="dark"] .wbb-tag.off{color:#fbbf24;border-color:#4a3417;background:#241a0f}
+[data-theme="dark"] .refslot,
+[data-theme="dark"] .refslot .rsbar{background:var(--hard-white)}
+[data-theme="dark"] .refpanel{background:var(--hard-bg3)}
+[data-theme="dark"] .refslot .rsimg{background:#141921}
+[data-theme="dark"] .refslot .rsres{background:rgba(26,31,41,.85);color:var(--ink3)}
+[data-theme="dark"] .refslot .rscopy:hover{background:var(--hard-line3)}
+[data-theme="dark"] img{opacity:.92}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6}
@@ -82,7 +145,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .searchbox{flex:1;position:relative}
 .searchbox svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink3)}
 .searchbox input{width:100%;padding:9px 10px 9px 32px;border:1px solid var(--line2);border-radius:10px;background:#fff}
-.searchdd{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--line2);border-radius:10px;box-shadow:0 6px 20px rgba(20,30,60,.10);max-height:280px;overflow-y:auto;z-index:20}
+.searchdd{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--line2);border-radius:10px;box-shadow:0 6px 20px rgba(20,30,60,.10);max-height:280px;overflow-y:auto;z-index:100}
 .searchdd .sdrow{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;font-size:12.5px;border-bottom:1px solid var(--line)}
 .searchdd .sdrow:last-child{border-bottom:0}
 .searchdd .sdrow:hover{background:var(--accent-soft)}
@@ -349,8 +412,19 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .detailviews .rl{font-size:10px;color:var(--ink3);text-align:center;padding:2px 0 4px;font-weight:700;display:block}
 .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:11px;font-size:13px;font-weight:600;opacity:0;transition:.25s;z-index:200;pointer-events:none;max-width:86vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.error{background:var(--danger);pointer-events:auto;cursor:pointer}
+.toast.warn{background:var(--warn)}
+.toast.ok{background:var(--ok)}
+.toast .tclose{display:inline-block;margin-left:10px;opacity:.7;font-weight:400}
+.toast.error.on .tclose{opacity:1}
+.emptycta{margin-top:10px;padding:6px 14px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent-ink);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.emptycta:hover{background:var(--accent);color:#fff}
 .mgenbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:9px}
 .mgenbar .btn{flex:1}
+@media(max-width:1280px){
+  /* 1280 以下：左侧内容方向列加宽，避免分类名换行 */
+  .workbench{grid-template-columns:30% 35% 35%}
+}
 @media(max-width:1080px){
   .workbench{grid-template-columns:1fr}
   .col .card-b{max-height:none}
@@ -430,6 +504,90 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .pick-box b{color:#a05a00}
 .brief-off{border:1px solid #ffd591;background:#fffaef;border-radius:11px;padding:12px 14px;font-size:12.5px;color:#8a5a00;line-height:1.7}
 .brief-off code{background:#fff3d6;border-radius:4px;padding:1px 5px;font-family:ui-monospace,Consolas,monospace}
+/* === 右上角图标按钮（数据管理/设置） === */
+.topactions{display:flex;gap:6px;margin-left:auto}
+.iconbtn{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card2,#f5f6f8);color:var(--ink2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.iconbtn svg{width:18px;height:18px}
+.iconbtn:hover{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent)}
+/* === 驾驶舱 dashboard === */
+.dashboard{padding:18px 0 8px}
+.dash-row{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:14px}
+.dash-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.dash-card h3{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--ink);display:flex;align-items:center;gap:7px}
+.dash-card h3 .sub{margin-left:auto;font-size:11.5px;font-weight:500;color:var(--ink3)}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:9px}
+.qbtn{border:1px solid var(--line);background:var(--card2,#f5f6f8);border-radius:11px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:.15s;font-size:12px;color:var(--ink2)}
+.qbtn .qi{font-size:22px;line-height:1}
+.qbtn .qt{font-weight:600;color:var(--ink)}
+.qbtn:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-1px)}
+.qbtn.news{border-color:#ffe0b3;background:#fff8ef}
+.qbtn.more{border-style:dashed;color:var(--ink3)}
+.recent-list{display:flex;flex-direction:column;gap:8px}
+.recent-item{border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;transition:.15s;background:var(--card2,#fafbfc)}
+.recent-item:hover{border-color:var(--accent);background:var(--accent-soft)}
+.recent-item .ri-t{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-item .ri-s{display:flex;gap:8px;font-size:11px;color:var(--ink3)}
+.recent-item .ri-s span{padding:1px 6px;border-radius:4px;background:var(--card)}
+.dash-empty{font-size:12.5px;color:var(--ink3);line-height:1.7;padding:14px;text-align:center}
+.dash-empty a{color:var(--accent);cursor:pointer;text-decoration:underline}
+.dash-stats .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--card2,#f5f6f8);border-radius:10px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:3px}
+.stat .sv{font-size:22px;font-weight:700;color:var(--accent-ink)}
+.stat .sl{font-size:11px;color:var(--ink3)}
+@media(max-width:900px){ .dash-row{grid-template-columns:1fr} .dash-stats .stat-grid{grid-template-columns:repeat(2,1fr)} }
+/* === 素材中心 === */
+.asset-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.asset-tabs button{padding:8px 16px;border:1px solid var(--line);background:var(--card);border-radius:9px;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;transition:.15s}
+.asset-tabs button.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+.asset-tabs button:hover{border-color:var(--accent)}
+.asset-grid{min-height:200px}
+.asset-hint{font-size:12.5px;color:var(--ink3);margin-bottom:14px}
+.asset-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.asset-item{border:1px solid var(--line);border-radius:11px;overflow:hidden;cursor:pointer;transition:.15s;background:var(--card)}
+.asset-item:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(20,30,60,.08)}
+.asset-item .ai-img{width:100%;aspect-ratio:4/3;background:var(--card2,#f0f2f5);overflow:hidden}
+.asset-item .ai-img img{width:100%;height:100%;object-fit:cover}
+.asset-item .ai-t{padding:8px 10px;font-size:12px;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asset-placeholder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.ap-item{border:1px dashed var(--line2);border-radius:11px;padding:20px 10px;text-align:center;background:var(--card2,#fafbfc)}
+.ap-item .ap-ico{font-size:28px;margin-bottom:8px;opacity:.5}
+.ap-item .ap-t{font-size:12.5px;font-weight:600;color:var(--ink2);margin-bottom:4px}
+.ap-item .ap-tag{font-size:10px;color:var(--ink3);padding:2px 7px;border-radius:4px;background:var(--card);display:inline-block}
+/* === 作品中心 pagehead 二级入口 === */
+.ph-acts{display:flex;gap:8px;flex-wrap:wrap}
+/* === 工作台资讯栏 wbb === */
+.wb-brief{margin-top:14px}
+.wbb-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.wbb-card h3{font-size:15px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
+.wbb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.wbb-actions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.wbb-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid var(--line2)}
+.wbb-tag.on{color:#1c7c1c;border-color:#b3e6c4;background:#effaf2}
+.wbb-tag.off{color:#b45309;border-color:#fcd9a3;background:#fff8ef}
+.wbb-refresh{font-size:12px;font-weight:600;color:var(--ink2);background:var(--bg);border:1px solid var(--line2);border-radius:7px;padding:5px 10px;cursor:pointer}
+.wbb-refresh:hover{border-color:var(--accent);color:var(--accent-ink)}
+.wbb-refresh:disabled{opacity:.55;cursor:not-allowed}
+.wbb-more{font-size:12px;font-weight:600;color:var(--accent);background:none;border:none;cursor:pointer}
+.wbb-empty{font-size:12.5px;color:var(--ink3);padding:14px;text-align:center}
+.wbb-load{color:var(--accent);background:none;border:1px solid var(--accent);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:12px;margin-left:6px}
+.wbb-brief{margin-top:4px}
+.wbb-brief .brief-sec{margin-bottom:14px}
+.wbb-brief .brief-sec:last-of-type{margin-bottom:10px}
+.wbb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.wbb-t{font-size:13px;font-weight:700;color:var(--ink);display:block;margin-bottom:8px}
+.wbb-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
+.wbb-item:last-child{border-bottom:none}
+.wbb-r{font-size:11px;font-weight:700;color:var(--accent);min-width:24px}
+.wbb-n{font-size:12.5px;color:var(--ink);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wbb-v{font-size:11px;color:var(--ink3)}
+.qbtn.random{border-color:#e6d3ff;background:#f8f3ff}
+.qbtn.random:hover{border-color:#8b5cf6;background:#ede4ff}
+@media(max-width:900px){ .wbb-grid{grid-template-columns:1fr} }
+@media(max-width:1080px){
+  .topactions{margin-left:0}
+  .iconbtn{width:30px;height:30px}
+  .iconbtn svg{width:16px;height:16px}
+}
 </style>
 </head>
 <body>
@@ -441,14 +599,16 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
       <span>AUTO PROMPT BOARD<small>汽车AIGC创作工作台</small></span>
     </div>
     <nav class="nav" id="nav">
-      <button data-tab="workbench" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>创作工作台</button>
+      <button data-tab="workbench" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>工作台</button>
       <button data-tab="vehicles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l1.5-4.2A2.5 2.5 0 0 1 6.9 7h10.2a2.5 2.5 0 0 1 2.4 1.8L21 13v4a1 1 0 0 1-1 1h-1.2a1 1 0 0 1-1-1v-.5H6.2v.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4z"/><circle cx="7.3" cy="14.5" r="1.3"/><circle cx="16.7" cy="14.5" r="1.3"/></svg>车型库</button>
-      <button data-tab="bank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>我的题库</button>
-      <button data-tab="news"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>每日资讯</button>
-      <button data-tab="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Prompt历史</button>
-      <button data-tab="datamgmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>数据管理</button>
-      <button data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>设置</button>
+      <button data-tab="studio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg>创作中心</button>
+      <button data-tab="assets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>素材中心</button>
+      <button data-tab="bank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>我的作品</button>
     </nav>
+    <div class="topactions" id="topactions">
+      <button class="iconbtn" id="themeToggle" title="切换深色模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="iconbtn" data-tab="settings" title="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></button>
+    </div>
     <div class="sync" id="syncBadge"><i></i><span>离线模式</span></div>
   </div>
 </header>
@@ -459,6 +619,16 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
     <div class="card today-strip">
       <div class="card-b" id="todayStrip"></div>
     </div>
+    <!-- 驾驶舱主体：由 renderWorkbench 渲染（快捷创作 + 最近作品 + 数据概览） -->
+    <div class="dashboard" id="dashboard"></div>
+    <!-- 今日资讯栏（嵌工作台，无需切 tab 即可看到） -->
+    <div class="wb-brief" id="wbBrief"></div>
+  </section>
+
+  <section class="page" id="page-studio">
+    <div class="pagehead">
+      <div><h2>✨ 创作中心</h2><div class="sub">选车型 → 选内容类型 → 自动匹配资料与素材 → 生成文案与 AI 生图提示词（复制到新片场生图）</div></div>
+    </div>
     <div class="workbench">
       <div class="col">
         <div class="card">
@@ -468,7 +638,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
       </div>
       <div class="col">
         <div class="card">
-          <div class="card-h"><h3>选择车型</h3><span class="sub" id="selCount">已选 0 / 4</span></div>
+          <div class="card-h"><h3>选择车型</h3><span class="sub" id="selCount">已选 0 / <span id="selMax">4</span></span></div>
           <div class="card-b">
             <div class="toolrow">
               <div class="searchbox">
@@ -510,7 +680,10 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-vehicles">
     <div class="pagehead">
-      <div><h2>🚗 车型库</h2><div class="sub">数据源：懂车帝全量车系库（4534款真实封面图）+ 内置示例车型库</div></div>
+      <div><h2>🚗 车型库</h2><div class="sub">数据源：公开车型数据库（4534款真实封面图）+ 内置示例车型库</div></div>
+      <div class="ph-acts">
+        <button class="btn ghost sm" data-tab="datamgmt" type="button">⚙️ 数据管理</button>
+      </div>
     </div>
     <div class="card">
       <div class="card-b">
@@ -538,17 +711,33 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
     </div>
   </section>
 
+  <section class="page" id="page-assets">
+    <div class="pagehead">
+      <div><h2>🖼️ 素材中心</h2><div class="sub">车型素材（外观/内饰/细节） · 场景素材 · 设计素材 · 我的素材 · 一键加入创作</div></div>
+    </div>
+    <div class="asset-tabs" id="assetTabs">
+      <button data-atab="vehicle" class="on">🚗 车型素材</button>
+      <button data-atab="scene">🌆 场景素材</button>
+      <button data-atab="design">🎨 设计素材</button>
+      <button data-atab="mine">⭐ 我的素材</button>
+    </div>
+    <div class="asset-grid" id="assetGrid"></div>
+  </section>
+
   <section class="page" id="page-bank">
     <div class="pagehead">
-      <div><h2>📚 我的题库</h2><div class="sub">内容资产管理 · 状态流转 · 重复检测 · 云端同步</div></div>
-      <button class="btn ghost sm" id="clearSample">清空示例数据</button>
+      <div><h2>📁 我的作品</h2><div class="sub">草稿 / 待制作 / 已完成 / 已发布 / 收藏 · 一键再创作（载入配方 → 只换车型）</div></div>
+      <div class="ph-acts">
+        <button class="btn ghost sm" id="bankHistory" type="button">📜 Prompt 历史</button>
+        <button class="btn ghost sm" id="clearSample">清空示例</button>
+      </div>
     </div>
     <div class="card">
       <div class="card-b">
         <div class="filters">
           <input id="bankSearch" type="search" placeholder="搜索标题 / 车型">
           <select id="bankCat"><option value="全部">全部分类</option></select>
-          <select id="bankStatus"><option value="全部">全部状态</option><option>未制作</option><option>制作中</option><option>已制作</option><option>废弃</option></select>
+          <select id="bankStatus"><option value="全部">全部状态</option><option>草稿</option><option>未制作</option><option>制作中</option><option>已制作</option><option>已发布</option><option>收藏</option><option>废弃</option></select>
           <select id="bankSort"><option value="timeDesc">最新优先</option><option value="timeAsc">最早优先</option><option value="status">按状态</option></select>
         </div>
         <div class="banktablewrap" id="bankList"></div>
@@ -558,7 +747,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-news">
     <div class="pagehead">
-      <div><h2>📰 每日车圈简报</h2><div class="sub">懂车帝销量榜 / 降价榜 / 热搜榜驱动 · 选题一键带入创作台</div></div>
+      <div><h2>📰 每日车圈简报</h2><div class="sub">销量榜 / 降价榜 / 热搜榜驱动 · 选题一键带入创作台</div></div>
       <div class="briefacts">
         <button class="btn primary" id="briefBtn">⚡ 生成今日车圈简报</button>
         <button class="btn ghost" id="briefCopy">复制全文</button>
@@ -594,7 +783,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
         <div class="card-b" id="vehicleAdmin"></div>
       </div>
       <div class="card dmcard">
-        <div class="card-h"><h3>懂车帝本地数据源</h3><span class="sub" id="dcdState"></span></div>
+        <div class="card-h"><h3>本地车型数据源</h3><span class="sub" id="dcdState"></span></div>
         <div class="card-b" id="dcdPanel"></div>
       </div>
       <div class="card dmcard">
@@ -699,7 +888,25 @@ function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
 function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function daysBetween(ts){ return Math.floor((Date.now()-ts)/86400000); }
-function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(t._tm); t._tm=setTimeout(function(){ t.classList.remove('on'); },2200); }
+function toast(msg, type){
+  var t=$('toast');
+  // type: 'error'|'warn'|'ok'|undefined；error 不自动消失，需点击关闭
+  t.className='toast'+(type?(' '+type):'');
+  t.innerHTML=esc(msg)+(type==='error'?'<span class="tclose">✕ 点击关闭</span>':'');
+  void t.offsetWidth; // 触发 reflow 重启动画
+  t.classList.add('on');
+  clearTimeout(t._tm);
+  if(type==='error'){
+    // 错误类不自动消失，长错误信息用户有时间看完
+    t._tm=0;
+  } else {
+    t._tm=setTimeout(function(){ t.classList.remove('on'); }, type==='warn'?4000:2200);
+  }
+}
+// 点击 error toast 关闭
+document.addEventListener('DOMContentLoaded',function(){
+  var t=$('toast'); if(t) t.addEventListener('click',function(){ t.classList.remove('on'); });
+});
 function copyText(txt){
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){toast('已复制到剪贴板');},function(){fallbackCopy(txt);}); }
   else fallbackCopy(txt);
@@ -847,14 +1054,14 @@ function dcdFullDecode(row, i){
   var rawEnergy = row[5]||'';
   var level = row[4]||'—';
   return { id:'dcs_'+row[0], dcd:true, dcdStatic:true, dcdId:row[0],
-    brand:row[2]||'', series:name, name:name, year:'', version:'懂车帝全系',
+    brand:row[2]||'', series:name, name:name, year:'', version:'全系',
     energy:normalizeEnergy(rawEnergy, name), level:level, bodyType:inferBodyType(level, name), color:'#5b7db1',
     price:row[3]||'价格待确认', priceMin:parseMinPrice(row[3]),
     dims:{L:'待确认',W:'待确认',H:'待确认',WB:'待确认'},
     power:{motor:'—',kw:'—',nm:'—',accel:'—'}, battery:{cap:'—',cltc:'—',comp:'—',fast:'—'},
     drive:'—',susp:'—',tire:'—',mass:'—',seats:5,trunk:'—',adas:'—',
-    source:'懂车帝全量车系库（2026-09-01，真实封面图）', updated:'2026-09-01', verified:false,
-    cover:cover, desc:'懂车帝真实车系「'+(row[2]?row[2]+' ':'')+name+'」，真实封面图；详细参数以懂车帝最新页面为准'
+    source:'公开车型数据库（2026-09-01，真实封面图）', updated:'2026-09-01', verified:false,
+    cover:cover, desc:'真实车系「'+(row[2]?row[2]+' ':'')+name+'」，真实封面图；详细参数以最新公开数据为准'
   };
 }
 
@@ -903,6 +1110,21 @@ function AIProvider(){
   /* 大模型 API（DeepSeek/通义/智谱/豆包）不开放浏览器跨域，直接 fetch 会被 CORS 拦截。
      优先走本地服务 /api/ai 代理（同源无 CORS 问题），代理不可用再回退直连。 */
   function request(path, payload, key){
+    // 带超时的 fetch（AbortController），避免大模型慢响应时前端永久挂起
+    function fetchTO(url, opts, ms){
+      var ctl = new AbortController();
+      var t = setTimeout(function(){ ctl.abort(); }, ms||60000);
+      return fetch(url, Object.assign({}, opts, {signal: ctl.signal}))
+        .then(function(r){
+          clearTimeout(t);
+          if(!r.ok) throw new Error('HTTP '+r.status);
+          return r.json();
+        }, function(e){
+          clearTimeout(t);
+          if(e && e.name==='AbortError') throw new Error('请求超时（'+(ms/1000)+'s）');
+          throw e;
+        });
+    }
     // 代理只处理 chat/completions
     var isChat = path.replace(/^\/?/,'') === 'chat/completions';
     if(isChat){
@@ -912,29 +1134,27 @@ function AIProvider(){
       };
       if(payload.temperature!==undefined) proxyBody.temperature=payload.temperature;
       if(payload.max_tokens!==undefined) proxyBody.max_tokens=payload.max_tokens;
-      return fetch(LOCAL_AI,{
+      // 代理 90s（后端 urlopen 120s），回退直连 60s
+      return fetchTO(LOCAL_AI,{
         method:'POST',
         headers:{ 'Content-Type':'application/json' },
         body:JSON.stringify(proxyBody)
-      }).then(function(r){ return r.json(); })
-        .then(function(j){
+      }, CONFIG.AI_PROXY_TIMEOUT).then(function(j){
           if(j && j.ok) return { proxy:true, data:{ choices:[{ message:{ content:j.content } }] } };
           // 代理失败（如未启动服务/不支持的服务商）→ 回退直连
-          return fetch(api(path),{
+          return fetchTO(api(path),{
             method:'POST',
             headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
             body:JSON.stringify(payload)
-          }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-            .then(function(jj){ return { proxy:false, data:jj }; });
+          }, CONFIG.AI_DIRECT_TIMEOUT).then(function(jj){ return { proxy:false, data:jj }; });
         });
     }
     // 非 chat 请求：直连
-    return fetch(api(path),{
+    return fetchTO(api(path),{
       method:'POST',
       headers:{ 'Content-Type':'application/json', 'Authorization':'Bearer '+key },
       body:JSON.stringify(payload)
-    }).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(jj){ return { proxy:false, data:jj }; });
+    }, CONFIG.AI_DIRECT_TIMEOUT).then(function(jj){ return { proxy:false, data:jj }; });
   }
   return {
     testConnection:function(key, model){
@@ -958,7 +1178,7 @@ function aiGenerate(vehicleCtx, catCtx){
   var key=getApiKey();
   if(!state.ai.enabled || !key){ return Promise.resolve({ok:false, err:'AI 未启用或未配置 Key'}); }
   var model=aiDefaultModel();
-  var sys='你是一位专业的汽车图文内容创作者，擅长为懂车帝等平台创作 AIGC 图文。请基于给定车型事实与内容方向，产出：\n1) 一个吸引人的标题\n2) 一段可直接用于 AI 图像生成的完整 Prompt（包含画面描述/版式/文案）。\n只输出 JSON：{"title":"...","prompt":"..."}，不要输出多余说明。';
+  var sys='你是一位专业的汽车图文内容创作者，擅长创作有传播力的 AIGC 图文。请基于给定车型事实与内容方向，产出：\n1) 一个吸引人的标题\n2) 一段可直接用于 AI 图像生成的完整 Prompt（包含画面描述/版式/文案）。\n只输出 JSON：{"title":"...","prompt":"..."}，不要输出多余说明，不要在输出中提及任何数据来源平台名称。';
   var user='车型事实：\n'+vehicleCtx+'\n\n内容方向：\n'+catCtx+'\n\n请生成标题与创作 Prompt。';
   return AIProvider().generate({ model:model, messages:[{role:'system',content:sys},{role:'user',content:user}], temperature:0.8 }, key)
     .then(function(r){
@@ -980,14 +1200,26 @@ function aiGenerate(vehicleCtx, catCtx){
 var MockProvider = { id:'mock', label:'内置示例车型库（Mock·'+VEHICLES.length+'款热门车型）', list:function(){ return VEHICLES; } };
 var UserProvider  = { id:'user', label:'我的车型（本地自定义）', list:function(){ return LS.get('custom_vehicles',[]); } };
 var _dcdCache=null;
-var DcdStaticProvider = { id:'dcd_static', label:'懂车帝全量车系库（内置 4534 款·真实封面图）', list:function(){ if(!_dcdCache){ _dcdCache=window.DCD_FULL_DATA.map(dcdFullDecode); } return _dcdCache; } };
+var DcdStaticProvider = { id:'dcd_static', label:'公开车型数据库（内置 4534 款·真实封面图）', list:function(){ if(!_dcdCache){ _dcdCache=window.DCD_FULL_DATA.map(dcdFullDecode); } return _dcdCache; } };
 var VehicleDataProvider = {
   providers:[UserProvider, MockProvider, DcdStaticProvider],
-  getAll:function(){ var out=[]; for(var i=0;i<this.providers.length;i++){ out=out.concat(this.providers[i].list()||[]); } return out; },
-  getById:function(id){ var all=this.getAll(); for(var i=0;i<all.length;i++){ if(all[i].id===id) return all[i]; } return null; }
+  _cache:null,                       // getAll 结果缓存
+  markDirty:function(){ this._cache=null; },  // 自定义车型变更时调用
+  getAll:function(){
+    if(this._cache) return this._cache;
+    var out=[];
+    for(var i=0;i<this.providers.length;i++){ out=out.concat(this.providers[i].list()||[]); }
+    this._cache=out;
+    return out;
+  },
+  getById:function(id){
+    var all=this.getAll();
+    for(var i=0;i<all.length;i++){ if(all[i].id===id) return all[i]; }
+    return null;
+  }
 };
 
-/* ---------- 懂车帝本地数据源（dongchedi_server.py，端口8765） ----------
+/* ---------- 本地车型数据源（dongchedi_server.py，端口8765） ----------
    接入《懂车帝车型库抓取实现方法论》：品牌1~40遍历全量库 / 车系名+品牌名双匹配搜索
    / 详情+参考图（封面1+外观3+内饰2）/ imgproxy 图片代理。离线自动回退 Mock。 */
 var DCD = {
@@ -1045,14 +1277,14 @@ var DCD = {
     return {
       id:'dcd_'+s.id, dcd:true, dcdId:s.id,
       brand:s.brand||'', series:s.name, name:(s.brand?s.brand+' ':'')+s.name,
-      year:'', version:'懂车帝全系', energy:nrg, level:lvl, bodyType:inferBodyType(lvl, s.name), color:'#5b7db1',
+      year:'', version:'全系', energy:nrg, level:lvl, bodyType:inferBodyType(lvl, s.name), color:'#5b7db1',
       price:price, priceMin:pmin,
       dims:{L:'待确认',W:'待确认',H:'待确认',WB:'待确认'},
       power:{motor:'—',kw:'—',nm:'—',accel:'—'},
       battery:{cap:'—',cltc:'—',comp:'—',fast:'—'},
       drive:'—',susp:'—',tire:'—',mass:'—',seats:5,trunk:'—',adas:'—',
-      source:'懂车帝本地数据源（真实车系库，参数见详情）', updated:new Date().toISOString().slice(0,10), verified:false,
-      cover:s.cover||'', desc:'懂车帝真实车系「'+s.name+'」，点击卡片查看实拍图与车型详情',
+      source:'本地车型数据源（真实车系库，参数见详情）', updated:new Date().toISOString().slice(0,10), verified:false,
+      cover:s.cover||'', desc:'真实车系「'+s.name+'」，点击卡片查看实拍图与车型详情',
       count:s.count||0
     };
   },
@@ -1064,7 +1296,7 @@ var DCD = {
   detail:function(dcdId,cb){ this.get('/api/detail?id='+encodeURIComponent(dcdId),cb); },
   photos:function(dcdId,cb){ this.get('/api/photos?id='+encodeURIComponent(dcdId),cb); }
 };
-var DongchediProvider = { id:'dcd', label:'懂车帝本地数据源（真实车系，需启动 dongchedi_server.py）', list:function(){ return DCD.on()?DCD.cache:[]; } };
+var DongchediProvider = { id:'dcd', label:'本地车型数据源（真实车系，需启动 dongchedi_server.py）', list:function(){ return DCD.on()?DCD.cache:[]; } };
 VehicleDataProvider.providers.push(DongchediProvider);
 
 /* ---------- 云同步（资料库数据表 workspace_auto_prompt_board） ---------- */
@@ -1237,7 +1469,20 @@ var CATS=[
    tpl:function(){ return '1. 商务场景需求：气场/后排空间/静谧性/上下车便利\n2. 车型匹配度分析\n3. 接待规格建议：什么级别商务场合用哪台'; }},
   {id:'budget',icon:'🧮',name:'预算方案',desc:'固定预算内最优解',min:2,max:4,
    rec:['price','cltc','seats','adas','desc'],
-   tpl:function(n){ return '1. 预算框定：明确预算区间与核心诉求\n2. 预算内候选：'+cn(n)+'款车各自的角色（主力/备选/激进之选）\n3. 加钱/省钱方案：预算上下浮动后的更优解\n4. 最终建议：一句话拍板'; }}
+   tpl:function(n){ return '1. 预算框定：明确预算区间与核心诉求\n2. 预算内候选：'+cn(n)+'款车各自的角色（主力/备选/激进之选）\n3. 加钱/省钱方案：预算上下浮动后的更优解\n4. 最终建议：一句话拍板'; }},
+  /* —— 流量导向：创意 / 玩梗 / 猎奇 / 改装 —— */
+  {id:'meme',icon:'🤣',name:'玩梗造梗',desc:'用热梗/反差/神配文制造传播点',min:1,max:2,quick:1,
+   rec:['price','desc','accel','adas'],
+   tpl:function(n){ return '1. 找梗点：从车型名/价格/配置/竞品关系中找一个能造梗的反差点（如"XXX也便宜了""网友：这配置我服"）\n2. 反差画面：用反常识/反差感强烈的视觉描述造图（如百万级豪车配接地气场景、微型车配霸气文案）\n3. 神配文：配一句能引发评论区的金句（要有争议性/共鸣感，但不过界）\n4. 互动钩子：结尾留一个问题或选择题，引导评论区站队'; }},
+  {id:'curious',icon:'🤯',name:'猎奇盘点',desc:'你不知道的冷知识/隐藏彩蛋/反常识',min:1,max:3,quick:1,
+   rec:['price','desc','battery','adas','motor'],
+   tpl:function(n){ return '1. 猎奇切入：用一个反常识结论/冷知识开场（如"90%的人不知道这台车XXX"）\n2. 隐藏彩蛋盘点：逐条列出车型不为人知的设计巧思/彩蛋配置/冷参数（以资料卡数据为锚，不编造）\n3. 反差对比：与同级竞品做"你以为VS实际上"的反差对比\n4. 灵魂拷问：结尾抛一个二选一，激发转发欲'; }},
+  {id:'mod',icon:'🔧',name:'改装灵感',desc:'姿态/贴膜/轮毂/低趴改装方案',min:1,max:2,quick:1,
+   rec:['price','desc','dims','drive','susp'],
+   tpl:function(n){ return '1. 改装定位：明确改装方向（姿态党/性能党/露营党/痛车党）+ 预算区间\n2. 改装清单：轮毂尺寸/避震/包围/贴膜色/内饰细节，每项给风格描述+参考价位（标注"以实际改装店报价为准"）\n3. 改装后画面描述：用画面感语言描述改装完成后的视觉效果（姿态/光影/氛围）\n4. 避坑提醒：年检/合法上路/质保影响'; }},
+  {id:'brainhole',icon:'💡',name:'脑洞大开',desc:'如果/假如/穿越/混搭的创意场景',min:1,max:2,quick:1,
+   rec:['price','desc','power','accel','adas'],
+   tpl:function(n){ return '1. 脑洞设定：一个"如果/假如/穿越"的创意假设（如"如果这台车穿越到80年代""假如它是一款手机会是什么定位"）\n2. 场景演绎：在这个假设下，车型的某个卖点会变成什么梗/名场面\n3. 画面描述：描述一个有故事感、有讨论度的创意画面（AI 出图用）\n4. 评论区钩子：结尾留一个开放性问题，让读者接梗'; }}
 ];
 function curCat(){ for(var i=0;i<CATS.length;i++){ if(CATS[i].id===state.catId) return CATS[i]; } return CATS[0]; }
 function catByName(n){ for(var i=0;i<CATS.length;i++){ if(CATS[i].name===n) return CATS[i]; } return CATS[0]; }
@@ -1431,7 +1676,7 @@ function buildPrompt(){
   var n=vs.length;
   var title=s.title||genTitle('info');
   var tpls=LS.get('tpls',{});
-  L.push('你是一位专业的汽车图文内容创作者，正在为懂车帝平台创作一篇「'+cat.icon+' '+cat.name+'」类型的AIGC图文内容。');
+  L.push('你是一位专业的汽车图文内容创作者，正在创作一篇「'+cat.icon+' '+cat.name+'」类型的AIGC图文内容。');
   L.push('');
   L.push('【标题】'+title);
   L.push('');
@@ -1475,23 +1720,39 @@ function buildPrompt(){
 /* =========================================================
    三、状态与持久化
 ========================================================= */
+/* CONFIG：集中魔法数，便于调参 */
+var CONFIG={
+  MAX_SELECTED:4,            // 工作台同时选车上限
+  RANK_PAGE_SIZE:20,         // 车型列表分页大小（"查看更多"每次+此值）
+  SAVE_THROTTLE:200,         // saveState 节流毫秒
+  AI_PROXY_TIMEOUT:90000,    // AI 本地代理超时
+  AI_DIRECT_TIMEOUT:60000   // AI 直连超时
+};
 var state={
   tab:'workbench', catId:'duibi',
-  energyF:'全部', bodyF:'全部', vSearch:'', rankTab:'hot', rankLimit:20,
+  energyF:'全部', bodyF:'全部', vSearch:'', rankTab:'hot', rankLimit:CONFIG.RANK_PAGE_SIZE,
   selected:[], refs:{}, uploads:{}, refOpen:null, refPhotos:{}, openBrands:{},
   infoPoints:[], customNote:'',
   title:'', visual:{ratio:VIS.ratio[0],style:VIS.style[0],density:'标准',bright:'明亮',anchor:'居中',space:'标准'},
   overridePrompt:'',
   lib:{q:'',brand:'全部',energy:'全部',level:'全部',sort:'az',page:1}, libOpen:{}, libPickerOpen:false, libLetterOpen:{},
+  atTab:'vehicle',          // 素材中心当前分类：vehicle/scene/design/mine
   bankF:{q:'',cat:'全部',status:'全部',sort:'timeDesc'},
   /* [AI] AI增强状态：不存明文Key，仅存"是否已配置"标记 */
   ai:{enabled:false, provider:'openai', apiKeyConfigured:false, model:'', baseUrl:''}
 };
-function saveState(){
+var _saveStateTimer=null;
+function saveStateNow(){
+  if(_saveStateTimer){ clearTimeout(_saveStateTimer); _saveStateTimer=null; }
   LS.set('state',{catId:state.catId,energyF:state.energyF,bodyF:state.bodyF,vSearch:state.vSearch,
     selected:state.selected,refs:state.refs,uploads:state.uploads,infoPoints:state.infoPoints,customNote:state.customNote,
     title:state.title,visual:state.visual,overridePrompt:state.overridePrompt,
     ai:{enabled:state.ai.enabled,provider:state.ai.provider,apiKeyConfigured:state.ai.apiKeyConfigured,model:state.ai.model,baseUrl:state.ai.baseUrl}});
+}
+function saveState(){
+  // 节流：200ms 内多次调用合并为一次写，避免改一个 chip 就全量序列化阻塞主线程
+  if(_saveStateTimer) clearTimeout(_saveStateTimer);
+  _saveStateTimer=setTimeout(function(){ _saveStateTimer=null; saveStateNow(); }, CONFIG.SAVE_THROTTLE);
 }
 function loadState(){
   var s=LS.get('state',null);
@@ -1504,12 +1765,17 @@ function isFav(id){ var f=LS.get('favs',[]); return f.indexOf(id)>=0; }
 function toggleFav(id){ var f=LS.get('favs',[]); var i=f.indexOf(id); if(i>=0){ f.splice(i,1); toast('已取消收藏'); } else { f.push(id); toast('已收藏'); } LS.set('favs',f); renderHeaderStats(); renderVGrid(); renderLibrary(); }
 function setTab(t){
   state.tab=t;
+  // hash 路由：刷新/分享链接可定位到当前页；workbench 为默认，不写 hash 保持 URL 干净
+  if(t==='workbench'){ if(location.hash) location.hash=''; }
+  else if(location.hash!=='#'+t){ location.hash=t; }
   var btns=document.querySelectorAll('#nav button');
   for(var i=0;i<btns.length;i++){ btns[i].className=btns[i].dataset.tab===t?'on':''; }
   var pages=document.querySelectorAll('.page');
   for(i=0;i<pages.length;i++){ pages[i].className='page'+(pages[i].id==='page-'+t?' on':''); }
   window.scrollTo(0,0);
   if(t==='news'&&!BRIEF.data&&!BRIEF.tried){ BRIEF.tried=true; genBrief(); }
+  // 进工作台自动加载今日资讯（用户要求：进工作台直接看到，不用切 tab）
+  if(t==='workbench'&&!BRIEF.data&&!BRIEF.tried){ BRIEF.tried=true; genBrief(); }
   if(t==='settings'){ renderSettings(); }
 }
 
@@ -1517,10 +1783,171 @@ function setTab(t){
    四、渲染层（统一入口 refreshAll，渲染函数之间禁止互调）
 ========================================================= */
 function refreshAll(){
-  renderHeaderStats(); renderTodayStrip(); renderCatPanel(); renderChips();
-  renderVGrid(); renderSelected(); renderInfoPanel();
+  renderHeaderStats(); renderTodayStrip(); renderWorkbench(); renderWbBrief();
+  renderCatPanel(); renderChips(); renderVGrid(); renderSelected(); renderInfoPanel();
   renderLibrary(); renderBank(); renderNews(); renderHistory(); renderDataMgmt(); renderSettings();
+  renderAssets();
 }
+/* renderWorkbench：驾驶舱主体（快捷创作 + 今日资讯摘要 + 最近作品 + 数据概览） */
+function renderWorkbench(){
+  var dash=$('dashboard'); if(!dash) return;
+  var bank=LS.get('bank',[]), hist=LS.get('history',[]);
+  // 快捷创作入口：一键带入车型 + 生成 Prompt（不用自己选车）
+  var quickCats=CATS.filter(function(c){ return c.quick; });
+  var qh='<div class="dash-card dash-quick"><h3>🚀 快捷创作 <span class="sub">一键带入车型，自动生成 Prompt</span></h3><div class="quick-grid">';
+  for(var i=0;i<quickCats.length;i++){ var c=quickCats[i]; qh+='<button class="qbtn" data-quick="'+c.id+'" title="自动选 '+c.min+' 款车型并生成"><span class="qi">'+c.icon+'</span><span class="qt">'+c.name+'</span></button>'; }
+  qh+='<button class="qbtn random" data-quick="random" title="随机类型+随机车型+随机风格"><span class="qi">🎲</span><span class="qt">随机创作</span></button>';
+  qh+='<button class="qbtn more" data-go="studio"><span class="qi">✨</span><span class="qt">手动创作</span></button>';
+  qh+='</div></div>';
+  // 最近作品：bank 前 5 条（非 sample）
+  var real=bank.filter(function(x){ return !x.sample; }).slice(-5).reverse();
+  var rh='<div class="dash-card dash-recent"><h3>📁 最近作品'+(real.length?'<span class="sub">'+real.length+' 条</span>':'')+'</h3>';
+  if(!real.length){ rh+='<div class="dash-empty">还没有作品 · 去<a data-go="studio">创作中心</a>开始第一个</div>'; }
+  else { rh+='<div class="recent-list">';
+    for(var j=0;j<real.length;j++){ var w=real[j];
+      rh+='<div class="recent-item" data-wid="'+(w.id||'')+'"><div class="ri-t">'+esc(w.title||'未命名')+'</div>'+
+          '<div class="ri-s"><span>'+(w.catName||w.cat||'')+'</span><span>'+(w.status||'未制作')+'</span><span>'+fmtTime(w.createdAt)+'</span></div></div>';
+    }
+    rh+='</div><button class="qbtn more" data-go="bank">查看全部作品 →</button>'; }
+  rh+='</div>';
+  // 数据概览
+  var t=todayStr(), wkStart=Date.now()-7*864e5, moStart=Date.now()-30*864e5;
+  var wkC=0,moC=0,draftC=0,doneC=0;
+  for(var k=0;k<bank.length;k++){ var w2=bank[k]; if(w2.sample) continue;
+    var ts=w2.createdAt?new Date(w2.createdAt.replace(/(\d{4})(\d{2})(\d{2})/,'$1/$2/$3')).getTime():0;
+    if(ts>=wkStart) wkC++; if(ts>=moStart) moC++;
+    if(w2.status==='草稿') draftC++; if(w2.status==='已制作'||w2.status==='已发布') doneC++;
+  }
+  var sh='<div class="dash-card dash-stats"><h3>📊 数据概览</h3><div class="stat-grid">'+
+    '<div class="stat"><span class="sv">'+wkC+'</span><span class="sl">本周创作</span></div>'+
+    '<div class="stat"><span class="sv">'+moC+'</span><span class="sl">本月创作</span></div>'+
+    '<div class="stat"><span class="sv">'+draftC+'</span><span class="sl">草稿</span></div>'+
+    '<div class="stat"><span class="sv">'+doneC+'</span><span class="sl">已完成</span></div>'+
+    '<div class="stat"><span class="sv">'+bank.length+'</span><span class="sl">作品总数</span></div>'+
+    '<div class="stat"><span class="sv">'+hist.length+'</span><span class="sl">Prompt 历史</span></div>'+
+    '</div></div>';
+  dash.innerHTML='<div class="dash-row">'+qh+rh+'</div>'+sh;
+  // 最近作品点击 → 跳作品中心
+  var items=dash.querySelectorAll('.recent-item');
+  for(var m=0;m<items.length;m++){ items[m].addEventListener('click',function(){ setTab('bank'); }); }
+}
+/* renderWbBrief：工作台嵌入的今日资讯栏（完整简报直接展示，无需切 tab） */
+function renderWbBrief(){
+  var box=$('wbBrief'); if(!box) return;
+  if(!BRIEF.data){
+    if(BRIEF.loading){
+      box.innerHTML='<div class="wbb-card"><h3>📰 今日车圈资讯</h3><div class="wbb-empty">正在抓取榜单数据…</div></div>';
+    } else {
+      box.innerHTML='<div class="wbb-card"><h3>📰 今日车圈资讯</h3><div class="wbb-empty">尚未加载今日资讯 · <button class="wbb-load" data-load="1">点击加载</button></div></div>';
+      var btn=box.querySelector('[data-load]'); if(btn) btn.onclick=function(){ genBrief(); };
+    }
+    return;
+  }
+  // 数据已就绪：在工作台直接渲染完整简报（与每日资讯页同源，无需切 tab）
+  // 用临时容器承接 briefOut 的结构样式
+  box.innerHTML='<div class="wbb-card"><div class="wbb-head"><h3>📰 今日车圈资讯'+
+    (BRIEF.offline?'<span class="wbb-tag off">离线降级</span>':'<span class="wbb-tag on">实时数据</span>')+
+    '</h3><div class="wbb-actions">'+
+    '<button class="wbb-refresh" data-refresh="1"'+(BRIEF.loading?' disabled':'')+'>⚡ 刷新</button>'+
+    '<button class="wbb-more" data-go="news">前往每日资讯 →</button></div></div>'+
+    '<div class="wbb-brief" id="wbBriefOut"></div></div>';
+  renderBrief('wbBriefOut');
+  var rf=box.querySelector('[data-refresh]'); if(rf) rf.onclick=function(){ genBrief(); };
+  var more=box.querySelector('[data-go]'); if(more) more.onclick=function(){ setTab('news'); };
+}
+/* autoQuickCreate：一键带入热门车型 + 生成 Prompt（无需手动选车） */
+function autoQuickCreate(catId){
+  var cat=CATS.filter(function(c){ return c.id===catId; })[0];
+  if(!cat){ setTab('studio'); return; }
+  var n=cat.min||2, pool=[];
+  // 优先从热门榜选
+  if(DCD_RANK.list.hot && DCD_RANK.list.hot.length){
+    for(var i=0;i<DCD_RANK.list.hot.length && pool.length<n;i++){
+      var sid=String(DCD_RANK.list.hot[i].series_id);
+      var v=VehicleDataProvider.getById('dcs_'+sid);
+      if(v && pool.indexOf(v)<0) pool.push(v);
+    }
+  }
+  // 热门榜不足，从静态库补
+  if(pool.length<n){
+    var all=allVehicles();
+    for(var j=0;j<all.length && pool.length<n;j++){
+      if(pool.indexOf(all[j])<0) pool.push(all[j]);
+    }
+  }
+  if(!pool.length){ toast('暂无可用车型数据'); return; }
+  state.catId=catId;
+  state.selected=pool.slice(0,n).map(function(v){ return v.id; });
+  state.infoPoints=[]; state.overridePrompt='';
+  // 自动加载第一辆车的参考图
+  if(state.selected[0]){ state.refOpen=state.selected[0]; fetchRefPhotos(state.selected[0]); }
+  saveState();
+  renderCatPanel(); renderChips(); renderVGrid(); renderSelected(); renderInfoPanel();
+  setTab('studio');
+  toast('已自动选 '+state.selected.length+' 款车型 · 右侧 Prompt 已生成，可直接复制');
+}
+/* autoRandomCreate：随机类型 + 随机车型 + 随机视觉风格 */
+function autoRandomCreate(){
+  var cat=CATS[Math.floor(Math.random()*CATS.length)];
+  var n=cat.min||2;
+  var all=allVehicles();
+  if(all.length<n){ toast('车型数据不足'); return; }
+  // 随机选 n 个不重复车型
+  var pool=all.slice(), picked=[];
+  for(var k=0;k<n && pool.length;k++){
+    var idx=Math.floor(Math.random()*pool.length);
+    picked.push(pool.splice(idx,1)[0]);
+  }
+  state.catId=cat.id;
+  state.selected=picked.map(function(v){ return v.id; });
+  // 随机视觉风格
+  if(VIS && VIS.style) state.visual.style=VIS.style[Math.floor(Math.random()*VIS.style.length)];
+  if(VIS && VIS.ratio) state.visual.ratio=VIS.ratio[Math.floor(Math.random()*VIS.ratio.length)];
+  state.infoPoints=[]; state.overridePrompt='';
+  if(state.selected[0]){ state.refOpen=state.selected[0]; fetchRefPhotos(state.selected[0]); }
+  saveState();
+  renderCatPanel(); renderChips(); renderVGrid(); renderSelected(); renderInfoPanel();
+  setTab('studio');
+  toast('随机创作：'+cat.icon+' '+cat.name+' · 已生成 Prompt');
+}
+/* renderAssets：素材中心（车型素材用现有数据，场景/设计占位） */
+function renderAssets(){
+  var grid=$('assetGrid'); if(!grid) return;
+  var tab=state.atTab||'vehicle';
+  // 同步 tabs active
+  var tabs=$('assetTabs'); if(tabs){ var btns=tabs.children; for(var i=0;i<btns.length;i++) btns[i].className=btns[i].dataset.atab===tab?'on':''; }
+  if(tab==='vehicle'){
+    // 车型素材：用收藏 + 热门榜前 20，显示参考图
+    var favs=LS.get('favs',[]), list=[];
+    for(var f=0;f<favs.length;f++){ var v=VehicleDataProvider.getById(favs[f]); if(v) list.push(v); }
+    // 补充热门车型（若收藏不足）
+    if(list.length<12){ var all=allVehicles(); for(var a=0;a<all.length&&list.length<20;a++){ if(favs.indexOf(all[a].id)<0) list.push(all[a]); } }
+    if(!list.length){ grid.innerHTML='<div class="dash-empty">车型素材来自车型库 · 去<a data-go="vehicles">车型库</a>选车后可加入素材</div>'; return; }
+    var h='<div class="asset-hint">共 '+list.length+' 个车型素材 · 点击卡片可加入创作（开发中）</div><div class="asset-list">';
+    for(var b=0;b<list.length;b++){ var vv=list[b]; var img=getCover(vv);
+      h+='<div class="asset-item"><div class="ai-img"><img loading="lazy" src="'+esc(img)+'" onerror="this.style.display=\'none\'"></div><div class="ai-t">'+esc(vv.brand+' '+vv.series)+'</div></div>';
+    }
+    grid.innerHTML=h+'</div>';
+  } else if(tab==='mine'){
+    var mf=LS.get('favs',[]); var mh='<div class="asset-hint">我的素材（收藏的车型）共 '+mf.length+' 个</div>';
+    if(!mf.length){ mh+='<div class="dash-empty">还没有收藏 · 在车型库点 ☆ 收藏</div>'; }
+    else { mh+='<div class="asset-list">';
+      for(var m2=0;m2<mf.length;m2++){ var mv=VehicleDataProvider.getById(mf[m2]); if(!mv) continue; mh+='<div class="asset-item"><div class="ai-img"><img loading="lazy" src="'+esc(getCover(mv))+'" onerror="this.style.display=\'none\'"></div><div class="ai-t">'+esc(mv.brand+' '+mv.series)+'</div></div>'; }
+      mh+='</div>';
+    }
+    grid.innerHTML=mh;
+  } else {
+    // scene / design：占位分类，后续采集
+    var labels={scene:['城市 CBD','高速','地库','充电站','山路','海边','夜景','雨天','停车场'],design:['豪华品牌设计语言','超跑设计语言','越野设计语言','概念车','工业设计','科技感','复古','运动']};
+    var lbs=labels[tab]||[];
+    var ph='<div class="asset-hint">'+(tab==='scene'?'场景':'设计')+'素材 · 敬请期待（后续接入图库）</div><div class="asset-placeholder-grid">';
+    for(var p=0;p<lbs.length;p++){ ph+='<div class="ap-item"><div class="ap-ico">'+(tab==='scene'?'🌆':'🎨')+'</div><div class="ap-t">'+lbs[p]+'</div><div class="ap-tag">待接入</div></div>'; }
+    ph+='</div>';
+    grid.innerHTML=ph;
+  }
+}
+function getCover(v){ if(v.refCover) return v.refCover; if(v.photos&&v.photos.wg&&v.photos.wg[1]) return v.photos.wg[1]; if(v.img) return v.img; return 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="120"><rect width="200" height="120" fill="#eef1f5"/><text x="100" y="65" text-anchor="middle" fill="#9aa5b5" font-size="13">暂无图</text></svg>'); }
+function fmtTime(s){ if(!s) return ''; if(s.length===8){ return s.slice(4,6)+'/'+s.slice(6,8); } return s; }
 function renderHeaderStats(){
   var bank=LS.get('bank',[]), hist=LS.get('history',[]), t=todayStr(), i;
   var c=0; for(i=0;i<bank.length;i++){ if(bank[i].createdAt===t&&!bank[i].sample) c++; }
@@ -1536,7 +1963,7 @@ function renderTodayStrip(){
   var pct=Math.min(100,Math.round(c/15*100));
   var html='<span class="tstrip-date">'+t+' 周'+wk+'</span>'
     +'<span class="tstrip-sep"></span>'
-    +'<span class="tstrip-act">懂车帝AI汽车图文创作比赛</span>'
+    +'<span class="tstrip-act">AI汽车图文创作比赛</span>'
     +'<span class="tstrip-sep"></span>'
     +'<span class="tstrip-prog">今日创作 '+c+'/15<i>'+pct+'%</i></span>'
     +'<span class="tstrip-link"><button data-go="news">今日选题</button></span>'
@@ -1652,14 +2079,14 @@ function rankPos(type,v){
   return best;
 }
 var RANK_DESC={
-  az:'🔤 全部车型 · 按品牌首字母 A-Z 排列（懂车帝同款）',
-  hot:'🔥 热门榜 · 按懂车帝热门榜真实位次排列',
-  new:'🆕 新车榜 · 按车系上新顺序（车系 ID / 年款）排列',
-  rank:'📈 销量榜 · 按懂车帝销量榜真实位次排列',
+  az:'🔤 全部车型 · 按品牌首字母 A-Z 排列',
+  hot:'🔥 热门榜 · 按关注度指数真实位次排列',
+  new:'🆕 新车榜 · 按车系 ID 降序（ID 越大通常越新，无独立新车榜接口）',
+  rank:'📈 销量榜 · 按月销量真实位次排列',
   fav:'⭐ 收藏夹 · 我收藏过的车型'
 };
 function dedupVehicles(list){
-  // 同名车系（示例库「小米」与懂车帝库「小米汽车」等）只保留一条，保留数据源优先级更高的
+  // 同名车系（示例库「小米」与公开库「小米汽车」等）只保留一条，保留数据源优先级更高的
   var seen={}, out=[];
   for(var i=0;i<list.length;i++){
     var v=list[i], k=String(v.name||'').toLowerCase().replace(/\s+/g,'');
@@ -1762,13 +2189,13 @@ function renderVGrid(){
         if(exist[sid]) continue;  // 静态库已含此车（rankVehicles 已按位次排好）
         head.push({ id:'dcs_'+sid, dcd:true, dcdStatic:true, dcdId:sid,
           brand:it.brand_name||'', series:it.series_name||'', name:it.series_name||'',
-          year:'', version:'懂车帝榜单', energy:'其他', level:'—', bodyType:'other', color:'#5b7db1',
+          year:'', version:'榜单', energy:'其他', level:'—', bodyType:'other', color:'#5b7db1',
           price:it.price||'价格待确认', priceMin:parseMinPrice(it.price||''),
           dims:{L:'待确认',W:'待确认',H:'待确认',WB:'待确认'},
           power:{motor:'—',kw:'—',nm:'—',accel:'—'}, battery:{cap:'—',cltc:'—',comp:'—',fast:'—'},
           drive:'—',susp:'—',tire:'—',mass:'—',seats:5,trunk:'—',adas:'—',
-          source:'懂车帝榜单实时数据', updated:new Date().toISOString().slice(0,10), verified:false,
-          cover:it.image||'', count:it.value||0, rank:it.rank, desc:'懂车帝榜单实时车系'
+          source:'榜单实时数据', updated:new Date().toISOString().slice(0,10), verified:false,
+          cover:it.image||'', count:it.value||0, rank:it.rank, desc:'榜单实时车系'
         });
       }
       // 榜单车按 rank 位次排最前
@@ -1778,13 +2205,21 @@ function renderVGrid(){
   }
   var total=list.length, limit=state.rankLimit||20, shown=list.slice(0,limit), html='', i;
   if(!total){
-    html='<div style="grid-column:1/-1">'+emptyBox(mode==='fav'?'还没有收藏车型 · 点击车型卡片右上角 ☆ 收藏':'没有符合条件的车型 · 换个榜单或清空筛选试试')+'</div>';
+    if(mode==='fav'){
+      html='<div style="grid-column:1/-1">'+emptyBox('还没有收藏车型 · 在车型卡片右上角点 ☆ 即可收藏', '去车型库看看', "setTab('vehicles')")+'</div>';
+    } else {
+      html='<div style="grid-column:1/-1">'+emptyBox('没有符合条件的车型 · 换个榜单或清空筛选试试', '清空筛选', "state.energyF='全部';state.bodyF='全部';saveState();renderChips();renderVGrid()")+'</div>';
+    }
   } else {
     var lc={}; for(i=0;i<list.length;i++){ var L=brandLetter(list[i].brand); lc[L]=(lc[L]||0)+1; }
     var live=((mode==='hot'||mode==='rank')&&DCD_RANK.list[mode==='hot'?'hot':'sales'].length>0);
-    html+='<div class="vpcount">'+esc(RANK_DESC[mode]||'')+' · 共 '+total+' 款，已显示 '+shown.length+' 款'
-        +((mode==='hot'||mode==='rank') ? (live ? '<span style="color:#1c7c1c"> · ● 懂车帝实时榜单</span>' : '<span style="color:#b45309"> · ⚠️ 未连接数据服务，当前为本地数据排序</span>') : '')
-        +'</div>';
+    html+='<div class="vpcount">'+esc(RANK_DESC[mode]||'')+' · 共 '+total+' 款，已显示 '+shown.length+' 款';
+    if(mode==='hot'||mode==='rank'){
+      html += live ? '<span style="color:#1c7c1c"> · ● 实时榜单数据</span>' : '<span style="color:#b45309"> · ⚠️ 未连接数据服务，当前为本地数据排序</span>';
+    } else if(mode==='new'){
+      html += '<span style="color:#b45309"> · ⚠️ 按车系ID降序，非官方上新日历，仅供参考</span>';
+    }
+    html+='</div>';
     var lastL='';
     for(i=0;i<shown.length;i++){
       if(mode==='az'){
@@ -1799,7 +2234,7 @@ function renderVGrid(){
     if(total>limit) html+='<button class="vpmore" data-more="1">查看更多（再加载 20 条 · 还有 '+(total-limit)+' 款）</button>';
   }
   $('vGrid').innerHTML=html;
-  $('selCount').textContent='已选 '+state.selected.length+' / 4';
+  $('selCount').innerHTML='已选 '+state.selected.length+' / <span id="selMax">'+(curCat().max||CONFIG.MAX_SELECTED)+'</span>';
   updateRankTabState();
 }
 function groupByBrand(list){
@@ -1903,7 +2338,11 @@ function renderInfoPanel(){
     +'<button class="btn ghost" data-act="copyPrompt">复制Prompt</button><button class="btn ghost" data-act="draft">存入题库</button></div>';
   $('infoPanel').innerHTML=html;
 }
-function emptyBox(msg){ return '<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18v12H3z"/><path d="M3 7l2-3h14l2 3"/></svg><div>'+esc(msg)+'</div></div>'; }
+function emptyBox(msg, ctaText, ctaFn){
+  var s='<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18v12H3z"/><path d="M3 7l2-3h14l2 3"/></svg><div>'+esc(msg)+'</div>';
+  if(ctaText && ctaFn) s+='<button class="emptycta" onclick="'+ctaFn+'">'+esc(ctaText)+'</button>';
+  return s+'</div>';
+}
 
 /* ---------- 车型库页面 ---------- */
 /* ---------- 车型库：品牌 A-Z 索引（懂车帝同款字母导航） ---------- */
@@ -2094,15 +2533,18 @@ function showVehicleDetail(id){
     state.refPhotos[id]={cover:v.cover||'', exterior:[arr[0]||'',arr[1]||'',arr[2]||''], interior:[arr[3]||'',arr[4]||''], labels:{exterior:['正面','侧面','背面'],interior:['前排全景','中控/方向盘']}};
   }
   var ph=state.refPhotos[id]||null;
-  var slots=[
-    {cat:'封面',lbl:'45°主视觉',url:ph?ph.cover:v.cover||''},
-    {cat:'外观',lbl:(ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[0])||'正面',url:ph&&ph.exterior&&ph.exterior[0]||''},
-    {cat:'外观',lbl:(ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[1])||'侧面',url:ph&&ph.exterior&&ph.exterior[1]||''},
-    {cat:'外观',lbl:(ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[2])||'背面',url:ph&&ph.exterior&&ph.exterior[2]||''},
-    {cat:'内饰',lbl:(ph&&ph.labels&&ph.labels.interior&&ph.labels.interior[0])||'前排全景',url:ph&&ph.interior&&ph.interior[0]||''},
-    {cat:'内饰',lbl:(ph&&ph.labels&&ph.labels.interior&&ph.labels.interior[1])||'中控/方向盘',url:ph&&ph.interior&&ph.interior[1]||''}
-  ];
-  var galleryHtml='<div class="sechead">多视角参考图（6 张）</div><div class="dgallery">';
+  // 动态构建图集：封面 + 全部外观 + 全部内饰 + 细节图（服务端已扩展到 外观8/内饰5/细节4）
+  var slots=[];
+  slots.push({cat:'封面',lbl:'45°主视觉',url:ph?ph.cover:v.cover||''});
+  var ext=ph&&ph.exterior||[], extLbls=ph&&ph.labels&&ph.labels.exterior||[];
+  for(var ei=0;ei<ext.length;ei++){ slots.push({cat:'外观',lbl:extLbls[ei]||('外观'+(ei+1)),url:ext[ei]}); }
+  var int=ph&&ph.interior||[], intLbls=ph&&ph.labels&&ph.labels.interior||[];
+  for(var ii=0;ii<int.length;ii++){ slots.push({cat:'内饰',lbl:intLbls[ii]||('内饰'+(ii+1)),url:int[ii]}); }
+  var det=ph&&ph.detail||[], detLbls=ph&&ph.labels&&ph.labels.detail||[];
+  for(var di=0;di<det.length;di++){ slots.push({cat:'细节',lbl:detLbls[di]||('细节'+(di+1)),url:det[di]}); }
+  var totalPics=slots.length;
+  var picCount=ph&&ph.pic_count?ph.pic_count:totalPics;
+  var galleryHtml='<div class="sechead">多视角参考图（'+totalPics+' 张'+(ph&&ph.pic_count&&ph.pic_count>totalPics?' · 车系共 '+ph.pic_count+' 张，仅展示前 '+totalPics+' 张':'')+'）</div><div class="dgallery">';
   for(var i=0;i<slots.length;i++){
     var s=slots[i];
     var inner=s.url?'<img src="'+esc(s.url)+'" alt="'+esc(s.lbl)+'" onerror="this.parentNode.innerHTML=\'<span style=color:var(--ink3);font-size:11px>加载失败</span>\'" data-copyimg="'+esc(s.url)+'">':'<span style="color:var(--ink3);font-size:11px">'+(state.refPhotos._loading===id?'加载中…':'未获取')+'</span>';
@@ -2128,7 +2570,7 @@ function showVehicleDetail(id){
       closeModal();
       if(state.selected.indexOf(id)>=0){ toggleVehicle(id); }
       else { if(state.selected.length>=4){ toast('最多选 4 款'); return; } toggleVehicle(id); }
-      setTab('workbench'); refreshWorkbench(); toast(state.selected.indexOf(id)>=0?'已加入创作':'已移除');
+      setTab('studio'); refreshWorkbench(); toast(state.selected.indexOf(id)>=0?'已加入创作':'已移除');
     }}
   ]);
 }
@@ -2162,7 +2604,7 @@ function buildDetailRows(v){
   if(v.adas) r.push(['智驾',v.adas]);
   if(v.resale) r.push(['保值率',v.resale]);
   if(v.cost) r.push(['用车成本',v.cost]);
-  if(v.score) r.push(['懂车帝评分',v.score+' 分']);
+  if(v.score) r.push(['综合评分',v.score+' 分']);
   if(v.desc) r.push(['亮点',v.desc]);
   return r;
 }
@@ -2204,7 +2646,7 @@ function loadFromBank(it){
   state.title=it.title||'';
   state.infoPoints=it.infoPoints||[];
   state.overridePrompt=it.prompt||'';
-  saveState(); setTab('workbench'); refreshWorkbench();
+  saveState(); setTab('studio'); refreshWorkbench();
   toast('已载入题库条目，可继续编辑');
 }
 function _saveBank(prompt,title,catName,vids,infoPoints){
@@ -2288,7 +2730,7 @@ function genNews(){
   return NEWS_CACHE;
 }
 /* =========================================================
-   每日车圈简报（懂车帝 销量榜 / 降价榜 / 热搜榜 → 当日选题规划）
+   每日车圈简报（销量榜 / 降价榜 / 热搜榜 → 当日选题规划）
    一、今日速览 二、选题规划15篇 三、备用备份5篇 🔥今日押注
 ========================================================= */
 var BRIEF={loading:false, data:null, offline:false, tried:false, rendered:false};
@@ -2343,8 +2785,9 @@ function localBriefData(){
 async function genBrief(){
   if(BRIEF.loading) return;
   BRIEF.loading=true;
-  var btn=$('briefBtn'); btn.disabled=true; btn.textContent='抓取数据中…';
-  var st=$('briefStatus'); st.textContent='正在抓取懂车帝销量榜 / 降价榜 / 热搜榜…';
+  // 工作台入口可能在 news 页面渲染前调用，做 null-safe
+  var btn=$('briefBtn'); if(btn){ btn.disabled=true; btn.textContent='抓取数据中…'; }
+  var st=$('briefStatus'); if(st){ st.textContent='正在抓取销量榜 / 降价榜 / 热搜榜…'; }
   try{
     var sales=await dcdJSON('/api/rank?type=sales&limit=30');
     var priceCut=await dcdJSON('/api/rank?type=price_cut&limit=12');
@@ -2353,22 +2796,23 @@ async function genBrief(){
     if(!sales||!sales.items||!sales.items.length) throw new Error('榜单为空');
     BRIEF.offline=false;
     BRIEF.data={sales:sales, priceCut:priceCut||{items:[]}, hotRank:hotRank||{items:[]}, hotwords:hotwords||{board:[],roll:[]}};
-    renderBrief();
-    st.textContent='更新于 '+new Date().toLocaleString('zh-CN')+' ｜ 数据源：懂车帝本地服务（销量榜 / 降价榜 / 热搜榜）';
+    renderBrief(); renderWbBrief();
+    if(st) st.textContent='更新于 '+new Date().toLocaleString('zh-CN')+' ｜ 数据源：本地数据服务（销量榜 / 降价榜 / 热搜榜）';
     archiveBrief();
   }catch(e){
     BRIEF.offline=true;
     BRIEF.data=localBriefData();
-    renderBrief();
-    st.innerHTML='<span style="color:#b45309">⚠️ 懂车帝本地服务未启动，已用本地车型库降级生成 · 在项目目录运行 <code>python dongchedi_server.py</code> 后点「⚡ 重新生成」</span>';
+    renderBrief(); renderWbBrief();
+    if(st) st.innerHTML='<span style="color:#b45309">⚠️ 本地数据服务未启动，已用本地车型库降级生成 · 在项目目录运行 <code>python dongchedi_server.py</code> 后点「⚡ 重新生成」</span>';
   }
-  BRIEF.loading=false; btn.disabled=false; btn.textContent='⚡ 重新生成';
+  BRIEF.loading=false; if(btn){ btn.disabled=false; btn.textContent='⚡ 重新生成'; }
 }
 function briefSec(n,t,d,body){
   return '<div class="brief-sec"><h2><span class="b-n">'+n+'</span>'+t+'</h2><div class="desc">'+d+'</div>'+body+'</div>';
 }
-function renderBrief(){
+function renderBrief(target){
   var d=BRIEF.data; if(!d) return;
+  var el=$(target||'briefOut'); if(!el) return;
   var sales=(d.sales&&d.sales.items)||[], cut=(d.priceCut&&d.priceCut.items)||[];
   var board=(d.hotwords&&d.hotwords.board)||[], hotTitles=[], b, i;
   for(b=0;b<board.length;b++){
@@ -2385,8 +2829,8 @@ function renderBrief(){
   var roll=(d.hotwords&&d.hotwords.roll)||[];
   var month=(d.sales&&d.sales.month)||'最新';
   var date=new Date().toLocaleDateString('zh-CN');
-  $('briefOut').innerHTML=
-    briefSec('一','今日速览','懂车帝销量榜 / 降价榜 / 热搜榜 · '+date,
+  el.innerHTML=
+    briefSec('一','今日速览','销量榜 / 降价榜 / 热搜榜 · '+date,
       '<div class="tbl-scroll">'+overviewTable(sales,cut,hotTitles)+'</div>')
    +briefSec('二','选题规划 15 篇','⚡快讯6 · ⚔️PK3 · 🛒选买3 · 📝深度2 · 🎨概念车1（按当日热点弹性调整）',
       '<div class="tbl-scroll">'+plan15Table(sales,cut,hotTitles,roll,month)+'</div>')
@@ -2403,7 +2847,7 @@ function overviewTable(sales, cut, hotTitles){
   else skip.push('🚗新车');
   var downs=cut.filter(function(s){ return s.descender&&Number(s.descender)>0; });
   if(downs.length) rows.push(['💰 降价', downs.slice(0,3).map(function(s){ return esc(s.series_name)+' 降'+esc(s.descender)+'万'; }).join(' ｜ ')]);
-  else rows.push(['💰 降价', '当日无有效降价数据（懂车帝公开接口暂未返回）']);
+  else rows.push(['💰 降价', '当日无有效降价数据（公开接口暂未返回）']);
   if(sales.length) rows.push(['📊 数据', sales.slice(0,3).map(function(s){ return esc(s.series_name)+(s.value?' '+fmtV(s.value):(s.price?' '+esc(s.price):'')); }).join(' ｜ ')]);
   else skip.push('📊数据');
   if(hotTitles.length) rows.push(['🔥 热点', hotTitles.slice(0,3).map(function(t){ return esc(clip(t,16)); }).join(' ｜ ')]);
@@ -2539,7 +2983,7 @@ function pickAdvice(sales, hotTitles, roll){
     return '押「'+esc(clip(hot,18))+'」相关快讯：热点自带流量，且关联榜Top1「'+esc(topCar.series_name)+'」'+(topCar.value?'（📊 '+fmtV(topCar.value)+'）':'')+'，建议上午发快讯抢时效、下午发 PK / 选买承接搜索，最可能爆。';
   }
   if(topCar&&!hasHot){
-    return '当前无热搜数据（懂车帝本地服务未启动），建议围绕榜首「'+esc(topCar.series_name)+'」'+(topCar.value?'（📊 '+fmtV(topCar.value)+'）':'')+'产出选买 / PK 稿：销量榜自带搜索流量，是离线状态下最稳的选题。';
+    return '当前无热搜数据（本地数据服务未启动），建议围绕榜首「'+esc(topCar.series_name)+'」'+(topCar.value?'（📊 '+fmtV(topCar.value)+'）':'')+'产出选买 / PK 稿：销量榜自带搜索流量，是离线状态下最稳的选题。';
   }
   return '押「'+esc(clip(hot,18))+'」相关快讯：热点自带流量，建议优先产出。';
 }
@@ -2567,7 +3011,7 @@ function useTopic(el){
   state.selected=picked.slice(0,c.max);
   state.title=title.replace(/^(⚡快讯：|快讯：)/,'');
   state.infoPoints=[]; state.overridePrompt='';
-  saveState(); setTab('workbench'); refreshWorkbench();
+  saveState(); setTab('studio'); refreshWorkbench();
   toast(picked.length?('已带入创作：'+clip(title,16)+' · 自动加入 '+picked.length+' 款车'):('已带入创作：'+clip(title,16)+' · 未匹配到车型，请手动选择'));
 }
 /* 归档 + 历史 */
@@ -2580,7 +3024,7 @@ async function archiveBrief(){
 }
 function briefToMarkdown(){
   var tbls=document.querySelectorAll('#briefOut table.brief-tbl');
-  var md='# 懂车帝每日车圈简报 · '+new Date().toLocaleDateString('zh-CN')+'\n\n';
+  var md='# 每日车圈简报 · '+new Date().toLocaleDateString('zh-CN')+'\n\n';
   var titles=['一、今日速览','二、选题规划15篇','三、备用备份5篇'];
   for(var ti=0;ti<tbls.length;ti++){
     var tbl=tbls[ti];
@@ -2632,7 +3076,7 @@ function renderNews(){
   if(BRIEF.data) return;
   if(!$('briefOut').innerHTML.replace(/\s/g,'')){
     $('briefOut').innerHTML='<div class="brief-off">📰 <b>每日车圈简报</b><br>'
-      +'基于懂车帝 <b>销量榜 / 降价榜 / 热搜榜</b> 自动生成当日选题规划：<b>今日速览 · 选题规划 15 篇 · 备用备份 5 篇 · 🔥今日押注</b>，每一行都能「→用此选题」一键带入创作台。<br>'
+      +'基于 <b>销量榜 / 降价榜 / 热搜榜</b> 自动生成当日选题规划：<b>今日速览 · 选题规划 15 篇 · 备用备份 5 篇 · 🔥今日押注</b>，每一行都能「→用此选题」一键带入创作台。<br>'
       +'点击右上角「⚡ 生成今日车圈简报」开始；需先在项目目录运行 <code>python dongchedi_server.py</code>（未启动时会用本地车型库降级生成）。</div>';
   }
   loadHist();
@@ -2655,7 +3099,7 @@ function renderHistory(){
 /* ---------- 数据管理 ---------- */
 function renderDataMgmt(){
   var customs=LS.get('custom_vehicles',[]), html='', i;
-  html+='<p style="font-size:12.5px;color:var(--ink2);margin-bottom:10px">内置示例库 '+VEHICLES.length+' 款（含完整参数）+ 懂车帝全量车系库 '+window.DCD_FULL_DATA.length+' 款（真实封面图） + 我的车型 '+customs.length+' 款（可编辑）</p>';
+  html+='<p style="font-size:12.5px;color:var(--ink2);margin-bottom:10px">内置示例库 '+VEHICLES.length+' 款（含完整参数）+ 公开车型数据库 '+window.DCD_FULL_DATA.length+' 款（真实封面图） + 我的车型 '+customs.length+' 款（可编辑）</p>';
   if(!customs.length){ html+=emptyBox('暂无自定义车型'); }
   for(i=0;i<customs.length;i++){
     var v=customs[i];
@@ -2667,8 +3111,8 @@ function renderDataMgmt(){
   $('tplCenter').innerHTML=th;
   renderDcdPanel();
   $('providerInfo').innerHTML='<div style="font-size:13px;line-height:1.9">'
-    +'<p style="margin-top:10px"><b>当前数据源</b></p><p>· MockProvider：内置示例车型库（'+VEHICLES.length+'款热门车型，参数已人工核对，未确认数据带⚠️）</p><p>· DcdStaticProvider：<b style="color:var(--accent-ink)">懂车帝全量车系库（内置 '+window.DCD_FULL_DATA.length+' 款真实车系·100%真实封面图，无需服务器）</b></p><p>· UserProvider：我的车型（本地自定义，本页面可直接增删改）</p>'
-    +(DCD.on()?'<p>· DongchediProvider：<b style="color:var(--accent-ink)">懂车帝本地数据源 · '+(DCD.ok?'已连接':'未启动')+'</b>（在线时自动搜索全量车系、补全真实封面图）</p>':'')
+    +'<p style="margin-top:10px"><b>当前数据源</b></p><p>· MockProvider：内置示例车型库（'+VEHICLES.length+'款热门车型，参数已人工核对，未确认数据带⚠️）</p><p>· DcdStaticProvider：<b style="color:var(--accent-ink)">公开车型数据库（内置 '+window.DCD_FULL_DATA.length+' 款真实车系·100%真实封面图，无需服务器）</b></p><p>· UserProvider：我的车型（本地自定义，本页面可直接增删改）</p>'
+    +(DCD.on()?'<p>· DongchediProvider：<b style="color:var(--accent-ink)">本地车型数据源 · '+(DCD.ok?'已连接':'未启动')+'</b>（在线时自动搜索全量车系、补全真实封面图）</p>':'')
     +'<p style="margin-top:10px"><b>预留接口</b></p><p>· OfficialBrandProvider：厂商官方数据通道</p>'
     +'<p style="margin-top:10px;color:var(--ink3);font-size:12px">架构说明：页面通过 VehicleDataProvider 抽象层统一取数，接入新数据源只需实现 list() 接口，无需改动任何页面逻辑。云端题库走资料库数据表，多端自动同步。</p></div>';
 }
@@ -2708,9 +3152,9 @@ function renderDcdPanel(){
   var dh='';
   if(!DCD.on()){
     dh='<div style="font-size:12.5px;line-height:1.9;color:var(--ink2)">'
-      +'<p>按《懂车帝车型库抓取实现方法论》实现的本地数据服务：<b>全量车系库</b>（品牌1~40遍历，实测4000+车系）+ <b>多视角参考图</b>（封面1+外观3+内饰2，统一750px）。</p>'
+      +'<p>本地数据服务：<b>全量车系库</b>（品牌1~40遍历，实测4000+车系）+ <b>多视角参考图</b>（封面+外观+内饰+细节，统一750px）。</p>'
       +'<p style="color:var(--ink3)">启动方式：<code style="background:#f0f2f6;padding:2px 8px;border-radius:6px">python dongchedi_server.py</code>（端口 8765 · 首次构建约1-2分钟 · 7天缓存）</p>'
-      +'<p style="color:var(--ink3)">启用后：创作台搜索优先返回懂车帝真实车系（卡片带实拍封面），本区块可浏览车系详情与实拍图，一键带入创作。</p>'
+      +'<p style="color:var(--ink3)">启用后：创作台搜索优先返回真实车系（卡片带实拍封面），本区块可浏览车系详情与实拍图，一键带入创作。</p>'
       +'<div style="display:flex;gap:9px;margin-top:6px"><button class="btn primary sm" data-dcd="on">连接并启用</button><button class="btn ghost sm" data-dcd="ping">检测服务</button></div></div>';
   } else if(!DCD.ok){
     dh='<div style="font-size:12.5px;color:var(--ink2)"><p><b>服务未响应</b>（127.0.0.1:8765）</p>'
@@ -2727,7 +3171,7 @@ function renderDcdPanel(){
       +'<button class="btn ghost sm" data-dcd="off" style="color:var(--danger)">停用</button></div>'
       +'<div class="toolrow" style="margin-bottom:10px"><div class="searchbox">'
       +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
-      +'<input id="dcdSearch" type="search" placeholder="搜索懂车帝真实车系 / 品牌" value="'+esc(state.dcdKw||'')+'"></div></div>'
+      +'<input id="dcdSearch" type="search" placeholder="搜索真实车系 / 品牌" value="'+esc(state.dcdKw||'')+'"></div></div>'
       +'<div id="dcdResults"></div>'
       +'<p style="font-size:11.5px;color:var(--ink3);margin-top:8px">图片经本地 /imgproxy 代理转发（解决字节CDN跨域）。搜索结果缓存于当前页，选中后可在创作台继续编辑 Prompt。</p>';
   }
@@ -2737,7 +3181,7 @@ function renderDcdPanel(){
 function renderDcdResults(){
   var box=$('dcdResults'); if(!box) return;
   var list=DCD.cache||[];
-  if(!list.length){ box.innerHTML=emptyBox('正在加载懂车帝车系…（首次构建约1-2分钟，构建完成后自动出现）'); return; }
+  if(!list.length){ box.innerHTML=emptyBox('正在加载车系数据…（首次构建约1-2分钟，构建完成后自动出现）'); return; }
   var h='<div style="display:flex;flex-direction:column;gap:7px;max-height:420px;overflow:auto">';
   for(var i=0;i<list.length;i++){
     var v=list[i];
@@ -2758,13 +3202,13 @@ function showDcdDetail(dcdId){
       p=p||{cover:'',exterior:[],interior:[]};
       var body='<div class="dcddetail">';
       body+='<div style="display:flex;gap:10px;align-items:baseline;margin-bottom:4px"><h3 style="font-size:16px">'+esc(name)+'</h3><span style="font-size:12px;color:var(--ink2)">'+esc(s.price||'')+'</span></div>';
-      body+='<p style="font-size:12px;color:var(--ink3);margin-bottom:10px">'+esc(s.name||'')+' · 懂车帝真实车系 · ID '+esc(dcdId)+'</p>';
+      body+='<p style="font-size:12px;color:var(--ink3);margin-bottom:10px">'+esc(s.name||'')+' · 真实车系 · ID '+esc(dcdId)+'</p>';
       if(p.cover){ body+='<img class="dcdbig" src="'+esc(DCD.img(p.cover))+'" alt="" onerror="this.style.display=\'none\'">'; }
       if(p.exterior&&p.exterior.length){ body+='<div class="sechead">外观实拍（3）</div><div class="dcdphotos">'+p.exterior.map(function(u){ return '<img src="'+esc(DCD.img(u))+'" loading="lazy" onerror="this.style.display=\'none\'">'; }).join('')+'</div>'; }
       if(p.interior&&p.interior.length){ body+='<div class="sechead">内饰实拍（2）</div><div class="dcdphotos">'+p.interior.map(function(u){ return '<img src="'+esc(DCD.img(u))+'" loading="lazy" onerror="this.style.display=\'none\'">'; }).join('')+'</div>'; }
       if(!p.cover&&!p.exterior.length&&!p.interior.length){ body+='<p style="font-size:12.5px;color:var(--ink3)">暂无实拍图（可稍后刷新重试）</p>'; }
       body+='</div>';
-      openModal('懂车帝 · 车系详情',body,[
+      openModal('车系详情',body,[
         {label:'取消',cls:'ghost',fn:closeModal},
         {label:'带入创作',cls:'primary',fn:function(){ closeModal(); useDcdVehicle(dcdId); }}
       ]);
@@ -2778,7 +3222,7 @@ function useDcdVehicle(dcdId){
   if(state.selected.length>=4){ toast('最多选择 4 款车型'); return; }
   if(state.selected.indexOf(v.id)<0) state.selected.push(v.id);
   touchVehicle(v.id); saveState();
-  setTab('workbench'); renderVGrid(); renderSelected(); renderInfoPanel();
+  setTab('studio'); renderVGrid(); renderSelected(); renderInfoPanel();
   toast('已将「'+v.name+'」带入创作');
 }
 
@@ -2890,6 +3334,7 @@ function showVehicleForm(v){
       if(isEdit){ for(var k in item){ if(k!=='id') v[k]=item[k]; } }
       else { customs.push(item); }
       LS.set('custom_vehicles',customs);
+      VehicleDataProvider.markDirty();
       closeModal(); renderDataMgmt(); renderVGrid(); renderLibrary(); renderChips(); toast(isEdit?'已更新车型':'已新增车型');
     }}
   ]);
@@ -2991,7 +3436,34 @@ function renderSearchDropdown(q){
 function closeSearchDD(){ var d=$('vSearchDD'); if(d) d.style.display='none'; }
 function bindEvents(){
   $('nav').addEventListener('click',function(e){ var b=e.target.closest('button[data-tab]'); if(b){ setTab(b.dataset.tab); } });
+  // 右上角图标按钮（设置）+ 车型库数据管理按钮：data-tab 委托
+  $('topactions').addEventListener('click',function(e){ var b=e.target.closest('button[data-tab]'); if(b){ setTab(b.dataset.tab); } });
+  var pgDm=document.querySelector('#page-vehicles [data-tab="datamgmt"]'); if(pgDm) pgDm.addEventListener('click',function(){ setTab('datamgmt'); });
+  // 深色模式切换
+  var tt=$('themeToggle'); if(tt) tt.addEventListener('click',toggleTheme);
   $('todayStrip').addEventListener('click',function(e){ var b=e.target.closest('button[data-go]'); if(b){ setTab(b.dataset.go); } });
+  // 我的作品 → Prompt 历史（二级入口）
+  var bh=$('bankHistory'); if(bh) bh.addEventListener('click',function(){ setTab('history'); });
+  // 素材中心分类切换
+  $('assetTabs').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-atab]'); if(!b) return;
+    var tabs=$('assetTabs').children;
+    for(var i=0;i<tabs.length;i++) tabs[i].className='';
+    b.className='on';
+    state.atTab=b.dataset.atab; saveState(); renderAssets();
+  });
+  // 驾驶舱：data-quick=一键带入车型生成Prompt；data-go=tab 跳其他页
+  $('dashboard').addEventListener('click',function(e){
+    var b=e.target.closest('[data-quick],[data-go]'); if(!b) return;
+    if(b.dataset.quick){
+      if(b.dataset.quick==='random'){ autoRandomCreate(); }
+      else { autoQuickCreate(b.dataset.quick); }
+    } else if(b.dataset.go){
+      setTab(b.dataset.go);
+    }
+  });
+  // 素材中心空状态链接跳转
+  $('assetGrid').addEventListener('click',function(e){ var b=e.target.closest('[data-go]'); if(b) setTab(b.dataset.go); });
   $('vSearch').addEventListener('input',function(){
     state.vSearch=this.value.trim(); state.rankLimit=20; saveState();
     if(state.vSearch){ renderSearchDropdown(state.vSearch); } else { closeSearchDD(); }
@@ -3016,7 +3488,7 @@ function bindEvents(){
     if(state.selected.indexOf(id)<0){
       if(state.selected.length>=4){ toast('最多选 4 款'); return; }
       toggleVehicle(id);
-    } else { toast('已加入创作台'); setTab('workbench'); }
+    } else { toast('已加入创作台'); setTab('studio'); }
     $('vSearch').value=''; state.vSearch=''; saveState(); renderVGrid(); renderSelected(); renderInfoPanel();
   });
   $('clearSel').onclick=function(){ state.selected=[]; state.refOpen=null; saveState(); renderVGrid(); renderSelected(); renderInfoPanel(); };
@@ -3208,6 +3680,11 @@ function bindEvents(){
     var u=e.target.closest('.use'); if(!u) return;
     useTopic(u);
   });
+  // 工作台嵌入的资讯栏：同样的「→用此选题」委托（renderBrief 把 .use 渲染到 #wbBriefOut）
+  var wb=$('wbBrief'); if(wb) wb.addEventListener('click',function(e){
+    var u=e.target.closest('.use'); if(!u) return;
+    useTopic(u);
+  });
   $('histDates').addEventListener('click',function(e){
     var d=e.target.closest('.hist-date'); if(!d) return;
     showHist(d.dataset.d, d);
@@ -3220,7 +3697,7 @@ function bindEvents(){
     if(b.dataset.hact==='copyh'){ copyText(it.prompt||''); }
     else if(b.dataset.hact==='loadh'){
       state.catId=catByName(it.categoryName).id; state.title=it.title; state.overridePrompt=it.prompt;
-      state.infoPoints=[]; saveState(); setTab('workbench'); refreshWorkbench(); toast('已载入历史Prompt');
+      state.infoPoints=[]; saveState(); setTab('studio'); refreshWorkbench(); toast('已载入历史Prompt');
     }
     else if(b.dataset.hact==='delh'){ LS.set('history',hist.filter(function(x){ return x.id!==it.id; })); renderHistory(); renderHeaderStats(); toast('已删除'); }
   });
@@ -3239,6 +3716,7 @@ function bindEvents(){
     if(b.dataset.vact==='edit'){ showVehicleForm(v); }
     else if(b.dataset.vact==='delv'){
       LS.set('custom_vehicles',customs.filter(function(x){ return x.id!==v.id; }));
+      VehicleDataProvider.markDirty();
       state.selected=state.selected.filter(function(id){ return id!==v.id; });
       saveState(); renderDataMgmt(); renderVGrid(); renderLibrary(); renderChips(); toast('已删除自定义车型');
     }
@@ -3253,7 +3731,7 @@ function bindEvents(){
     var b=e.target.closest('[data-dcd]');
     if(b){
       if(b.dataset.dcd==='on'){ DCD.setOn(true); DCD.ping(function(ok){ if(ok){ DCD.search('',function(){ renderDcdPanel(); renderVGrid(); }); } else { toast('服务未启动：请先运行 python dongchedi_server.py'); } }); renderDcdPanel(); }
-      else if(b.dataset.dcd==='off'){ DCD.setOn(false); DCD.cache=[]; renderDcdPanel(); renderVGrid(); toast('已停用懂车帝数据源'); }
+      else if(b.dataset.dcd==='off'){ DCD.setOn(false); DCD.cache=[]; renderDcdPanel(); renderVGrid(); toast('已停用本地数据源'); }
       else if(b.dataset.dcd==='ping'){ DCD.ping(function(ok){ toast(ok?'服务在线 · 车系 '+DCD.stats.series_count+' / 品牌 '+DCD.stats.brand_count:'服务未响应'); }); }
       return;
     }
@@ -3292,7 +3770,7 @@ function bindEvents(){
           LS.set('bank',bank);
         }
         if(data.history){ LS.set('history',data.history); }
-        if(data.custom_vehicles){ LS.set('custom_vehicles',data.custom_vehicles); }
+        if(data.custom_vehicles){ LS.set('custom_vehicles',data.custom_vehicles); VehicleDataProvider.markDirty(); }
         if(data.tpls){ LS.set('tpls',data.tpls); }
         if(data.favs){ LS.set('favs',data.favs); }
         refreshAll(); toast('导入成功');
@@ -3350,7 +3828,7 @@ function bringNews(it){
   state.catId=it.cat;
   state.selected=it.vids.filter(function(id){ return !!VehicleDataProvider.getById(id); }).slice(0,4);
   state.title=it.title; state.infoPoints=[]; state.overridePrompt='';
-  saveState(); setTab('workbench'); refreshWorkbench();
+  saveState(); setTab('studio'); refreshWorkbench();
   toast('已带入创作：'+it.title.slice(0,18)+'…');
 }
 function uploadRef(vid){
@@ -3393,11 +3871,47 @@ function ensureSample(){
   if(items.length){ LS.set('bank',items); }
   LS.set('sample_done',true);
 }
+/* 夜间模式切换：持久化到 localStorage，刷新页面自动应用 */
+function applyTheme(){
+  var dark=LS.get('theme',null)==='dark';
+  document.documentElement.setAttribute('data-theme', dark?'dark':'light');
+  updateThemeIcon(dark);
+}
+function toggleTheme(){
+  var dark=document.documentElement.getAttribute('data-theme')==='dark';
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme', dark?'dark':'light');
+  LS.set('theme', dark?'dark':'light');
+  updateThemeIcon(dark);
+  toast(dark?'已切换到夜间模式':'已切换到日间模式');
+}
+function updateThemeIcon(dark){
+  var btn=$('themeToggle'); if(!btn) return;
+  // 月亮 = 当前夜间（点击切回日间）；太阳 = 当前日间（点击切到夜间）
+  btn.title = dark ? '切换到日间模式' : '切换到夜间模式';
+  btn.innerHTML = dark
+    ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+    : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+}
 function init(){
   loadState();
+  applyTheme();
   bindEvents();
+  // hash 路由：刷新/分享链接优先用 URL hash 定位 tab
+  var VALID_TABS=['workbench','vehicles','studio','assets','bank','news','history','datamgmt','settings'];
+  var h0=location.hash.replace(/^#\/?/,'');
+  if(h0 && VALID_TABS.indexOf(h0)>=0){ setTab(h0); }
+  // 浏览器前进/后退同步
+  window.addEventListener('hashchange',function(){
+    var hh=location.hash.replace(/^#\/?/,'');
+    if(hh!==state.tab && VALID_TABS.indexOf(hh)>=0){ setTab(hh); }
+    else if(!hh && state.tab!=='workbench'){ setTab('workbench'); }
+  });
   ensureSample();
   refreshAll();
+  // 关闭页面前强制 flush 节流中的 saveState，防丢数据
+  window.addEventListener('beforeunload', saveStateNow);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState==='hidden') saveStateNow(); });
   Cloud.setStatus(Cloud.available?'busy':'off');
   if(Cloud.available){
     Cloud.pull().then(function(){ renderBank(); renderTodayStrip(); renderHeaderStats(); });

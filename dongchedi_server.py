@@ -8,7 +8,7 @@
   - 全量车系库：按品牌 ID 1~40 遍历 App 接口（突破网页端 Top100 限制），去重合并
   - 品牌名补全：对每个有效品牌取任一车系调详情接口
   - 缓存：dongchedi_cache.json，7 天有效，冷启动才重建
-  - 参考图：每车系 封面1 + 外观3 + 内饰2，缺图自动跳过，统一 750px
+  - 参考图：每车系 封面1 + 外观8 + 内饰5 + 细节4，缺图自动跳过，统一 750px
   - 图片代理 /imgproxy：解决浏览器跨域
 
 接口：
@@ -17,7 +17,7 @@
   GET /api/series-by-brand?brand_id=  按品牌取车系
   GET /api/brands                     品牌列表
   GET /api/detail?id=                 车系详情
-  GET /api/photos?id=                 参考图 {cover, exterior[], interior[]}
+  GET /api/photos?id=                 参考图 {cover, exterior[], interior[], detail[], labels, pic_count}
   GET /api/rank?type=&limit=          懂车帝排行榜（sales/wholesale/hot/score/price_cut/range）
   GET /api/hotwords                   懂车帝热搜（热搜榜标题 + 滚动热搜词）
   GET /api/briefs[?date=YYYY-MM-DD]   每日车圈简报历史列表 / 读某天
@@ -212,59 +212,81 @@ def rebuild_async():
 # ---------------- Step 4：参考图 ----------------
 def get_photos(sid):
     """按《懂车帝全量车型库与参考图获取实现方法论 v2》第 2.4 节索引规律取主视图。
-    外观: wg[1]=正面, wg[3]=侧面, wg[5]=背面, 越界顺序补图
-    内饰: ns[0]=前排全景, ns[1]=中控/方向盘
-    返回: {cover, exterior[], interior[], labels{exterior[],interior[]}}
+    外观: wg[1]=正面, wg[3]=侧面, wg[5]=背面, 越界顺序补图，最多取 8 张
+    内饰: ns[0]=前排全景, ns[1]=中控/方向盘，最多取 5 张
+    细节: xg 类别取细节图，最多取 4 张
+    返回: {cover, exterior[], interior[], detail[], labels{exterior[],interior[],detail[]}, pic_count}
     """
     with LOCK:
         if sid in PHOTO_CACHE:
             return PHOTO_CACHE[sid]
-    result = {"cover": "", "exterior": [], "interior": [],
-              "labels": {"exterior": [], "interior": []}}
+    result = {"cover": "", "exterior": [], "interior": [], "detail": [],
+              "labels": {"exterior": [], "interior": [], "detail": []},
+              "pic_count": 0}
     try:
         d = json.loads(fetch(DETAIL_URL.format(sid=sid)))
-        result["cover"] = norm_img((d.get("data") or {}).get("cover_url") or "")
+        data = d.get("data") or {}
+        result["cover"] = norm_img(data.get("cover_url") or "")
+        # 懂车帝返回 series_pic_count 字段表示该车系总图片数
+        result["pic_count"] = data.get("series_pic_count") or data.get("pic_count") or 0
     except Exception:
         pass
-    # 外观：按固定索引取主视图
-    ext_labels = ["正面", "侧面", "背面"]
-    ext_indices = [1, 3, 5]
+    # 外观：按固定索引取主视图，不足按顺序补图，最多 8 张
+    ext_labels = ["正面", "侧面", "背面", "45°前", "45°后", "车头", "车尾", "轮毂"]
+    ext_indices = [1, 3, 5, 0, 2, 4, 6, 7]
     try:
         d = json.loads(fetch(PICTURE_URL.format(sid=sid, cat="wg")))
         pl = ((d.get("data") or {}).get("picture_list") or [])
         urls = (pl[0].get("large_pic_url") or pl[0].get("pic_url") or []) if pl else []
         taken = []
         for idx, lbl in zip(ext_indices, ext_labels):
+            if len(result["exterior"]) >= 8:
+                break
             if idx < len(urls):
                 uu = norm_img(urls[idx])
                 if uu and uu not in taken and uu != result["cover"]:
                     taken.append(uu)
                     result["exterior"].append(uu)
                     result["labels"]["exterior"].append(lbl)
-        # 不足 3 张按顺序补图
+        # 不足 8 张按剩余顺序补图
         for idx2, u in enumerate(urls):
-            if len(result["exterior"]) >= 3:
+            if len(result["exterior"]) >= 8:
                 break
             uu = norm_img(u)
             if uu and uu not in taken and uu != result["cover"]:
                 taken.append(uu)
                 result["exterior"].append(uu)
-                result["labels"]["exterior"].append("45°" if idx2 == 0 else "外观")
+                result["labels"]["exterior"].append("外观" + str(idx2 + 1))
     except Exception:
         pass
     time.sleep(0.1)
-    # 内饰：ns[0]=前排全景, ns[1]=中控
-    int_labels = ["前排全景", "中控/方向盘"]
+    # 内饰：ns[0]=前排全景, ns[1]=中控，最多取 5 张
+    int_labels = ["前排全景", "中控/方向盘", "后排座椅", "挡把/扶手", "仪表盘"]
     try:
         d = json.loads(fetch(PICTURE_URL.format(sid=sid, cat="ns")))
         pl = ((d.get("data") or {}).get("picture_list") or [])
         urls = (pl[0].get("large_pic_url") or pl[0].get("pic_url") or []) if pl else []
-        for idx3, lbl in zip(range(2), int_labels):
+        for idx3, lbl in zip(range(len(int_labels)), int_labels):
+            if len(result["interior"]) >= 5:
+                break
             if idx3 < len(urls):
                 uu = norm_img(urls[idx3])
                 if uu:
                     result["interior"].append(uu)
                     result["labels"]["interior"].append(lbl)
+    except Exception:
+        pass
+    time.sleep(0.1)
+    # 细节图（xg 类别）：最多取 4 张
+    try:
+        d = json.loads(fetch(PICTURE_URL.format(sid=sid, cat="xg")))
+        pl = ((d.get("data") or {}).get("picture_list") or [])
+        urls = (pl[0].get("large_pic_url") or pl[0].get("pic_url") or []) if pl else []
+        for idx4 in range(min(4, len(urls))):
+            uu = norm_img(urls[idx4])
+            if uu:
+                result["detail"].append(uu)
+                result["labels"]["detail"].append("细节" + str(idx4 + 1))
     except Exception:
         pass
     with LOCK:
@@ -329,31 +351,44 @@ RANK_CACHE = {}          # key -> (ts, data)
 RANK_TTL = 1800          # 30 分钟缓存（榜单按天更新，热搜变动较快）
 HOT_CACHE = {"ts": 0, "data": None}
 
-# type -> (rank_data_type, sub_rank_data_type)
+# type -> (rank_data_type, sub_rank_data_type, needs_month, value_field)
+# 实测：rank_data_type=11 + month=YYYYMM 返回真实月销量（如星愿32306台）
+#        rank_data_type=20000 返回的是关注度指数（如小米SU7 1440117），并非销量
 RANK_TYPES = {
-    "sales":     (20000, 11),    # 销量榜-零售量
-    "wholesale": (20000, 12),    # 销量榜-批发量
-    "hot":       (1, None),      # 热门榜
-    "score":     (3, None),      # 懂车分榜
-    "price_cut": (10002, None),  # 降价榜
-    "range":     (10001, None),  # 新能源续航榜
+    "sales":     (11, None, True, "count"),    # 销量榜-零售量（需 month 参数）
+    "wholesale": (12, None, True, "count"),    # 销量榜-批发量
+    "hot":       (1, None, False, "count"),    # 热门榜（关注度指数）
+    "score":     (3, None, False, "score"),    # 懂车分榜
+    "price_cut": (10002, None, False, "count"),# 降价榜
+    "range":     (10001, None, False, "count"), # 新能源续航榜
 }
 
 
+def _last_month():
+    """上个月 YYYYMM（当月销量数据通常下月初才出齐）"""
+    import datetime
+    now = datetime.datetime.now()
+    first = now.replace(day=1)
+    last = first - datetime.timedelta(days=1)
+    return last.strftime("%Y%m")
+
+
 def get_rank(rank_type="sales", limit=30):
-    """懂车帝排行榜。返回 {items:[...], month:''}"""
+    """排行榜。返回 {items:[...], month:''}"""
     if rank_type not in RANK_TYPES:
         return {"items": [], "month": ""}
-    rt, sub = RANK_TYPES[rank_type]
+    rt, sub, needs_month, vfield = RANK_TYPES[rank_type]
     ck = "%s_%s_%s" % (rank_type, sub, limit)
     now = time.time()
     with RANK_LOCK:
         hit = RANK_CACHE.get(ck)
         if hit and now - hit[0] < RANK_TTL:
             return hit[1]
-    params = {"rank_data_type": rt, "city_name": CITY, "limit": limit}
+    params = {"rank_data_type": rt, "count": limit}
     if sub is not None:
         params["sub_rank_data_type"] = sub
+    if needs_month:
+        params["month"] = _last_month()
     try:
         obj = json.loads(fetch(RANK_DATA_URL + "?" + urllib.parse.urlencode(params), timeout=15))
         d = obj.get("data") or {}
@@ -368,13 +403,15 @@ def get_rank(rank_type="sales", limit=30):
                 "image": norm_img(it.get("image") or ""),
                 "price": it.get("price") or "",
                 "dealer_price": it.get("dealer_price") or "",
-                "value": it.get("count") or it.get("sells") or it.get("score") or 0,
+                "value": it.get(vfield) or it.get("count") or it.get("sells") or 0,
                 "descender": it.get("descender_price") or 0,
                 "tag": it.get("tag") or "",
             })
         month = d.get("month")
         if isinstance(month, list):
             month = month[0] if month else ""
+        if not month and needs_month:
+            month = _last_month()
         result = {"items": items[:limit], "month": month or d.get("sells_rank_month") or ""}
     except Exception as e:
         log("rank %s failed: %s" % (rank_type, e))
@@ -459,9 +496,18 @@ class Handler(BaseHTTPRequestHandler):
         pass  # 静默访问日志
 
     def _cors(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
+        # 本地交付物：file://（Origin 通常为 "null" 或缺失）+ 127.0.0.1/localhost 同源
+        # 拒绝其他来源，防止绑 0.0.0.0 后被外部站点调用
+        origin = self.headers.get("Origin", "")
+        local_ok = (
+            not origin or origin == "null" or
+            origin.startswith(("http://127.0.0.1", "http://localhost",
+                               "https://127.0.0.1", "https://localhost"))
+        )
+        self.send_header("Access-Control-Allow-Origin", origin if local_ok else "null")
+        self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "*")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
     def _json(self, obj, code=200):
         body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -516,15 +562,25 @@ class Handler(BaseHTTPRequestHandler):
         if not model:
             return self._json({"ok": False, "error": "缺少 model"}, 400)
         # 只允许转发到大模型服务商，防止 SSRF 滥用
+        # 精确根域匹配：取 host 最后两段作为根域，避免 endswith 被子域绕过
+        # （evildeepseek.com 不应被允许为 deepseek.com 的子域）
         host = urllib.parse.urlparse(base).netloc.lower()
-        allowed = (
-            host.endswith(".deepseek.com") or host == "deepseek.com" or
-            host.endswith(".openai.com") or host == "openai.com" or
-            host.endswith(".aliyuncs.com") or host.endswith(".bigmodel.cn") or
-            host.endswith(".volces.com") or host.endswith(".moonshot.cn") or
-            host.endswith(".zhipuai.cn") or host.endswith(".siliconflow.cn")
-        )
-        if not allowed:
+        if "@" in host:
+            host = host.rsplit("@", 1)[-1]
+        if ":" in host:
+            host = host.rsplit(":", 1)[0]
+        parts = host.split(".")
+        root = ".".join(parts[-2:]) if len(parts) >= 2 else host
+        # 拒绝内网/回环/链路本地 IP（即使伪装成域名也拦）
+        if host in ("localhost",) or host.startswith(("127.", "10.", "192.168.", "169.254.")) or \
+           (host.startswith("172.") and len(parts) == 4 and 16 <= int(parts[1]) <= 31):
+            return self._json({"ok": False, "error": "internal host blocked: " + host}, 403)
+        ALLOWED_AI_ROOTS = {
+            "deepseek.com", "openai.com", "aliyuncs.com",
+            "bigmodel.cn", "volces.com", "moonshot.cn",
+            "zhipuai.cn", "siliconflow.cn",
+        }
+        if root not in ALLOWED_AI_ROOTS:
             return self._json({"ok": False, "error": "不允许的服务商地址: " + host}, 403)
         url = base.rstrip("/") + "/chat/completions"
         payload = {"model": model, "messages": messages}
@@ -624,8 +680,27 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/imgproxy":
             u = (qs.get("u") or [""])[0]
-            if not u.startswith("http"):
+            if not u.startswith(("http://", "https://")):
                 return self._json({"ok": False, "error": "bad url"}, 400)
+            # 白名单：只允许懂车帝/字节系 CDN 根域，防 SSRF 探内网
+            phost = urllib.parse.urlparse(u).netloc.lower()
+            if "@" in phost:
+                phost = phost.rsplit("@", 1)[-1]
+            if ":" in phost:
+                phost = phost.rsplit(":", 1)[0]
+            pparts = phost.split(".")
+            proot = ".".join(pparts[-2:]) if len(pparts) >= 2 else phost
+            # 拒绝内网/回环/链路本地
+            if phost == "localhost" or phost.startswith(("127.", "10.", "192.168.", "169.254.")) or \
+               (phost.startswith("172.") and len(pparts) == 4 and 16 <= int(pparts[1]) <= 31):
+                return self._json({"ok": False, "error": "internal host blocked: " + phost}, 403)
+            IMG_ALLOWED_ROOTS = {
+                "dongchedi.com", "douyinpic.com", "byteimg.com", "bytetos.com",
+                "bytecdn.cn", "pstatp.com", "toutiao.com", "ixigua.com",
+                "snssdk.com", "bytego.cn",
+            }
+            if proot not in IMG_ALLOWED_ROOTS:
+                return self._json({"ok": False, "error": "host not allowed: " + phost}, 403)
             try:
                 req = urllib.request.Request(u, headers=HEADERS)
                 raw = urllib.request.urlopen(req, timeout=15).read()
