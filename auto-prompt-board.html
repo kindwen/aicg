@@ -239,12 +239,12 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
 /* 品牌分组列表样式 */
 .brandlist{margin-top:6px}
-.brandhead{display:flex;align-items:center;gap:8px;padding:9px 10px;background:#f6f8fb;border:1px solid var(--line);border-radius:9px;cursor:pointer;user-select:none;margin-bottom:5px;font-size:12.5px;font-weight:700;color:var(--ink)}
-.brandhead:hover{background:#eef2f7}
-.brandhead .bname{flex:1;font-size:13px}
-.brandhead .bcount{font-size:11px;color:var(--ink3);background:#fff;padding:2px 8px;border-radius:99px;border:1px solid var(--line2);font-weight:600}
-.brandhead .barrow{font-size:11px;color:var(--ink3);transition:transform .15s;display:inline-block;width:14px;text-align:center}
-.brandhead .agle{width:20px;height:20px;flex:none;border-radius:6px;background:var(--accent-soft);color:var(--accent-ink);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.brandhead{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;cursor:pointer;user-select:none;margin-bottom:5px;font-size:12.5px;font-weight:700;color:var(--ink);transition:background .12s ease, border-color .12s ease}
+.brandhead:hover{background:var(--hard-bg);border-color:var(--line2)}
+.brandhead .bname{flex:1;font-size:13px;color:var(--ink);opacity:.85}
+.brandhead .bcount{font-size:11px;color:var(--ink3);background:var(--card);padding:2px 8px;border-radius:99px;border:1px solid var(--line2);font-weight:600}
+.brandhead .barrow{font-size:11px;color:var(--ink3);transition:transform .18s ease;display:inline-block;width:14px;text-align:center}
+.brandhead .agle{width:22px;height:22px;flex:none;border-radius:7px;background:var(--accent-soft);color:var(--accent-ink);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
 .brandhead.open .barrow{transform:rotate(90deg)}
 /* A6.4 chip 按钮组样式 */
 .filterchips{display:flex;gap:5px;flex-wrap:wrap}
@@ -574,13 +574,15 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .azsep span{font-size:11px;color:var(--ink3);font-weight:600}
 .azsep b{flex:1;height:1px;background:var(--line)}
 .brandpick{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:var(--card);overflow:hidden}
-.brandpick-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;flex-wrap:wrap}
-.brandpick-bar .bpl{font-size:11.5px;color:var(--ink3);font-weight:700;letter-spacing:.3px}
-.brandpick-bar .bpchip{font-size:12.5px;font-weight:700;color:var(--ink);background:var(--bg);border-radius:8px;padding:5px 11px;border:1px solid transparent}
-.brandpick-bar .bpchip.on{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--hard-line3)}
-.brandpick-bar .bpbtn{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent-ink);background:var(--card);border:1px solid var(--hard-line3);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
-.brandpick-bar .bpbtn:hover{background:var(--accent-soft)}
-.brandpick-bar .bpghost{font-size:11.5px;font-weight:700;color:var(--ink3);background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
+.brandpick-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;flex-wrap:wrap}
+.brandpick-bar .bpl{font-size:11.5px;color:var(--ink3);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.brandpick-bar .bpchip{font-size:12.5px;font-weight:700;color:var(--ink);background:var(--bg);border-radius:8px;padding:5px 12px;border:1px solid var(--line2);cursor:pointer;transition:all .15s ease}
+.brandpick-bar .bpchip.on{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent)}
+.brandpick-bar .bpchip:hover:not(.on){border-color:var(--accent);color:var(--accent-ink)}
+.brandpick-bar .bpbtn{margin-left:auto;font-size:12px;font-weight:700;color:var(--accent-ink);background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:5px 12px;cursor:pointer;min-height:32px;transition:all .15s ease}
+.brandpick-bar .bpbtn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.brandpick-bar .bpghost{font-size:12px;font-weight:600;color:var(--ink2);background:transparent;border:1px solid var(--line2);border-radius:8px;padding:5px 12px;cursor:pointer;min-height:32px;transition:all .15s ease}
+.brandpick-bar .bpghost:hover{background:var(--bg);border-color:var(--ink3);color:var(--ink)}
 .azpanel{display:grid;grid-template-columns:auto 1fr;border-top:1px solid var(--line)}
 .azrail{display:flex;flex-direction:column;gap:2px;padding:8px 6px;background:var(--hard-bg3);border-right:1px solid var(--line);max-height:400px;overflow-y:auto;scrollbar-width:thin}
 .azrail button{width:26px;height:22px;flex:none;font-size:11px;font-weight:800;color:var(--ink2);background:transparent;border:0;border-radius:6px;cursor:pointer;padding:0}
@@ -1988,6 +1990,8 @@ function saveStateNow(){
   LS.set('state',{catId:state.catId,energyF:state.energyF,bodyF:state.bodyF,vSearch:state.vSearch,
     selected:state.selected,refs:state.refs,uploads:state.uploads,infoPoints:state.infoPoints,customNote:state.customNote,
     title:state.title,visual:state.visual,overridePrompt:state.overridePrompt,
+    libLetterOpen:state.libLetterOpen, libOpen:state.libOpen,
+    lib:{q:state.lib.q,brand:state.lib.brand,energy:state.lib.energy,level:state.lib.level,sort:state.lib.sort},
     ai:{enabled:state.ai.enabled,provider:state.ai.provider,apiKeyConfigured:state.ai.apiKeyConfigured,model:state.ai.model,baseUrl:state.ai.baseUrl}});
 }
 function saveState(){
@@ -2765,6 +2769,8 @@ function libFiltered(){
 }
 function renderLibrary(){
   var all=allVehicles(), i, lb=state.lib;
+  // 回填搜索框
+  var ls=$('libSearch'); if(ls && ls.value!==lb.q) ls.value=lb.q;
   /* A6.2/A6.3 chip 按钮组：能源 + 级别（动态生成级别） */
   var levels={};
   for(i=0;i<all.length;i++){ if(all[i].level&&all[i].level!=='—') levels[all[i].level]=1; }
@@ -2779,12 +2785,12 @@ function renderLibrary(){
   var chip=$('libBrandChip');
   if(chip){ chip.textContent=(lb.brand==='全部'?'全部品牌':lb.brand); chip.className='bpchip'+(lb.brand==='全部'?'':' on'); }
   if($('azPanel')&&$('azPanel').style.display!=='none') renderBrandPicker();
-  if(lb.brand==='全部'){
+  if(lb.brand==='全部' && !lb.q){
     /* 默认视图：A-Z 品牌列表（字母组可展开收起），不展示车型 */
     renderLibBrands();
     return;
   }
-  /* 已选品牌：展示该品牌车型列表 */
+  /* 已选品牌 或 有搜索词：展示匹配车型列表 */
   var out=libFiltered();
   var groups=groupByBrandAZ(out);
   var openSet=state.libOpen||{};
@@ -4282,7 +4288,6 @@ function bindEvents(){
     if(ll){
       var L=ll.dataset.libletter;
       state.libLetterOpen[L]=!state.libLetterOpen[L];
-      if(!state.libLetterOpen[L]) delete state.libLetterOpen[L];
       saveState(); renderLibrary(); return;
     }
     // 品牌列表视图：点击品牌 → 进入该品牌车型
@@ -4293,7 +4298,6 @@ function bindEvents(){
     if(bh){
       var b=bh.dataset.libhead;
       state.libOpen[b]=!state.libOpen[b];
-      if(!state.libOpen[b]) delete state.libOpen[b];
       saveState(); renderLibrary(); return;
     }
     // 「查看」按钮 → 打开详情弹层
