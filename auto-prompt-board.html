@@ -85,7 +85,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-thumb{background:#d3d7de;border-radius:4px}
 ::-webkit-scrollbar-track{background:transparent}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:50;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .topbar-in{max-width:1440px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:18px;height:60px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px;font-size:15px;white-space:nowrap}
 .logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#1f5eff,#7aa2ff);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(31,94,255,.28);flex:none}
@@ -100,7 +100,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .topstats{display:flex;gap:14px;align-items:center;font-size:12px;color:var(--ink2);white-space:nowrap}
 .topstats b{color:var(--ink);font-size:13px}
 .topstats .dot{width:1px;height:22px;background:var(--line)}
-.sync{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink3);padding:4px 9px;border:1px solid var(--line);border-radius:99px;background:#fff;white-space:nowrap}
+.sync{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink3);padding:4px 9px;border:1px solid var(--line);border-radius:99px;background:var(--card);white-space:nowrap}
 .sync i{width:7px;height:7px;border-radius:50%;background:#c2c8d2;display:inline-block}
 .sync.ok i{background:var(--ok)}
 .sync.busy i{background:var(--warn);animation:pulse 1s infinite}
@@ -278,6 +278,13 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .refslot .rscopy{font-size:11px;color:var(--accent-ink);background:var(--accent-soft);border:0;padding:3px 8px;border-radius:6px;cursor:pointer;font-weight:600}
 .refslot .rscopy:hover{background:#d6e4ff}
 .refslot .rscopy.copied{background:#d4f0d4;color:#1c7c1c}
+.refslot[data-viewsel]{cursor:pointer}
+.refslot[data-viewsel]:hover{border-color:var(--accent)}
+.refslot.main{border-color:#1c7c1c;box-shadow:0 0 0 1.5px rgba(28,124,28,.35)}
+.refslot .rsmain{position:absolute;bottom:4px;left:4px;background:#1c7c1c;color:#fff;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;letter-spacing:.5px}
+.refslot .rscopy.del{background:#fdecec;color:#b42318}
+.refslot .rscopy.del:hover{background:#f9d5d5}
+.reftip .rscopy{font-size:11px;color:var(--accent-ink);background:var(--accent-soft);border:0;padding:3px 9px;border-radius:6px;cursor:pointer;font-weight:600;margin-left:6px}
 @keyframes rsspin{to{transform:rotate(360deg)}}
 .refgrid .refitem{position:relative;border:1.5px solid var(--line);border-radius:9px;background:#fff;cursor:pointer;overflow:hidden;padding-top:2px}
 .refgrid .refitem svg{width:100%;height:auto;display:block}
@@ -310,6 +317,61 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .paramsrc td:first-child{color:var(--ink3);white-space:nowrap;width:76px;font-weight:600;vertical-align:top}
 .srcnote{font-size:10.5px;color:var(--ink3);padding:7px 10px;background:#f6f8fb;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .srcnote .w{color:var(--warn);font-weight:700}
+/* ---------- 极简高级风：选中车型卡片 vcard ---------- */
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:8px;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .22s ease, border-color .2s ease;animation:fadeSlide .28s ease both}
+.vcard:hover{border-color:var(--line2);box-shadow:0 2px 4px rgba(20,24,40,.05),0 10px 28px rgba(20,24,40,.08)}
+.vchead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.vccover{width:76px;height:52px;border-radius:10px;background:var(--hard-bg2);overflow:hidden;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+.vccover img{width:100%;height:100%;object-fit:cover;display:block}
+.vccover .noph{font-size:10.5px;color:var(--ink3);font-weight:600}
+.vctitle{flex:1;min-width:0}
+.vcn{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.vcver{font-size:11px;font-weight:500;color:var(--ink3)}
+.vcmeta{font-size:11.5px;color:var(--ink2);margin-top:3px}
+.vcactions{display:flex;gap:4px;flex-shrink:0}
+.vcb{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:#fff;color:var(--ink2);cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .16s ease}
+.vcb:hover{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.vcb.ref.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.vcb.close:hover{background:#fdecec;border-color:#f3caca;color:#b42318}
+.specgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);padding:0}
+.specitem{background:var(--card);padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.specitem .slabel{font-size:10.5px;color:var(--ink3);font-weight:600;letter-spacing:.02em;text-transform:uppercase}
+.specitem .sval{font-size:13px;color:var(--ink);font-weight:600;line-height:1.4;word-break:break-all;white-space:normal}
+.specitem.bignum .sval{font-size:17px;font-weight:800}
+.specitem .sval.price{color:#b42318}
+.specitem.loc{grid-column:1 / -1;background:var(--hard-bg2);padding:8px 12px}
+.specitem.loc .slabel{display:none}
+.specitem.loc .sval{font-size:12px;color:var(--ink2);font-weight:500}
+.vcsrc{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;background:var(--hard-bg2);font-size:10.5px;color:var(--ink3);border-top:1px solid var(--line)}
+.vcsrc em{font-style:normal;color:var(--warn);font-weight:700}
+[data-theme="dark"] .vcard{box-shadow:0 1px 2px rgba(0,0,0,.25),0 8px 20px rgba(0,0,0,.35)}
+[data-theme="dark"] .vcard:hover{border-color:#3a4252}
+[data-theme="dark"] .vcb{background:var(--hard-white);color:var(--ink2)}
+[data-theme="dark"] .vcb:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+[data-theme="dark"] .vcb.close:hover{background:#3a1515;border-color:#6f2a2a;color:#fca5a5}
+[data-theme="dark"] .specgrid{background:var(--line)}
+[data-theme="dark"] .specitem{background:var(--hard-white)}
+[data-theme="dark"] .specitem.loc{background:var(--hard-bg3)}
+[data-theme="dark"] .specitem .sval{color:var(--ink)}
+[data-theme="dark"] .specitem .sval.price{color:#fca5a5}
+[data-theme="dark"] .vcsrc{background:var(--hard-bg3)}
+[data-theme="dark"] .vchead{border-bottom-color:var(--line)}
+[data-theme="dark"] .vcsrc{border-top-color:var(--line)}
+[data-theme="dark"] .seg button{background:var(--hard-white);color:var(--ink2);border-color:var(--line2)}
+[data-theme="dark"] .seg button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+[data-theme="dark"] .promptbox{border-top-color:var(--line2)}
+[data-theme="dark"] .titlebox input{background:var(--hard-input-bg);color:var(--ink);border-color:var(--line2)}
+[data-theme="dark"] .genbtns button{background:var(--hard-chip);border-color:var(--line2);color:var(--ink2)}
+[data-theme="dark"] .visitem label{color:var(--ink2)}
+/* ---------- 动画 ---------- */
+@keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rsspin{to{transform:rotate(360deg)}}
+@keyframes softIn{from{opacity:0}to{opacity:1}}
+.page{animation:softIn .18s ease both}
+.vpro, .vcard, .brief-sec, .brieftbl tr, .dcard, .qbtn{transition:transform .18s ease, box-shadow .22s ease, border-color .2s ease}
+.vpro:hover, .dcard:hover, .qbtn:hover, .catlist button:hover, .brieftbl tr:hover td{transform:translateY(-1px)}
+.btn, .btn-primary, .iconbtn, .vpbtn, .nav button, .chip, .tagcloud button, .seg button, .qbtn, .refslot, .vcb{transition:all .16s ease}
+.chip.on, .tagcloud button.on, .catlist button.on, .nav button.on{transition:all .16s ease}
 .visgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
 .visitem label{display:block;font-size:11.5px;font-weight:700;color:var(--ink3);margin-bottom:5px}
 .seg{display:flex;flex-wrap:wrap;gap:5px}
@@ -342,7 +404,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .pagehead h2{font-size:18px;font-weight:800}
 .pagehead .sub{font-size:12.5px;color:var(--ink3);margin-top:2px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.filters select,.filters input{padding:8px 11px;border:1px solid var(--line2);border-radius:10px;background:#fff;min-height:42px}
+.filters select,.filters input{padding:8px 11px;border:1px solid var(--line2);border-radius:10px;background:var(--card);min-height:42px}
 .filters input{min-width:180px}
 .banktablewrap{overflow-x:auto}
 .banktable{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
@@ -449,18 +511,18 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .azsep i{width:22px;height:22px;flex:none;border-radius:6px;background:var(--accent);color:#fff;font-style:normal;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
 .azsep span{font-size:11px;color:var(--ink3);font-weight:600}
 .azsep b{flex:1;height:1px;background:var(--line)}
-.brandpick{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden}
+.brandpick{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:var(--card);overflow:hidden}
 .brandpick-bar{display:flex;align-items:center;gap:8px;padding:9px 12px;flex-wrap:wrap}
 .brandpick-bar .bpl{font-size:11.5px;color:var(--ink3);font-weight:700;letter-spacing:.3px}
-.brandpick-bar .bpchip{font-size:12.5px;font-weight:700;color:var(--ink);background:#f0f2f6;border-radius:8px;padding:5px 11px;border:1px solid transparent}
-.brandpick-bar .bpchip.on{background:var(--accent-soft);color:var(--accent-ink);border-color:#cfe0ff}
-.brandpick-bar .bpbtn{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent-ink);background:#fff;border:1px solid #d8e3ff;border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
+.brandpick-bar .bpchip{font-size:12.5px;font-weight:700;color:var(--ink);background:var(--bg);border-radius:8px;padding:5px 11px;border:1px solid transparent}
+.brandpick-bar .bpchip.on{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--hard-line3)}
+.brandpick-bar .bpbtn{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--accent-ink);background:var(--card);border:1px solid var(--hard-line3);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
 .brandpick-bar .bpbtn:hover{background:var(--accent-soft)}
-.brandpick-bar .bpghost{font-size:11.5px;font-weight:700;color:var(--ink3);background:#fff;border:1px solid var(--line2);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
+.brandpick-bar .bpghost{font-size:11.5px;font-weight:700;color:var(--ink3);background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:5px 10px;cursor:pointer;min-height:30px}
 .azpanel{display:grid;grid-template-columns:auto 1fr;border-top:1px solid var(--line)}
-.azrail{display:flex;flex-direction:column;gap:2px;padding:8px 6px;background:#f6f8fb;border-right:1px solid var(--line);max-height:400px;overflow-y:auto;scrollbar-width:thin}
+.azrail{display:flex;flex-direction:column;gap:2px;padding:8px 6px;background:var(--hard-bg3);border-right:1px solid var(--line);max-height:400px;overflow-y:auto;scrollbar-width:thin}
 .azrail button{width:26px;height:22px;flex:none;font-size:11px;font-weight:800;color:var(--ink2);background:transparent;border:0;border-radius:6px;cursor:pointer;padding:0}
-.azrail button:hover{background:#e6ecf7;color:var(--accent-ink)}
+.azrail button:hover{background:var(--hard-bg2);color:var(--accent-ink)}
 .azrail button.on{background:var(--accent);color:#fff}
 .azrail button:disabled{color:#c7ccd6;cursor:default;background:transparent}
 .azbody{padding:10px 12px;max-height:400px;overflow-y:auto}
@@ -478,11 +540,32 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .libcount .bpghost{margin-left:5px}
 
 /* ============ 每日车圈简报 ============ */
-.briefacts{display:flex;gap:7px;flex-wrap:wrap}
+.briefacts{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.news-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.ntab{font-size:12px;font-weight:600;padding:5px 13px;border-radius:8px;border:1px solid var(--line2);background:var(--card);color:var(--ink2);cursor:pointer;transition:all .15s ease}
+.ntab:hover{border-color:var(--accent);color:var(--accent-ink)}
+.ntab.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+[data-theme="dark"] .ntab{background:var(--hard-white);border-color:var(--line2);color:var(--ink2)}
+[data-theme="dark"] .ntab.on{background:var(--accent-soft);border-color:var(--hard-line3);color:var(--accent-ink)}
+.news-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);transition:background .12s ease}
+.news-item:last-child{border-bottom:0}
+.news-item:hover{background:var(--bg)}
+.news-item .ni-rank{flex:none;width:24px;height:24px;border-radius:6px;background:var(--bg);color:var(--ink3);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.news-item:nth-child(1) .ni-rank{background:#fff3e0;color:#e8590c}
+.news-item:nth-child(2) .ni-rank{background:#fce4d6;color:#d4380d}
+.news-item:nth-child(3) .ni-rank{background:#f5e8d8;color:#a05a2c}
+.news-item .ni-title{font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;flex:1;min-width:0;transition:color .15s ease}
+.news-item .ni-title:hover{color:var(--accent-ink)}
+.news-item .ni-hot{font-size:11px;color:var(--ink3);flex:none;white-space:nowrap}
+[data-theme="dark"] .news-item:hover{background:var(--hard-bg3)}
+[data-theme="dark"] .news-item .ni-rank{background:var(--hard-bg3)}
+[data-theme="dark"] .news-item:nth-child(1) .ni-rank{background:#3d2a14;color:#ffa940}
+[data-theme="dark"] .news-item:nth-child(2) .ni-rank{background:#3d241a;color:#ff7a45}
+[data-theme="dark"] .news-item:nth-child(3) .ni-rank{background:#3a2e1e;color:#d6a04a}
 .briefbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 2px 10px;border-bottom:1px solid var(--line);margin-bottom:12px}
 .briefbar .bst{font-size:12px;color:var(--ink3);flex:1;min-width:180px}
 .histdates{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-.hist-date{font-size:11px;font-weight:700;color:var(--ink2);background:#f0f2f6;border:1px solid transparent;border-radius:7px;padding:3px 8px;cursor:pointer;white-space:nowrap}
+.hist-date{font-size:11px;font-weight:700;color:var(--ink2);background:var(--bg);border:1px solid transparent;border-radius:7px;padding:3px 8px;cursor:pointer;white-space:nowrap}
 .hist-date:hover{color:var(--accent-ink);background:var(--accent-soft)}
 .hist-date.on{background:var(--accent);color:#fff}
 .hist-none{font-size:11px;color:var(--ink3)}
@@ -497,6 +580,11 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .brief-tbl tr:last-child td{border-bottom:0}
 .brief-tbl tr:hover td{background:#fafbfd}
 .brief-tbl td.cat{font-weight:800;color:var(--ink2);white-space:nowrap}
+a.topicl{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px dashed transparent;transition:color .15s ease,border-color .15s ease}
+a.topicl:hover{color:var(--accent-ink);border-color:var(--accent)}
+[data-theme="dark"] a.topicl:hover{color:#88aaff;border-color:#88aaff}
+.seg.sm{height:30px}
+.seg.sm button{font-size:12px;padding:0 12px;height:30px}
 .brief-note{font-size:11px;color:var(--ink3);padding:6px 2px 0}
 .use{font-size:11.5px;font-weight:700;color:var(--accent-ink);background:#fff;border:1px solid #d8e3ff;border-radius:7px;padding:3px 7px;cursor:pointer;white-space:nowrap;display:inline-block}
 .use:hover{background:var(--accent-soft)}
@@ -531,7 +619,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .dash-empty{font-size:12.5px;color:var(--ink3);line-height:1.7;padding:14px;text-align:center}
 .dash-empty a{color:var(--accent);cursor:pointer;text-decoration:underline}
 .dash-stats .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stat{background:var(--card2,#f5f6f8);border-radius:10px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:3px}
+.stat{background:var(--bg);border-radius:10px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:3px}
 .stat .sv{font-size:22px;font-weight:700;color:var(--accent-ink)}
 .stat .sl{font-size:11px;color:var(--ink3)}
 @media(max-width:900px){ .dash-row{grid-template-columns:1fr} .dash-stats .stat-grid{grid-template-columns:repeat(2,1fr)} }
@@ -555,6 +643,57 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 .ap-item .ap-tag{font-size:10px;color:var(--ink3);padding:2px 7px;border-radius:4px;background:var(--card);display:inline-block}
 /* === 作品中心 pagehead 二级入口 === */
 .ph-acts{display:flex;gap:8px;flex-wrap:wrap}
+.backbtn{background:none;border:1px solid var(--line2);color:var(--ink2);font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px;cursor:pointer;transition:all .16s ease}
+.backbtn:hover{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+[data-theme="dark"] .backbtn{background:var(--hard-white);border-color:var(--line2);color:var(--ink2)}
+[data-theme="dark"] .backbtn:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+/* 表单/输入深色适配补全 */
+[data-theme="dark"] select,[data-theme="dark"] .formgrid input,[data-theme="dark"] .formgrid textarea,[data-theme="dark"] textarea{background:var(--hard-input-bg)!important;border-color:var(--line2)!important;color:var(--ink)!important}
+[data-theme="dark"] textarea::-webkit-scrollbar-thumb,[data-theme="dark"] input::-webkit-scrollbar-thumb{background:#3a4252}
+[data-theme="dark"] .card{background:var(--card)}
+[data-theme="dark"] .dmcard .card-b,[data-theme="dark"] .card-b{background:var(--card)}
+[data-theme="dark"] .brief-tbl,[data-theme="dark"] .brief-tbl th,[data-theme="dark"] .brief-tbl td,[data-theme="dark"] .brief-off{border-color:var(--line)}
+[data-theme="dark"] code,[data-theme="dark"] .brief-off code{background:var(--hard-bg3)!important;color:var(--ink2)!important}
+[data-theme="dark"] .vpro,[data-theme="dark"] .dcdrow,[data-theme="dark"] .catlist button,[data-theme="dark"] .qbtn,[data-theme="dark"] .vrow,[data-theme="dark"] .btn.ghost,[data-theme="dark"] .statchip,[data-theme="dark"] .tagcloud button,[data-theme="dark"] .chip,[data-theme="dark"] .genbtns button,[data-theme="dark"] .formgrid select,[data-theme="dark"] .ai-provider-sel{background:var(--hard-white)!important;border-color:var(--line2)!important;color:var(--ink2)!important}
+[data-theme="dark"] .catlist button.on{background:var(--accent-soft)!important;border-color:var(--hard-line3)!important;color:var(--accent-ink)!important}
+[data-theme="dark"] .dcdthumb,[data-theme="dark"] .dcdthumb.ph{background:var(--hard-bg3)!important}
+[data-theme="dark"] .tagcloud button.on{background:var(--ink)!important;color:var(--card)!important;border-color:var(--ink)!important}
+[data-theme="dark"] .ptext,[data-theme="dark"] textarea.ptext{background:var(--hard-input-bg)!important;color:var(--ink)!important}
+[data-theme="dark"] .empty{background:var(--hard-bg3)!important}
+[data-theme="dark"] .emptycta{background:var(--hard-white)!important;border-color:var(--line2)!important;color:var(--ink)!important}
+[data-theme="dark"] .wbb-card,[data-theme="dark"] .dcard,[data-theme="dark"] .card,[data-theme="dark"] .dash-card,[data-theme="dark"] .selitem{background:var(--card)!important;border-color:var(--line)!important}
+[data-theme="dark"] .selitem .selremove:hover{background:#422020}
+/* 全局白底元素暗色批量覆盖 */
+[data-theme="dark"] .quickrow button,[data-theme="dark"] .chips button,[data-theme="dark"] .vcard,
+[data-theme="dark"] .vtag,[data-theme="dark"] .brandhead,[data-theme="dark"] .brandhead .bcount,
+[data-theme="dark"] .vrow,[data-theme="dark"] .vrow .vrbtn,[data-theme="dark"] .vpro,[data-theme="dark"] .vpro .vptag,
+[data-theme="dark"] .vpmore,[data-theme="dark"] .dhead .dhtags span,[data-theme="dark"] .selitem,
+[data-theme="dark"] .selitem .refbtn,[data-theme="dark"] .refslot,[data-theme="dark"] .refgrid .refitem,
+[data-theme="dark"] .reftip,[data-theme="dark"] .tagcloud button,[data-theme="dark"] .frow input,
+[data-theme="dark"] .frow textarea,[data-theme="dark"] .frow select,[data-theme="dark"] .titlebox .genbtns button,
+[data-theme="dark"] .tillopt,[data-theme="dark"] .srcnote,[data-theme="dark"] .vcb,
+[data-theme="dark"] .seg button,[data-theme="dark"] .btn.ghost,[data-theme="dark"] .modal .mbox,
+[data-theme="dark"] .banktable tr:hover td,[data-theme="dark"] .stsel,[data-theme="dark"] .actrow button,
+[data-theme="dark"] .newsitem,[data-theme="dark"] .newsitem .type,[data-theme="dark"] .hcard,
+[data-theme="dark"] .hcard .snippet,[data-theme="dark"] .statchip,[data-theme="dark"] .detailviews>div,
+[data-theme="dark"] .azbrand,[data-theme="dark"] .brief-tbl th,[data-theme="dark"] .brief-tbl tr:hover td,
+[data-theme="dark"] .use,[data-theme="dark"] .topbar,[data-theme="dark"] .nav button:hover,
+[data-theme="dark"] .catlist .nm,[data-theme="dark"] .searchdd .sdhead,[data-theme="dark"] .ranktabs,
+[data-theme="dark"] .ranktabs button.on,[data-theme="dark"] .ptext[readonly],
+[data-theme="dark"] .azpanel{background:var(--hard-white)!important}
+[data-theme="dark"] .nav button:hover,[data-theme="dark"] .catlist button:hover{background:var(--hard-bg2)}
+[data-theme="dark"] .vtag,[data-theme="dark"] .catlist .nm,[data-theme="dark"] .vpro .vptag,
+[data-theme="dark"] .dhead .dhtags span,[data-theme="dark"] .newsitem .type{background:var(--hard-bg3)!important}
+[data-theme="dark"] .brief-tbl th,[data-theme="dark"] .searchdd .sdhead{background:var(--hard-bg3)!important}
+[data-theme="dark"] .brief-tbl tr:hover td,[data-theme="dark"] .banktable tr:hover td{background:var(--hard-bg4)!important}
+[data-theme="dark"] .ranktabs{background:var(--hard-bg3)}
+[data-theme="dark"] .ranktabs button.on{background:var(--hard-white);color:var(--ink)}
+[data-theme="dark"] .ptext[readonly]{background:var(--hard-bg3);color:var(--ink2)}
+[data-theme="dark"] .refpanel,[data-theme="dark"] .tillopt,[data-theme="dark"] .srcnote,[data-theme="dark"] .hcard .snippet,
+[data-theme="dark"] .selitem,[data-theme="dark"] .vpmore,[data-theme="dark"] .statchip,[data-theme="dark"] .newsitem .type{background:var(--hard-bg3)!important}
+[data-theme="dark"] .modal .mbox{background:var(--card)!important}
+[data-theme="dark"] .mbar{background:rgba(0,0,0,.45)}
+[data-theme="dark"] code{background:var(--hard-bg3)!important;color:var(--ink2)!important}
 /* === 工作台资讯栏 wbb === */
 .wb-brief{margin-top:14px}
 .wbb-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
@@ -606,8 +745,8 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
       <button data-tab="bank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>我的作品</button>
     </nav>
     <div class="topactions" id="topactions">
-      <button class="iconbtn" id="themeToggle" title="切换深色模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-      <button class="iconbtn" data-tab="settings" title="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></button>
+      <button class="iconbtn" id="themeToggle" title="切换深色模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="iconbtn" data-tab="settings" title="设置"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
     <div class="sync" id="syncBadge"><i></i><span>离线模式</span></div>
   </div>
@@ -652,17 +791,6 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
               <button data-rank="new">🆕 新车榜</button>
               <button data-rank="rank">📈 销量榜</button>
               <button data-rank="fav">⭐ 收藏</button>
-            </div>
-            <div class="sechead">筛选</div>
-            <div class="filterrow">
-              <div class="filtercol">
-                <span class="fclbl">动力</span>
-                <div class="chips sm" id="energyChips"></div>
-              </div>
-              <div class="filtercol">
-                <span class="fclbl">车型</span>
-                <div class="chips sm" id="bodyTypeChips"></div>
-              </div>
             </div>
             <div class="selbar"><span>车型卡片（点击选中，最近使用优先）</span><button class="clr" id="clearSel">清空选择</button></div>
             <div class="vgrid" id="vGrid"></div>
@@ -747,17 +875,23 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-news">
     <div class="pagehead">
-      <div><h2>📰 每日车圈简报</h2><div class="sub">销量榜 / 降价榜 / 热搜榜驱动 · 选题一键带入创作台</div></div>
+      <div><button class="backbtn" data-back="prev">← 返回</button><h2 style="display:inline-block;margin-left:8px">📰 每日车圈资讯</h2></div>
       <div class="briefacts">
-        <button class="btn primary" id="briefBtn">⚡ 生成今日车圈简报</button>
-        <button class="btn ghost" id="briefCopy">复制全文</button>
-        <button class="btn ghost" id="briefCopyMd">复制 Markdown</button>
+        <div class="news-tabs" id="newsTabs">
+          <button class="ntab on" data-news-platform="dongchedi">懂车帝</button>
+          <button class="ntab" data-news-platform="weibo">微博</button>
+          <button class="ntab" data-news-platform="autohome">汽车之家</button>
+          <button class="ntab" data-news-platform="yiche">易车</button>
+          <button class="ntab" data-news-platform="pcauto">太平洋</button>
+        </div>
+        <button class="btn ghost sm" id="briefRefresh" title="刷新"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+        <button class="btn ghost sm" id="briefAutoToggle" title="自动刷新">⟳ 自动刷新</button>
       </div>
     </div>
     <div class="card">
       <div class="card-b">
         <div class="briefbar">
-          <span class="bst" id="briefStatus">尚未生成 · 点击右上角「生成今日车圈简报」</span>
+          <span class="bst" id="briefStatus">加载中…</span>
           <span class="histdates" id="histDates"></span>
         </div>
         <div id="briefOut"></div>
@@ -767,7 +901,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-history">
     <div class="pagehead">
-      <div><h2>✨ Prompt历史</h2><div class="sub">所有生成记录 · 一键复制 / 继续编辑</div></div>
+      <div><button class="backbtn" data-back="prev">← 返回</button><h2 style="display:inline-block;margin-left:8px">✨ Prompt历史</h2></div>
       <button class="btn ghost sm" id="clearHistory">清空历史</button>
     </div>
     <div class="histgrid" id="histGrid"></div>
@@ -775,7 +909,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-datamgmt">
     <div class="pagehead">
-      <div><h2>⚙️ 数据管理</h2><div class="sub">车型数据 · Prompt模板 · 备份导入导出 · 数据源说明</div></div>
+      <div><button class="backbtn" data-back="prev">← 返回</button><h2 style="display:inline-block;margin-left:8px">⚙️ 数据管理</h2></div>
     </div>
     <div class="dmgmt">
       <div class="card dmcard">
@@ -810,7 +944,7 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);outlin
 
   <section class="page" id="page-settings">
     <div class="pagehead">
-      <div><h2>⚙️ 设置</h2><div class="sub">AI 增强功能 · 用户自配置 · 本地模板兜底</div></div>
+      <div><button class="backbtn" data-back="prev">← 返回</button><h2 style="display:inline-block;margin-left:8px">⚙️ 设置</h2></div>
     </div>
     <div class="dmgmt">
       <div class="card dmcard">
@@ -1201,6 +1335,34 @@ var MockProvider = { id:'mock', label:'内置示例车型库（Mock·'+VEHICLES.
 var UserProvider  = { id:'user', label:'我的车型（本地自定义）', list:function(){ return LS.get('custom_vehicles',[]); } };
 var _dcdCache=null;
 var DcdStaticProvider = { id:'dcd_static', label:'公开车型数据库（内置 4534 款·真实封面图）', list:function(){ if(!_dcdCache){ _dcdCache=window.DCD_FULL_DATA.map(dcdFullDecode); } return _dcdCache; } };
+function normalizeVehicle(v){
+  if(!v) return null;
+  // 保证关键字段存在：缺失用「—」或合理默认值补
+  v.brand=v.brand||''; v.series=v.series||'';
+  v.name=v.name||(v.brand+' '+v.series).trim()||'未命名车型';
+  v.year=v.year||''; v.version=v.version||'';
+  v.energy=v.energy||'其他'; v.level=v.level||'—'; v.bodyType=v.bodyType||'other';
+  v.price=v.price||'—'; v.priceMin=typeof v.priceMin==='number'?v.priceMin:null;
+  v.color=v.color||'#6f859b';
+  v.cover=v.cover||'';
+  v.dims=v.dims||{}; v.power=v.power||{}; v.battery=v.battery||{};
+  var dash='—';
+  var dm=v.dims; if(!dm.L) dm.L=dash; if(!dm.W) dm.W=dash; if(!dm.H) dm.H=dash; if(!dm.WB) dm.WB=dash;
+  var pw=v.power; if(!pw.motor) pw.motor=dash; if(!pw.kw) pw.kw=dash; if(!pw.nm) pw.nm=dash; if(!pw.accel) pw.accel=dash;
+  var bt=v.battery; if(!bt.cap) bt.cap=dash; if(!bt.cltc) bt.cltc=dash; if(!bt.comp) bt.comp=dash; if(!bt.fast) bt.fast=dash;
+  v.drive=v.drive||dash; v.susp=v.susp||dash; v.tire=v.tire||dash; v.mass=v.mass||dash;
+  if(!v.seats||isNaN(v.seats)) v.seats=5; v.trunk=v.trunk||dash; v.adas=v.adas||dash;
+  v.source=v.source||'公开数据库'; v.updated=v.updated||'—';
+  if(v.verified===undefined) v.verified=false;
+  // 参考图保证 6 张，缺失的用占位槽
+  var refs=Array.isArray(v.refs)?v.refs.slice():[];
+  // 把 cover 当作第 0 张参考图（若 refs 本身未包含）
+  if(v.cover&&refs[0]!==v.cover&&refs.indexOf(v.cover)<0) refs.unshift(v.cover);
+  while(refs.length<6) refs.push('');  // 空占位，渲染端出 slot
+  v.refs=refs.slice(0,6);
+  v.count=typeof v.count==='number'?v.count:null;
+  return v;
+}
 var VehicleDataProvider = {
   providers:[UserProvider, MockProvider, DcdStaticProvider],
   _cache:null,                       // getAll 结果缓存
@@ -1209,6 +1371,8 @@ var VehicleDataProvider = {
     if(this._cache) return this._cache;
     var out=[];
     for(var i=0;i<this.providers.length;i++){ out=out.concat(this.providers[i].list()||[]); }
+    // 出缓存前归一化字段，保证信息参数全量可见
+    for(var j=0;j<out.length;j++) out[j]=normalizeVehicle(out[j]);
     this._cache=out;
     return out;
   },
@@ -1759,12 +1923,43 @@ function loadState(){
   if(s){ for(var k in s){ if(k==='rankTab') continue; if(k==='visual'){ for(var vk in s.visual){ state.visual[vk]=s.visual[vk]; } } else if(k==='ai'){ for(var ak in s.ai){ if(ak!=='apiKey') state.ai[ak]=s.ai[ak]; } state.ai.apiKeyConfigured=!!getApiKey(); } else if(s[k]!==undefined&&s[k]!==null){ state[k]=s[k]; } } }
 }
 function allVehicles(){ return VehicleDataProvider.getAll(); }
-function selVehicles(){ return state.selected.map(function(id){ return VehicleDataProvider.getById(id); }).filter(Boolean); }
+function selVehicles(){
+  return state.selected.map(function(id){
+    var v=VehicleDataProvider.getById(id);
+    if(v) return v;
+    // 兜底：可能是热门/销量榜动态注入的榜单车（不在任何 provider.list 里）
+    var rankMatch=null, rks;
+    for(rks in DCD_RANK.list){
+      var arr=DCD_RANK.list[rks]||[];
+      for(var k=0;k<arr.length;k++){
+        if(id==='dcs_'+arr[k].series_id){ rankMatch=arr[k]; break; }
+      }
+      if(rankMatch) break;
+    }
+    if(rankMatch){
+      return normalizeVehicle({ id:id, dcd:true, dcdStatic:true, dcdId:String(rankMatch.series_id),
+        brand:rankMatch.brand_name||'', series:rankMatch.series_name||'', name:rankMatch.series_name||'',
+        year:'', version:'榜单', energy:'其他', level:'—', bodyType:'other', color:'#5b7db1',
+        price:rankMatch.price||'价格待确认', priceMin:parseMinPrice(rankMatch.price||''),
+        dims:{L:'待确认',W:'待确认',H:'待确认',WB:'待确认'},
+        power:{motor:'—',kw:'—',nm:'—',accel:'—'}, battery:{cap:'—',cltc:'—',comp:'—',fast:'—'},
+        drive:'—',susp:'—',tire:'—',mass:'—',seats:5,trunk:'—',adas:'—',
+        source:'榜单实时数据', updated:new Date().toISOString().slice(0,10), verified:false,
+        cover:rankMatch.image||'', count:rankMatch.value||0, rank:rankMatch.rank, desc:'榜单实时车系'
+      });
+    }
+    return null;
+  }).filter(Boolean);
+}
 function touchVehicle(id){ var r=LS.get('recent',{}); r[id]=Date.now(); LS.set('recent',r); }
 function isFav(id){ var f=LS.get('favs',[]); return f.indexOf(id)>=0; }
 function toggleFav(id){ var f=LS.get('favs',[]); var i=f.indexOf(id); if(i>=0){ f.splice(i,1); toast('已取消收藏'); } else { f.push(id); toast('已收藏'); } LS.set('favs',f); renderHeaderStats(); renderVGrid(); renderLibrary(); }
 function setTab(t){
   state.tab=t;
+  // 追踪 tab 历史（用于返回按钮）
+  state._tabStack=state._tabStack||[];
+  if(state._tabStack[state._tabStack.length-1]!==t) state._tabStack.push(t);
+  if(state._tabStack.length>10) state._tabStack.shift();
   // hash 路由：刷新/分享链接可定位到当前页；workbench 为默认，不写 hash 保持 URL 干净
   if(t==='workbench'){ if(location.hash) location.hash=''; }
   else if(location.hash!=='#'+t){ location.hash=t; }
@@ -1773,7 +1968,7 @@ function setTab(t){
   var pages=document.querySelectorAll('.page');
   for(i=0;i<pages.length;i++){ pages[i].className='page'+(pages[i].id==='page-'+t?' on':''); }
   window.scrollTo(0,0);
-  if(t==='news'&&!BRIEF.data&&!BRIEF.tried){ BRIEF.tried=true; genBrief(); }
+  if(t==='news'){ renderNews(); }
   // 进工作台自动加载今日资讯（用户要求：进工作台直接看到，不用切 tab）
   if(t==='workbench'&&!BRIEF.data&&!BRIEF.tried){ BRIEF.tried=true; genBrief(); }
   if(t==='settings'){ renderSettings(); }
@@ -1848,7 +2043,7 @@ function renderWbBrief(){
   box.innerHTML='<div class="wbb-card"><div class="wbb-head"><h3>📰 今日车圈资讯'+
     (BRIEF.offline?'<span class="wbb-tag off">离线降级</span>':'<span class="wbb-tag on">实时数据</span>')+
     '</h3><div class="wbb-actions">'+
-    '<button class="wbb-refresh" data-refresh="1"'+(BRIEF.loading?' disabled':'')+'>⚡ 刷新</button>'+
+    '<button class="wbb-refresh" data-refresh="1" title="刷新">🔄</button>'+
     '<button class="wbb-more" data-go="news">前往每日资讯 →</button></div></div>'+
     '<div class="wbb-brief" id="wbBriefOut"></div></div>';
   renderBrief('wbBriefOut');
@@ -1990,11 +2185,11 @@ function renderChips(){
     var h=''; for(var j=0;j<ks.length;j++){ h+='<button data-f="'+key+'" data-v="'+esc(ks[j])+'"'+(cur===ks[j]?' class="on"':'')+'>'+esc(ks[j])+'</button>'; }
     return h;
   }
-  $('energyChips').innerHTML=chipRow(energies,state.energyF,'energy');
+  var eh=$('energyChips'); if(eh) eh.innerHTML=chipRow(energies,state.energyF,'energy');
   // 车型分类（按T_SHORT映射）
   var bodyMap={'sedan':'轿车','suv':'SUV','offroad':'越野SUV','micro':'代步车','wagon':'旅行车','hatch':'两厢车','mpv':'MPV','coupe':'跑车','pickup':'皮卡','other':'其他'};
   var bodyDisp={}; for(var b in bodies){ bodyDisp[bodyMap[b]||b]=1; }
-  $('bodyTypeChips').innerHTML=chipRow(bodyDisp,state.bodyF,'body');
+  var bh=$('bodyTypeChips'); if(bh) bh.innerHTML=chipRow(bodyDisp,state.bodyF,'body');
 }
 function filterVehicles(){
   var all=allVehicles(), q=state.vSearch.toLowerCase(), out=[], i;
@@ -2298,40 +2493,101 @@ function renderInfoPanel(){
   html+='<div class="sechead">参数速览（数据源唯一，禁止编造）</div>';
   if(vs.length){
     for(i=0;i<vs.length;i++){
-      var v=vs[i], ips=activeInfoPoints(), rows='';
-      rows+='<tr><td>版本</td><td>'+esc(v.year)+' '+esc(v.version)+' · '+esc(v.energy)+' · '+esc(v.level)+'</td></tr>';
-      rows+='<tr><td>售价</td><td style="color:#b42318;font-weight:700">'+esc(v.price)+'</td></tr>';
-      for(var j=0;j<ips.length;j++){ var val=infoValue(v,ips[j]); if(val){ rows+='<tr><td>'+ipName(ips[j])+'</td><td>'+esc(val)+'</td></tr>'; } }
-      if(ips.indexOf('resale')>=0){ rows+='<tr><td>保值率观点</td><td style="color:var(--warn)">需查最新二手车行情（趋势性表述）</td></tr>'; }
-      if(ips.indexOf('cost')>=0){ rows+='<tr><td>用车成本</td><td style="color:var(--warn)">估算口径需注明假设</td></tr>'; }
-      html+='<div class="paramsrc"><div class="srchead">'+esc(v.name)+(v.version?' <span style="color:var(--ink3);font-weight:500;font-size:11px">'+esc(v.version)+'</span>':'')
-        +(i>0?'<button class="refbtn" data-move="'+v.id+'" data-dir="-1" title="前移">‹</button>':'')
-        +(i<vs.length-1?'<button class="refbtn" data-move="'+v.id+'" data-dir="1" title="后移">›</button>':'')
-        +'<button class="refbtn" data-unsel="'+v.id+'" style="color:var(--danger);border-color:#f3caca;margin-left:auto">移除</button>'
-        +'<button class="refbtn'+(state.refOpen===v.id?' on':'')+'" data-ref="'+v.id+'">'+esc(v.cover||v.dcdId?'📷 参考图':'')+'</button></div>'
-        +'<table>'+rows+'</table><div class="srcnote"><span>来源：'+esc(v.source)+'</span><span>'+(v.verified?'✅ 已核实':'<span class="w">⚠️ 含待确认数据</span>')+' · 更新 '+esc(v.updated)+'</span></div>';
-      // 多视角参考图（选中车型后自动同步到此，可展开）
+      var v=vs[i], ips=activeInfoPoints();
+      // ------ 关键参数网格（按信息点取）------
+      var specHtml='<div class="specgrid">';
+      specHtml+='<div class="specitem bignum"><span class="slabel">售价</span><span class="sval price">'+esc(v.price||'—')+'</span></div>';
+      // 信息点按顺序展示（取 4-6 个，不足补默认字段）
+      var ordered=ips.length?ips:['price','energy','accel','cltc','dims'];
+      var pickMap={}, shown=0;
+      var defs=[
+        {id:'accel',name:'零百',cls:'bignum'},
+        {id:'cltc',name:'续航',cls:'bignum'},
+        {id:'power',name:'动力',cls:''},
+        {id:'battery',name:'电池',cls:''},
+        {id:'dims',name:'尺寸',cls:''},
+        {id:'motor',name:'电机',cls:''},
+        {id:'drive',name:'驱动',cls:''},
+        {id:'susp',name:'悬挂',cls:''},
+        {id:'seats',name:'座位',cls:''},
+        {id:'adas',name:'智驾',cls:''},
+      ];
+      function addSp(id_, label, val, cls){
+        if(!val||val==='—'||val==='待确认'||pickMap[id_]) return;
+        pickMap[id_]=1; shown++;
+        specHtml+='<div class="specitem'+(cls?' '+cls:'')+'"><span class="slabel">'+label+'</span><span class="sval">'+esc(val)+'</span></div>';
+      }
+      // 先取用户选择的信息点
+      for(var pq=0;pq<ordered.length;pq++){
+        var pid=ordered[pq]; if(pid==='price') continue;
+        var vv=infoValue(v,pid); if(vv) addSp(pid, ipName(pid), vv, (pid==='accel'||pid==='cltc'||pid==='range'?'bignum':''));
+      }
+      // 不足 6 个补默认项
+      for(var dq=0;dq<defs.length&&shown<6;dq++){
+        addSp(defs[dq].id, defs[dq].name, infoValue(v,defs[dq].id), defs[dq].cls);
+      }
+      // 展示级别/能源定位
+      addSp('level', '定位', [v.energy,v.level].filter(function(x){return x&&x!=='—';}).join(' · '), 'loc');
+      specHtml+='</div>';
+      // ------ 卡片头（封面 + 标题 + 操作区）------
+      var coverImg=v.cover?'<img src="'+esc(v.cover)+'" alt="" onerror="this.style.display=\'none\'"><span class="vphide"></span>':'<span class="noph">无图</span>';
+      html+='<div class="vcard">'
+        +'<div class="vchead">'
+        +'<div class="vccover">'+coverImg+'</div>'
+        +'<div class="vctitle">'
+        +'<div class="vcn">'+esc(v.name)+'<span class="vcver">'+esc(v.year||'')+' '+esc(v.version||'')+'</span></div>'
+        +'<div class="vcmeta">'+[v.brand||'',v.energy||'',v.level||''].filter(function(x){return x&&x!=='—';}).join(' · ')+'</div>'
+        +'</div>'
+        +'<div class="vcactions">'
+        +(i>0?'<button class="vcb" data-move="'+v.id+'" data-dir="-1" title="前移">‹</button>':'')
+        +(i<vs.length-1?'<button class="vcb" data-move="'+v.id+'" data-dir="1" title="后移">›</button>':'')
+        +'<button class="vcb ref'+(state.refOpen===v.id?' on':'')+'" data-ref="'+v.id+'">📷</button>'
+        +'<button class="vcb close" data-unsel="'+v.id+'" title="移除">×</button>'
+        +'</div>'
+        +'</div>'
+        +specHtml
+        +'<div class="vcsrc">'
+        +'<span>'+(v.verified?'✅ 已核实':'<em>⚠️ 含待确认数据</em>')+'</span>'
+        +'<span>更新：'+esc(v.updated||'—')+'</span>'
+        +'</div>';
+      // ------ 参考图区域（动态构建）------
       if(state.refOpen===v.id){
         var ph=state.refPhotos[v.id]||null;
-        var slots=[
-          {cat:'封面',lbl:ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[0]||'45°主视觉',url:ph?ph.cover:(v.cover||''),role:'cover'},
-          {cat:'外观',lbl:ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[0]||'正面',url:ph&&ph.exterior&&ph.exterior[0]||'',role:'ext1'},
-          {cat:'外观',lbl:ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[1]||'侧面',url:ph&&ph.exterior&&ph.exterior[1]||'',role:'ext2'},
-          {cat:'外观',lbl:ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[2]||'背面',url:ph&&ph.exterior&&ph.exterior[2]||'',role:'ext3'},
-          {cat:'内饰',lbl:ph&&ph.labels&&ph.labels.interior&&ph.labels.interior[0]||'前排全景',url:ph&&ph.interior&&ph.interior[0]||'',role:'int1'},
-          {cat:'内饰',lbl:ph&&ph.labels&&ph.labels.interior&&ph.labels.interior[1]||'中控/方向盘',url:ph&&ph.interior&&ph.interior[1]||'',role:'int2'}
-        ];
-        html+='<div class="refpanel"><div class="refgrid">';
-        for(var rj=0;rj<slots.length;rj++){
-          var s=slots[rj];
-          var inner=s.url
-            ? '<img src="'+esc(s.url)+'" alt="'+esc(s.lbl)+'" onerror="this.parentNode.innerHTML=\'<span class=rsph>加载失败</span>\'" data-role="'+s.role+'" data-vid="'+v.id+'">'
-            : (s.role==='cover'&&v.cover?'<img src="'+esc(v.cover)+'" alt="'+esc(s.lbl)+'">'
-              : (state.refPhotos._loading===v.id?'<div class="rsspinner"></div>':'<span class="rsph">未获取</span>'));
-          html+='<div class="refslot"><div class="rsimg">'+inner+'<span class="rscat">'+s.cat+'</span><span class="rsres">750px</span></div>'
-            +'<div class="rsbar"><span class="rslbl">'+s.lbl+'</span><button class="rscopy" data-copyimg="'+(s.url||v.cover||'')+'" data-vid="'+v.id+'">复制</button></div></div>';
+        var mainRole=state.refs[v.id]||null;
+        // 动态图集：封面 + 全部外观/内饰/细节
+        var slots=[];
+        slots.push({cat:'封面',lbl:ph&&ph.labels&&ph.labels.exterior&&ph.labels.exterior[0]||'45°主视觉',url:ph?ph.cover:(v.cover||''),role:'cover'});
+        var ext2=ph&&ph.exterior||[], extLbls2=ph&&ph.labels&&ph.labels.exterior||[];
+        for(var rj=0;rj<Math.max(3,ext2.length);rj++){ slots.push({cat:'外观',lbl:(extLbls2[rj])||('外观'+(rj+1)),url:(ext2[rj]||''),role:'ext'+rj}); }
+        var int2=ph&&ph.interior||[], intLbls2=ph&&ph.labels&&ph.labels.interior||[];
+        for(var ri=0;ri<Math.max(2,int2.length);ri++){ slots.push({cat:'内饰',lbl:(intLbls2[ri])||('内饰'+(ri+1)),url:(int2[ri]||''),role:'int'+ri}); }
+        var det2=ph&&ph.detail||[], detLbls2=ph&&ph.labels&&ph.labels.detail||[];
+        for(var rk=0;rk<det2.length;rk++){ slots.push({cat:'细节',lbl:(detLbls2[rk])||('细节'+(rk+1)),url:(det2[rk]||''),role:'det'+rk}); }
+        var totalAvail=slots.filter(function(s){return s.url;}).length;
+        var goal=6;
+        if(totalAvail<goal){
+          var miss=goal-totalAvail;
+          for(var rm=0;rm<miss;rm++){ slots.push({cat:'待获取',lbl:('多视角图'+(rm+1)),url:'',role:'miss'+rm}); }
         }
-        html+='</div><div class="reftip">💡 点击「复制」可将参考图复制到剪贴板。'+(state.refPhotos._loading===v.id?' ⏳ 正在获取多视角图…':(!ph&&v.dcdId?'（启动 <code>python dongchedi_server.py</code> 可获取外观+内饰 5 张多角度图）':''))+'</div></div>';
+        if(state.uploads[v.id]){ slots.push({cat:'自定义',lbl:'本地上传',url:state.uploads[v.id],role:'upload'}); }
+        html+='<div class="refpanel"><div class="refgrid">';
+        for(var rj2=0;rj2<slots.length;rj2++){
+          var s=slots[rj2];
+          var isMain=mainRole===s.role;
+          var inner2=s.url
+            ? '<img src="'+esc(s.url)+'" alt="'+esc(s.lbl)+'" onerror="this.outerHTML=\'<span class=rsph>加载失败</span>\'">'
+            : (s.role==='cover'&&v.cover?'<img src="'+esc(v.cover)+'" alt="'+esc(s.lbl)+'" onerror="this.outerHTML=\'<span class=rsph>加载失败</span>\'">'
+              : (state.refPhotos._loading===v.id?'<div class="rsspinner"></div>':'<span class="rsph">'+(s.cat==='待获取'?'启动服务器获取':'未获取')+'</span>'));
+          html+='<div class="refslot'+(isMain?' main':'')+'" data-viewsel="'+s.role+'" data-vid="'+v.id+'" title="点击设为主视图">'
+            +'<div class="rsimg">'+inner2+'<span class="rscat">'+s.cat+'</span>'+(s.role==='upload'?'':'<span class="rsres">750px</span>')+(isMain?'<span class="rsmain">★ 主视图</span>':'')+'</div>'
+            +'<div class="rsbar"><span class="rslbl">'+s.lbl+'</span>'
+            +(s.role==='upload'
+              ?'<button class="rscopy del" data-delupload="'+v.id+'" title="删除此上传图">删除</button>'
+              : (s.url?'<button class="rscopy" data-copyimg="'+s.url+'" data-vid="'+v.id+'">复制</button>':'<span class="rscopy" style="opacity:.5">—</span>'))
+            +'</div></div>';
+        }
+        html+='</div><div class="reftip">💡 点击槽位设为<b>主视图</b>；启动本地数据服务可自动获取外观/内饰/细节多角度图。<button class="rscopy" data-uploadref="'+v.id+'">⬆ 上传自定义图</button>'
+          +(state.refPhotos._loading===v.id?'<span style="margin-left:6px">⏳ 获取中…</span>':(!ph&&v.dcdId?'<span style="margin-left:6px">（运行 <code>python dongchedi_server.py</code> 取多角度图）</span>':''))+'</div></div>';
       }
       html+='</div>';
     }
@@ -2801,7 +3057,7 @@ function localBriefData(){
   return {sales:{items:items, month:'本地车型库'}, priceCut:{items:[]}, hotRank:{items:items.slice(0,20)},
           hotwords:{board:[], roll:[]}, offline:true};
 }
-async function genBrief(){
+async function genBrief(cb){
   if(BRIEF.loading) return;
   BRIEF.loading=true;
   // 工作台入口可能在 news 页面渲染前调用，做 null-safe
@@ -2825,9 +3081,10 @@ async function genBrief(){
     if(st) st.innerHTML='<span style="color:#b45309">⚠️ 本地数据服务未启动，已用本地车型库降级生成 · 在项目目录运行 <code>python dongchedi_server.py</code> 后点「⚡ 重新生成」</span>';
   }
   BRIEF.loading=false; if(btn){ btn.disabled=false; btn.textContent='⚡ 重新生成'; }
+  if(typeof cb==='function') try{ cb(); }catch(e){}
 }
-function briefSec(n,t,d,body){
-  return '<div class="brief-sec"><h2><span class="b-n">'+n+'</span>'+t+'</h2><div class="desc">'+d+'</div>'+body+'</div>';
+function briefSec(n,t,body){
+  return '<div class="brief-sec"><h2><span class="b-n">'+n+'</span>'+t+'</h2>'+body+'</div>';
 }
 function renderBrief(target){
   var d=BRIEF.data; if(!d) return;
@@ -2849,11 +3106,11 @@ function renderBrief(target){
   var month=(d.sales&&d.sales.month)||'最新';
   var date=new Date().toLocaleDateString('zh-CN');
   el.innerHTML=
-    briefSec('一','今日速览','销量榜 / 降价榜 / 热搜榜 · '+date,
+    briefSec('一','今日速览',
       '<div class="tbl-scroll">'+overviewTable(sales,cut,hotTitles)+'</div>')
-   +briefSec('二','选题规划 15 篇','⚡快讯6 · ⚔️PK3 · 🛒选买3 · 📝深度2 · 🎨概念车1（按当日热点弹性调整）',
+   +briefSec('二','选题规划 15 篇',
       '<div class="tbl-scroll">'+plan15Table(sales,cut,hotTitles,roll,month)+'</div>')
-   +briefSec('三','备用备份 5 篇','主推被限流 / 缺数据 / 想加更时顶上',
+   +briefSec('三','备用备份 5 篇',
       '<div class="tbl-scroll">'+backup5Table(sales,hotTitles,roll)+'</div>')
    +'<div class="pick-box">🔥 <b>今日押注</b>：'+pickAdvice(sales,hotTitles,roll)+'</div>';
   BRIEF.rendered=true;
@@ -2959,7 +3216,10 @@ function plan15Table(sales, cut, hotTitles, roll, month){
   var html='<table class="brief-tbl"><tr><th style="width:32px">#</th><th style="width:44px">类型</th><th>标题</th><th>一句话卖点</th><th style="width:62px">形式</th><th style="width:78px"></th></tr>';
   for(i=0;i<rows.length;i++){
     var r=rows[i];
-    html+='<tr><td>'+(i+1)+'</td><td>'+r.t+'</td><td>'+esc(r.title)+'</td><td>'+esc(r.sell)+'</td><td>'+esc(r.form)+'</td>'
+    // 信息源跳转链接：按标题关键词（品牌/车系）+ 懂车帝搜索直达
+    var kw=encodeURIComponent(r.title.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g,' ').trim().slice(0,40)||'汽车资讯');
+    var link='https://www.dongchedi.com/search?keyword='+kw+'&tab=article';
+    html+='<tr><td>'+(i+1)+'</td><td>'+r.t+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener" title="点击跳转信息源原文">'+esc(r.title)+' ↗</a></td><td>'+esc(r.sell)+'</td><td>'+esc(r.form)+'</td>'
       +'<td><span class="use" data-t="'+esc(r.title)+'" data-f="'+r.t+'" data-vids="'+esc(r.vids.join(','))+'">→用此选题</span></td></tr>';
   }
   return html+'</table>';
@@ -2989,7 +3249,9 @@ function backup5Table(sales, hotTitles, roll){
   var html='<table class="brief-tbl"><tr><th style="width:32px">#</th><th>标题</th><th>触发条件</th><th>一句话角度</th><th style="width:78px"></th></tr>', i;
   for(i=0;i<rows.length;i++){
     var r=rows[i];
-    html+='<tr><td>'+(i+1)+'</td><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td>'
+    var kw=encodeURIComponent(r[0].replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g,' ').trim().slice(0,40)||'汽车资讯');
+    var link='https://www.dongchedi.com/search?keyword='+kw+'&tab=article';
+    html+='<tr><td>'+(i+1)+'</td><td><a class="topicl" href="'+link+'" target="_blank" rel="noopener" title="点击跳转信息源原文">'+esc(r[0])+' ↗</a></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td>'
       +'<td><span class="use" data-t="'+esc(r[0])+'" data-f="⚡" data-vids="'+esc(r[3].join(','))+'">→用此选题</span></td></tr>';
   }
   return html+'</table>';
@@ -3092,12 +3354,52 @@ function copyBrief(){ var o=$('briefOut'); if(o) copyText(o.innerText); }
 function copyBriefMd(){ copyText(briefToMarkdown()); }
 function renderNews(){
   if(!$('briefOut')) return;
-  if(BRIEF.data) return;
-  if(!$('briefOut').innerHTML.replace(/\s/g,'')){
-    $('briefOut').innerHTML='<div class="brief-off">📰 <b>每日车圈简报</b><br>'
-      +'基于 <b>销量榜 / 降价榜 / 热搜榜</b> 自动生成当日选题规划：<b>今日速览 · 选题规划 15 篇 · 备用备份 5 篇 · 🔥今日押注</b>，每一行都能「→用此选题」一键带入创作台。<br>'
-      +'点击右上角「⚡ 生成今日车圈简报」开始；需先在项目目录运行 <code>python dongchedi_server.py</code>（未启动时会用本地车型库降级生成）。</div>';
+  // 默认显示懂车帝平台资讯
+  if(!state.newsPlatform) state.newsPlatform='dongchedi';
+  loadNewsPlatform(state.newsPlatform);
+}
+var NEWS_LOADING=false;
+async function loadNewsPlatform(platform){
+  var el=$('briefOut'); if(!el) return;
+  state.newsPlatform=platform; saveState();
+  // 更新 tab 高亮
+  var tabs=document.querySelectorAll('.ntab');
+  for(var i=0;i<tabs.length;i++){ tabs[i].className=tabs[i].dataset.newsPlatform===platform?'ntab on':'ntab'; }
+  var st=$('briefStatus');
+  if(st) st.textContent='正在加载「'+({dongchedi:'懂车帝',weibo:'微博',autohome:'汽车之家',yiche:'易车',pcauto:'太平洋汽车'}[platform]||platform)+'」资讯…';
+  if(NEWS_LOADING){ if(st) st.textContent='请稍候，正在加载中…'; return; }
+  NEWS_LOADING=true;
+  el.innerHTML='<div class="news-loading" style="padding:30px;text-align:center;color:var(--ink3);font-size:13px">⏳ 加载中…</div>';
+  try{
+    var r=await fetch(DCD.url('/api/news?platform='+platform));
+    var d=await r.json();
+    if(d&&d.items&&d.items.length){
+      var html='<div class="news-list">';
+      for(var i=0;i<d.items.length;i++){
+        var it=d.items[i];
+        var link=it.url||('#');
+        html+='<div class="news-item"><span class="ni-rank">'+(i+1)+'</span>'
+          +'<a class="ni-title" href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(it.title)+'</a>'
+          +(it.hot_value?'<span class="ni-hot">'+esc(it.hot_value)+'</span>':'')
+          +'</div>';
+      }
+      html+='</div>';
+      el.innerHTML=html;
+      if(st) st.textContent='更新于 '+new Date().toLocaleString('zh-CN')+' · '+d.name+' · '+d.items.length+' 条';
+    } else if(d&&d.error){
+      el.innerHTML='<div class="brief-off">⚠️ 「'+(d.name||platform)+'」暂无法获取资讯<br>'
+        +'<span style="font-size:12px;color:var(--ink3)">'+esc(d.error)+'</span><br>'
+        +'<a class="topicl" href="'+esc((d.search_url||'').replace('{kw}',encodeURIComponent('汽车新闻')))+'" target="_blank" rel="noopener">前往'+esc(d.name||platform)+'搜索 ↗</a></div>';
+      if(st) st.textContent='「'+(d.name||platform)+'」数据获取失败';
+    } else {
+      el.innerHTML='<div class="brief-off">📰 暂无资讯数据 · 请先运行 <code>python dongchedi_server.py</code></div>';
+      if(st) st.textContent='暂无数据';
+    }
+  }catch(e){
+    el.innerHTML='<div class="brief-off">📰 本地数据服务未启动 · 请先运行 <code>python dongchedi_server.py</code></div>';
+    if(st) st.textContent='本地服务未连接';
   }
+  NEWS_LOADING=false;
   loadHist();
 }
 
@@ -3364,7 +3666,7 @@ function showVehicleForm(v){
 ========================================================= */
 function toggleVehicle(id){
   var i=state.selected.indexOf(id);
-  if(i>=0){ state.selected.splice(i,1); delete state.refs[id]; }
+  if(i>=0){ state.selected.splice(i,1); delete state.refs[id]; delete state.uploads[id]; }
   else{
     if(state.selected.length>=4){ toast('最多选择 4 款车型'); return; }
     state.selected.push(id); touchVehicle(id);
@@ -3457,6 +3759,15 @@ function bindEvents(){
   $('nav').addEventListener('click',function(e){ var b=e.target.closest('button[data-tab]'); if(b){ setTab(b.dataset.tab); } });
   // 右上角图标按钮（设置）+ 车型库数据管理按钮：data-tab 委托
   $('topactions').addEventListener('click',function(e){ var b=e.target.closest('button[data-tab]'); if(b){ setTab(b.dataset.tab); } });
+  // 二级/三级页面的返回按钮（data-back="prev" → 返回上一个 tab）
+  state._tabStack=state._tabStack||[];
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-back]'); if(!b) return;
+    if(b.dataset.back==='prev'){
+      var prev=state._tabStack.length>1?state._tabStack[state._tabStack.length-2]:'workbench';
+      setTab(prev);
+    }
+  });
   var pgDm=document.querySelector('#page-vehicles [data-tab="datamgmt"]'); if(pgDm) pgDm.addEventListener('click',function(){ setTab('datamgmt'); });
   // 深色模式切换
   var tt=$('themeToggle'); if(tt) tt.addEventListener('click',toggleTheme);
@@ -3511,7 +3822,9 @@ function bindEvents(){
     $('vSearch').value=''; state.vSearch=''; saveState(); renderVGrid(); renderSelected(); renderInfoPanel();
   });
   $('clearSel').onclick=function(){ state.selected=[]; state.refOpen=null; saveState(); renderVGrid(); renderSelected(); renderInfoPanel(); };
-  $('energyChips').addEventListener('click',chipClick); $('bodyTypeChips').addEventListener('click',chipClick);
+  // 创作中心已删除筛选chips，保留监听器null-safe（避免报错）
+  if($('energyChips')) $('energyChips').addEventListener('click',chipClick);
+  if($('bodyTypeChips')) $('bodyTypeChips').addEventListener('click',chipClick);
   function chipClick(e){ var b=e.target.closest('button[data-f]'); if(!b) return; state[b.dataset.f+'F']=b.dataset.v; state.rankLimit=20; renderChips(); renderVGrid(); }
   // 榜单 tab
   $('rankTabs').addEventListener('click',function(e){
@@ -3568,6 +3881,18 @@ function bindEvents(){
     if(un){ toggleVehicle(un.dataset.unsel); renderVGrid(); renderInfoPanel(); return; }
     var cp=e.target.closest('[data-copyimg]');
     if(cp){ copyImageToClipboard(cp.dataset.copyimg); var cbtn=cp; cbtn.classList.add('copied'); setTimeout(function(){cbtn.classList.remove('copied');},1200); return; }
+    var dup=e.target.closest('[data-delupload]');
+    if(dup){ delete state.uploads[dup.dataset.delupload]; saveState(); renderInfoPanel(); toast('已删除上传图'); return; }
+    var upr=e.target.closest('[data-uploadref]');
+    if(upr){ uploadRef(upr.dataset.uploadref); return; }
+    var vsel=e.target.closest('[data-viewsel]');
+    if(vsel){
+      var rid=vsel.dataset.vid, rrole=vsel.dataset.viewsel;
+      state.refs[rid]=state.refs[rid]===rrole?null:rrole;
+      saveState(); renderInfoPanel();
+      toast(state.refs[rid]?'已设为主视图':'已取消主视图');
+      return;
+    }
     var tt=e.target.closest('button[data-tt]');
     if(tt){ state.title=genTitle(tt.dataset.tt); saveState(); renderInfoPanel(); return; }
     var ip=e.target.closest('button[data-ip]');
@@ -3692,9 +4017,35 @@ function bindEvents(){
     LS.set('bank',bank.filter(function(x){ return !x.sample; }));
     renderBank(); renderHeaderStats(); renderTodayStrip(); toast('示例数据已清空');
   };
-  $('briefBtn').onclick=function(){ genBrief(); };
-  $('briefCopy').onclick=function(){ copyBrief(); };
-  $('briefCopyMd').onclick=function(){ copyBriefMd(); };
+  // 资讯页：平台标签切换
+  var nt=$('newsTabs'); if(nt) nt.addEventListener('click',function(e){
+    var b=e.target.closest('.ntab'); if(!b) return;
+    loadNewsPlatform(b.dataset.newsPlatform);
+  });
+  // 资讯页：刷新按钮
+  var rf=$('briefRefresh'); if(rf) rf.onclick=function(){
+    var btn=this; btn.disabled=true;
+    loadNewsPlatform(state.newsPlatform||'dongchedi').then(function(){ btn.disabled=false; toast('资讯已刷新'); });
+  };
+  // 资讯页：自动刷新开关（单按钮切换）
+  state._newsAutoTimer=null;
+  function setNewsAuto(on){
+    state.newsAuto=!!on; saveState();
+    var btn=$('briefAutoToggle'); if(btn){
+      btn.className=state.newsAuto?'btn primary sm':'btn ghost sm';
+      btn.textContent=state.newsAuto?'✓ 自动刷新中':'⟳ 自动刷新';
+    }
+    if(state._newsAutoTimer){ clearInterval(state._newsAutoTimer); state._newsAutoTimer=null; }
+    if(state.newsAuto){
+      state._newsAutoTimer=setInterval(function(){
+        if($('page-news')&&$('page-news').classList.contains('on')){
+          loadNewsPlatform(state.newsPlatform||'dongchedi').then(function(){ toast('自动刷新完成'); });
+        }
+      },10*60*1000);
+    }
+  }
+  var at=$('briefAutoToggle'); if(at) at.onclick=function(){ setNewsAuto(!state.newsAuto); };
+  setNewsAuto(state.newsAuto);
   $('briefOut').addEventListener('click',function(e){
     var u=e.target.closest('.use'); if(!u) return;
     useTopic(u);
@@ -3858,8 +4209,8 @@ function uploadRef(vid){
     if(f.size>400*1024){ toast('图片过大（>400KB），请压缩后上传'); return; }
     var rd=new FileReader();
     rd.onload=function(){
-      state.uploads[vid]=rd.result; saveState(); renderSelected(); renderInfoPanel();
-      toast('参考图已上传');
+      state.uploads[vid]=rd.result; saveState(); renderInfoPanel();
+      toast('参考图已上传（已加入参考图第 7 格，点击可设为主视图）');
     };
     rd.readAsDataURL(f);
   };

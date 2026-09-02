@@ -20,6 +20,7 @@
   GET /api/photos?id=                 参考图 {cover, exterior[], interior[], detail[], labels, pic_count}
   GET /api/rank?type=&limit=          懂车帝排行榜（sales/wholesale/hot/score/price_cut/range）
   GET /api/hotwords                   懂车帝热搜（热搜榜标题 + 滚动热搜词）
+  GET /api/news?platform=             多平台车圈资讯（dongchedi/weibo/autohome/yiche/pcauto）
   GET /api/briefs[?date=YYYY-MM-DD]   每日车圈简报历史列表 / 读某天
   POST /api/brief-archive {date,content}  写入 briefs/YYYY-MM-DD.md
   GET /imgproxy?u=                    图片转发代理
@@ -458,6 +459,153 @@ def get_hotwords():
     return result
 
 
+# ---------------- 多平台车圈资讯 ----------------
+NEWS_CACHE = {}          # {platform: {"ts":0,"data":None}}
+NEWS_TTL = 600           # 10 分钟缓存
+
+def _news_fetch(url, headers=None, timeout=10):
+    """带自定义 headers 的 fetch"""
+    h = dict(HEADERS)
+    if headers:
+        h.update(headers)
+    req = urllib.request.Request(url, headers=h, method="GET")
+    return urllib.request.urlopen(req, timeout=timeout).read().decode("utf-8")
+
+def get_weibo_hot():
+    """微博热搜（汽车相关优先，返回全部热搜）"""
+    try:
+        raw = _news_fetch("https://weibo.com/ajax/side/hotSearch",
+                          headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        obj = json.loads(raw)
+        items = []
+        for it in (obj.get("data") or {}).get("realtime") or []:
+            title = it.get("note") or it.get("word") or ""
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "desc": it.get("category") or "",
+                "hot_value": str(it.get("num") or ""),
+                "url": "https://s.weibo.com/weibo?q=" + urllib.parse.quote(title),
+            })
+        return items
+    except Exception as e:
+        log("weibo hot failed: %s" % e)
+        return []
+
+def get_autohome_news():
+    """汽车之家资讯 - 通过搜索接口获取汽车新闻"""
+    try:
+        url = "https://www.autohome.com.cn/ashx/search/search.ashx?type=1&keyword=%E6%B1%BD%E8%BD%A6%E6%96%B0%E9%97%BB&pagesize=20&page=1"
+        raw = _news_fetch(url, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36","Referer":"https://www.autohome.com.cn/"})
+        obj = json.loads(raw)
+        items = []
+        for it in (obj.get("result") or {}).get("list") or []:
+            title = it.get("title") or ""
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "desc": (it.get("summary") or "")[:80],
+                "hot_value": "",
+                "url": it.get("url") or ("https://www.autohome.com.cn" + (it.get("detailurl") or "")),
+            })
+        return items
+    except Exception as e:
+        log("autohome news failed: %s" % e)
+        return []
+
+def get_yiche_news():
+    """易车资讯"""
+    try:
+        url = "https://www.yiche.com/ajax/search/getresult/?keyword=%E6%B1%BD%E8%BD%A6%E6%96%B0%E9%97%BB&type=news&page=1&pagesize=20"
+        raw = _news_fetch(url, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36","Referer":"https://www.yiche.com/"})
+        obj = json.loads(raw)
+        items = []
+        data = obj.get("data") or obj
+        for it in (data.get("list") or data.get("items") or []):
+            title = it.get("title") or it.get("name") or ""
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "desc": (it.get("summary") or it.get("desc") or "")[:80],
+                "hot_value": "",
+                "url": it.get("url") or "",
+            })
+        return items
+    except Exception as e:
+        log("yiche news failed: %s" % e)
+        return []
+
+def get_pcauto_news():
+    """太平洋汽车资讯"""
+    try:
+        url = "https://api.pcauto.com.cn/autorest/api/v1/cms/search?keyword=%E6%B1%BD%E8%BD%A6%E6%96%B0%E9%97%BB&pageNo=1&pageSize=20"
+        raw = _news_fetch(url, headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        obj = json.loads(raw)
+        items = []
+        for it in (obj.get("data") or {}).get("list") or []:
+            title = it.get("title") or ""
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "desc": (it.get("summary") or "")[:80],
+                "hot_value": "",
+                "url": it.get("url") or "",
+            })
+        return items
+    except Exception as e:
+        log("pcauto news failed: %s" % e)
+        return []
+
+NEWS_PLATFORMS = {
+    "dongchedi": {"name":"懂车帝","fetch":lambda: _dcd_news_items(),"search_url":"https://www.dongchedi.com/search?keyword={kw}"},
+    "weibo":     {"name":"微博","fetch":get_weibo_hot,"search_url":"https://s.weibo.com/weibo?q={kw}"},
+    "autohome":  {"name":"汽车之家","fetch":get_autohome_news,"search_url":"https://www.autohome.com.cn/search/#kw={kw}"},
+    "yiche":     {"name":"易车","fetch":get_yiche_news,"search_url":"https://www.yiche.com/search?keyword={kw}"},
+    "pcauto":    {"name":"太平洋汽车","fetch":get_pcauto_news,"search_url":"https://search.pcauto.com.cn/searchResult.html?q={kw}"},
+}
+
+def _dcd_news_items():
+    """懂车帝热搜 → 统一 items 格式"""
+    hw = get_hotwords()
+    items = []
+    for b in hw.get("board", []):
+        for t in b.get("tops", []):
+            items.append({
+                "title": t.get("title") or "",
+                "desc": t.get("desc") or "",
+                "hot_value": str(t.get("hot_value") or ""),
+                "url": t.get("url") or ("https://www.dongchedi.com/search?keyword=" + urllib.parse.quote(t.get("title") or "")),
+            })
+    if not items:
+        for w in hw.get("roll", [])[:20]:
+            items.append({"title":w,"desc":"","hot_value":"","url":"https://www.dongchedi.com/search?keyword="+urllib.parse.quote(w)})
+    return items
+
+def get_multi_news(platform):
+    """多平台车圈资讯统一入口"""
+    now = time.time()
+    with RANK_LOCK:
+        c = NEWS_CACHE.get(platform)
+        if c and c["data"] is not None and now - c["ts"] < NEWS_TTL:
+            return c["data"]
+    p = NEWS_PLATFORMS.get(platform)
+    if not p:
+        return {"platform":platform,"name":"","items":[],"error":"unknown platform"}
+    try:
+        items = p["fetch"]()
+        result = {"platform":platform,"name":p["name"],"items":items,"search_url":p["search_url"]}
+    except Exception as e:
+        log("multi_news %s failed: %s" % (platform, e))
+        result = {"platform":platform,"name":p["name"],"items":[],"error":str(e),"search_url":p["search_url"]}
+    with RANK_LOCK:
+        NEWS_CACHE[platform] = {"ts":now,"data":result}
+    return result
+
+
 # ---------------- 每日车圈简报归档 ----------------
 def brief_list():
     if not os.path.isdir(BRIEFS_DIR):
@@ -668,6 +816,10 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/api/hotwords":
             return self._json({"ok": True, **get_hotwords()})
+
+        if path == "/api/news":
+            platform = (qs.get("platform") or ["dongchedi"])[0]
+            return self._json({"ok": True, **get_multi_news(platform)})
 
         if path == "/api/briefs":
             if "date" in qs:
