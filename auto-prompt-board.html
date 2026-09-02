@@ -2097,6 +2097,8 @@ function dedupVehicles(list){
 }
 function rankVehicles(list){
   var mode=state.rankTab||'az', arr=dedupVehicles(list);
+  // 清理上次榜单注入的 rank/count（切 tab 后避免残留）
+  for(var ci=0;ci<arr.length;ci++){ if(arr[ci]._rankSet){ delete arr[ci].rank; delete arr[ci].count; delete arr[ci]._rankSet; } }
   if(mode==='fav'){
     var favs=LS.get('favs',[]), recent=LS.get('recent',{});
     return arr.filter(function(v){ return favs.indexOf(v.id)>=0; })
@@ -2107,8 +2109,19 @@ function rankVehicles(list){
     var rankKey=mode==='hot'?'hot':'sales';
     var listData=DCD_RANK.list[rankKey]||[];
     if(listData.length){
-      var rankedMap={}, i;
-      for(i=0;i<listData.length;i++){ rankedMap[listData[i].series_id]=i; }
+      var rankedMap={}, valueMap={}, i;
+      for(i=0;i<listData.length;i++){
+        rankedMap[listData[i].series_id]=i;
+        valueMap[listData[i].series_id]={rank:i+1, value:listData[i].value};
+      }
+      // 给静态库中上榜的车型注入 rank + count，让卡片能显示月销/关注度
+      for(i=0;i<arr.length;i++){
+        var v=arr[i];
+        if(v.dcdId&&rankedMap[String(v.dcdId)]!==undefined){
+          var rv=valueMap[String(v.dcdId)];
+          v.rank=rv.rank; v.count=rv.value; v._rankSet=true;
+        }
+      }
       return arr.sort(function(a,b){
         var ia=(a.dcdId!=null&&rankedMap[String(a.dcdId)]!==undefined)?rankedMap[String(a.dcdId)]:9999;
         var ib=(b.dcdId!=null&&rankedMap[String(b.dcdId)]!==undefined)?rankedMap[String(b.dcdId)]:9999;
@@ -2158,11 +2171,17 @@ function vproHTML(v){
   if(v.energy&&v.energy!=='—') tags+='<span class="vptag energy">'+esc(v.energy)+'</span>';
   if(v.level&&v.level!=='—') tags+='<span class="vptag level">'+esc(v.level)+'</span>';
   var sub=[v.brand||'', v.level||''].filter(function(x){return x&&x!=='—';}).join(' · ');
+  // 销量/热门榜模式下，在副标题后显示月销量或关注度指数
+  var rankVal='';
+  if(v.rank&&v.count){
+    var n=Number(v.count); var fv=isNaN(n)?v.count:(n>=10000?(n/10000).toFixed(1)+'万':String(n));
+    rankVal=' · '+(state.rankTab==='rank'?'月销 ':'关注 ')+fv+(state.rankTab==='rank'?'台':'');
+  }
   var h='<div class="vpro'+(on?' on':'')+'" data-vid="'+v.id+'">'
     +'<div class="vpimg">'+img+(v.rank?'<span class="vpbadge" style="background:#b42318">#'+v.rank+'</span>':'')+'</div>'
     +'<div class="vpmeta">'
     +'<div class="vpname">'+esc(v.name)+'</div>'
-    +'<div class="vpsub">'+esc(sub||'—')+'</div>'
+    +'<div class="vpsub">'+esc(sub||'—')+rankVal+'</div>'
     +'<div class="vpprice">'+esc(v.price||'价格待确认')+'</div>'
     +'<div class="vptags">'+tags+'</div>'
     +'</div>'
@@ -2848,7 +2867,7 @@ function overviewTable(sales, cut, hotTitles){
   var downs=cut.filter(function(s){ return s.descender&&Number(s.descender)>0; });
   if(downs.length) rows.push(['💰 降价', downs.slice(0,3).map(function(s){ return esc(s.series_name)+' 降'+esc(s.descender)+'万'; }).join(' ｜ ')]);
   else rows.push(['💰 降价', '当日无有效降价数据（公开接口暂未返回）']);
-  if(sales.length) rows.push(['📊 数据', sales.slice(0,3).map(function(s){ return esc(s.series_name)+(s.value?' '+fmtV(s.value):(s.price?' '+esc(s.price):'')); }).join(' ｜ ')]);
+  if(sales.length) rows.push(['📊 销量', sales.slice(0,3).map(function(s){ return esc(s.series_name)+(s.value?' '+fmtV(s.value)+'台':(s.price?' '+esc(s.price):'')); }).join(' ｜ ')]);
   else skip.push('📊数据');
   if(hotTitles.length) rows.push(['🔥 热点', hotTitles.slice(0,3).map(function(t){ return esc(clip(t,16)); }).join(' ｜ ')]);
   else skip.push('🔥热点');
